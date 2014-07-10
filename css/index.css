@@ -1,0 +1,135 @@
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    margin: 0px;
+
+    background-image: url(../imgs/bg2.png);
+    background-size: 100% 100%;
+
+    overflow: hidden;
+}
+
+#cover {
+    opacity: 0;
+    background-image: url(../imgs/dianzhui.png);
+    /*-webkit-transition: all 0.6s linear;*/
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+
+    /*-webkit-animation: backgroundmove infinite 20000s linear;*/
+
+    background-repeat: repeat;
+}
+
+@-webkit-keyframes backgroundmove {
+    from {
+        background-position: 0px 0px;
+    }
+    to {
+        background-position: 100000px 5000px;
+    }
+}
+
+#main {
+    height: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    z-index: 10;
+}
+
+#bg-particles {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+
+#chart-container {
+    position: absolute;
+    z-index: 100;
+
+    width: 550px;
+    height: 550px;
+
+    display: none;
+}
+
+#chart1 {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+#chart2 {
+    position: absolute;
+}
+
+.gallery-root {
+    -webkit-transform-style: preserve-3d;
+    -webkit-perspective: 430.0643730375979px;
+    -webkit-transform: scale(1.6);
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+
+    z-index: 100;
+}
+.gallery-item {
+    width: 100px;
+    height: 70px;
+    
+    background-color: #0a1b37;
+    color: white;
+
+    position: absolute;
+    -webkit-backface-visibility: hidden;
+
+    box-shadow: 0px 0px 20px black;
+
+    cursor: pointer;
+}
+
+.gallery-item h5 {
+
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+
+    margin: 0px;
+    padding: 0px;
+    
+    line-height: 70px;
+    font-size: 18px;
+
+    text-align: center;
+}
+
+.gallery-item img {
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+}
+
+#copyright {
+    color: white;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
