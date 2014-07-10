@@ -13,7 +13,7 @@ define({
       "fixed": true
     },
     {
-      "name": "法国",
+      "name": "阿根廷",
       "title": " ",
       "r": 60,
       "position": [
@@ -60,7 +60,7 @@ define({
       ],
       "fixed": true,
       "playerName": "卡里姆·本泽马",
-      "team": "法国",
+      "team": "阿根廷",
       "type": "player",
       "image": "imgs/player/本泽马.png"
     },
@@ -225,7 +225,7 @@ define({
       ],
       "fixed": true,
       "type": "player",
-      "team": "法国",
+      "team": "阿根廷",
       "playerName": "保罗·博格巴",
       "image": "imgs/player/博格巴.png"
     },
@@ -277,7 +277,7 @@ define({
       "target": "vs"
     },
     {
-      "source": "法国",
+      "source": "阿根廷",
       "target": "vs"
     },
     {
@@ -299,7 +299,7 @@ define({
       "target": "穆勒"
     },
     {
-      "source": "法国",
+      "source": "阿根廷",
       "target": "博格巴"
     },
     {
@@ -317,7 +317,7 @@ define({
       "title": "2010队长之争"
     },
     {
-      "source": "法国",
+      "source": "阿根廷",
       "target": "内讧",
       "title": "2010世界杯"
     },
@@ -327,16 +327,16 @@ define({
       "title": "最多内讧"
     },
     {
-      "source": "法国",
+      "source": "阿根廷",
       "target": "美女",
       "title": "太太团"
     },
     {
-      "source": "法国",
+      "source": "阿根廷",
       "target": "里贝里"
     },
     {
-      "source": "法国",
+      "source": "阿根廷",
       "target": "本泽马"
     },
     {
@@ -345,7 +345,7 @@ define({
       "title": "金靴竞争者"
     },
     {
-      "source": "法国",
+      "source": "阿根廷",
       "target": "德国"
     },
     {
@@ -421,11 +421,11 @@ define({
     {
       "source": "多梅内克",
       "target": "内讧",
-      "title": "法国队内讧主教练"
+      "title": "阿根廷队内讧主教练"
     },
     {
       "source": "奥朗德",
-      "target": "法国",
+      "target": "阿根廷",
       "title": "球迷总统"
     }
   ],

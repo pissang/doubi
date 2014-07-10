@@ -11,10 +11,10 @@ define(function(require) {
 
             $chart1.style.right = '0px';
             $chart1.style.width = '100%';
-            $chart1.style.height = '30%';
+            $chart1.style.height = '25%';
 
             $chart2.style.bottom = '0px';
-            $chart2.style.height = '70%';
+            $chart2.style.height = '75%';
             $chart2.style.left = '0px';
             $chart2.style.right = '0px';
             $chart2.style.width = '100%';
@@ -49,7 +49,7 @@ define(function(require) {
                     y:'25%',
                     data:['前锋', '中场', '后卫', '守门员']
                 },
-                grid:{y:'40%',x:'25%',y2:20,x2:'10%'},
+                grid:{y:'40%',x:'25%',y2:5,x2:'10%'},
                 xAxis : [
                     {
                         type : 'value',
@@ -67,7 +67,7 @@ define(function(require) {
                                 fontSize:20
                             }
                         },
-                        data : ['德国', '法国']
+                        data : ['德国', '阿根廷']
                     }
                 ],
                 series : [
@@ -78,7 +78,7 @@ define(function(require) {
                         itemStyle : dataStyle,
                         data:[
                             {value : teamData['德国']['前锋'][0], itemStyle:placeHoledStyle},
-                            teamData['法国']['前锋'][0]
+                            teamData['阿根廷']['前锋'][0]
                         ]
                     },
                     {
@@ -88,7 +88,7 @@ define(function(require) {
                         itemStyle : dataStyle,
                         data:[
                             teamData['德国']['中场'][0],
-                            teamData['法国']['中场'][0]
+                            teamData['阿根廷']['中场'][0]
                         ]
                     },
                     {
@@ -98,7 +98,7 @@ define(function(require) {
                         itemStyle : dataStyle,
                         data:[
                             teamData['德国']['后卫'][0],
-                            teamData['法国']['后卫'][0]
+                            teamData['阿根廷']['后卫'][0]
                         ]
                     },
                     {
@@ -108,7 +108,7 @@ define(function(require) {
                         itemStyle : dataStyle,
                         data:[
                             teamData['德国']['守门员'][0],
-                            {value : teamData['法国']['守门员'][0], itemStyle:placeHoledStyle}
+                            {value : teamData['阿根廷']['守门员'][0], itemStyle:placeHoledStyle}
                         ]
                     }
                 ]
@@ -128,7 +128,7 @@ define(function(require) {
                     value : [players[i][6], players[i][5]]
                 })
             }
-            players = teamData['法国'].players;
+            players = teamData['阿根廷'].players;
             for (var i = 0, l = players.length; i < l; i++) {
                 data['france'][players[i][3]] = data['france'][players[i][3]] || [];
                 data['france'][players[i][3]].push({
@@ -139,7 +139,6 @@ define(function(require) {
             var symbolSize = 8;
             var tooltip = {
                             trigger:'item',
-                            position:[150, 100],
                             formatter:function(a) {
                                 return a[0] + '<br/>' + a[1] + '<br/>' +
                                        '身价 : ' + a[2][1] / 10000 + '万<br/>' +
@@ -147,16 +146,23 @@ define(function(require) {
                             }
                         };
             chart2.setOption({
+                title: {
+                    text:'身价能力对比',
+                    x:'center',
+                    textStyle:{
+                        color:'#fff'
+                    }
+                },
                 tooltip : {
                     trigger: 'axis',
                     axisPointer: {type:'cross'}
                 },
                 legend: {
                     itemGap:20,
-                    y:30,
+                    y:40,
                     data:[
-                        '德国前锋', '德国中场', '德国后卫', '德国守门员', '',
-                        '法国前锋', '法国中场', '法国后卫', '法国守门员'
+                        '阿根廷前锋', '阿根廷中场', '阿根廷后卫', '阿根廷守门员', '',
+                        '德国前锋', '德国中场', '德国后卫', '德国守门员'
                     ]
                 },
                 grid:{y:100,x:'20%',y2:'20%',x2:'20%'},
@@ -223,7 +229,7 @@ define(function(require) {
                         data: data['germany']['守门员']
                     },
                     {
-                        name:'法国前锋',
+                        name:'阿根廷前锋',
                         type:'scatter',
                         symbol:'triangle',
                         symbolSize:symbolSize,
@@ -234,7 +240,7 @@ define(function(require) {
                         data: data['france']['前锋']
                     },
                     {
-                        name:'法国中场',
+                        name:'阿根廷中场',
                         type:'scatter',
                         symbol:'circle',
                         symbolSize:symbolSize,
@@ -245,7 +251,7 @@ define(function(require) {
                         data: data['france']['中场']
                     },
                     {
-                        name:'法国后卫',
+                        name:'阿根廷后卫',
                         type:'scatter',
                         symbol:'diamond',
                         symbolSize:symbolSize,
@@ -256,7 +262,7 @@ define(function(require) {
                         data: data['france']['后卫']
                     },
                     {
-                        name:'法国守门员',
+                        name:'阿根廷守门员',
                         type:'scatter',
                         symbol:'star6',
                         symbolSize:symbolSize,

@@ -53,8 +53,8 @@ define(function(require) {
                             case 5 : res += '第三名'; break;
                             case 4 : res += '1/4'; break;
                             case 3 : res += '1/8'; break;
-                            case 2 : res += '1/16'; break;
-                            case 1 : res += '1/32'; break;
+                            case 2 : res += '小组赛'; break;
+                            case 1 : res += '小组赛'; break;
                             default : res += '没能进入32强'; break;
                         }
                         res += '<br/>';
@@ -91,8 +91,8 @@ define(function(require) {
                                     case 5 : return '第三名';
                                     case 4 : return '1/4';
                                     case 3 : return '1/8';
-                                    case 2 : return '1/16';
-                                    case 1 : return '1/32';
+                                    case 2 : return '小组赛';
+                                    case 1 : return '';
                                 }
                             },
                             textStyle: {

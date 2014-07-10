@@ -8,7 +8,7 @@ define({
             type: 'country'
         },
         {
-            name: '法国',
+            name: '阿根廷',
             r: 60,
             position: [600, 300],
             image: "france.jpg",
@@ -28,7 +28,7 @@ define({
             r: 40
         },
         {
-            name: '球员信息 - 法国',
+            name: '球员信息 - 阿根廷',
             title: '球员信息',
             r: 40
         },
@@ -67,8 +67,8 @@ define({
             target: '球员信息 - 德国'
         },
         {
-            source: '法国',
-            target: '球员信息 - 法国'
+            source: '阿根廷',
+            target: '球员信息 - 阿根廷'
         },
         {
             source: '德国',
@@ -104,15 +104,15 @@ define({
             title: '最多内讧球队'
         },
         {
-            source: '法国',
+            source: '阿根廷',
             target: '美女',
         },
         {
-            source: '法国',
+            source: '阿根廷',
             target: '里贝里',
         },
         {
-            source: '法国',
+            source: '阿根廷',
             target: '本泽马',
         },
         {
@@ -121,7 +121,7 @@ define({
             title: '金靴竞争者'
         },
         {
-            source: '法国',
+            source: '阿根廷',
             target: '德国',
         },
     ],

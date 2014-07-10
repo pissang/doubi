@@ -24,7 +24,7 @@ define(function(require) {
             for (var key in performance) {
                 data.push({
                     'name' : key,
-                    'value' : performance[key] / (key == '传球' ? 6 : 1)
+                    'value' : performance[key] / (key == '传球' ? 8 : 1)
                 });
                 if (key == '传球') {
                     // 传球数据太畸形了
@@ -32,7 +32,7 @@ define(function(require) {
                         normal: {
                             label: {
                                 formatter: function(a,b,c) {
-                                    return b + ' (' + (c * 6) +')';
+                                    return b + ' (' + (c * 8) +')';
                                 }
                             }
                         }
@@ -43,7 +43,7 @@ define(function(require) {
                 ntooltip : {
                     trigger: 'item',
                     formatter: function(a) {
-                        return a[0] + '<br/>' + a[1] + ' : ' +  Math.round(a[2] * (a[1] == '传球'? 6 : 1));
+                        return a[0] + '<br/>' + a[1] + ' : ' +  Math.round(a[2] * (a[1] == '传球'? 8 : 1));
                     }
                 },
                 series : [
@@ -86,7 +86,7 @@ define(function(require) {
                                             position : 'center',
                                             formatter : function (a,b,c){return 100 - c + '%'},
                                             textStyle: {
-                                                fontSize: 18,
+                                                fontSize: 15,
                                                 fontWeight: 'bolder',
                                                 baseline : 'top'
                                             }

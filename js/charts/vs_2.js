@@ -33,11 +33,11 @@ define(function(require) {
                 }
             };
             chart1.setOption({
-                color:[teamData['德国'].color[0],teamData['法国'].color[0]],
+                color:[teamData['德国'].color[0],teamData['阿根廷'].color[0]],
                 title: {
                     x: 'center',
                     y: 'center',
-                    text:'粉丝对比',
+                    text:'粉丝支持',
                     textStyle: {
                         fontSize: 40,
                         fontWeight: 'bolder',
@@ -53,7 +53,7 @@ define(function(require) {
                     itemGap:20,
                     data: [
                         '德国粉丝','',
-                        '法国粉丝'
+                        '阿根廷粉丝'
                     ]
                 },
                 series : [
@@ -74,10 +74,10 @@ define(function(require) {
                                         show:false
                                     }
                                 }},
-                                value :102851,
+                                value :1707704,
                             },
                             {
-                                value: 44507,
+                                value: 655107,
                                 name:'invisible',
                                 itemStyle : placeHolderStyle
                             }
@@ -89,7 +89,7 @@ define(function(require) {
                         radius:['53%', '68%'],
                         data : [
                             {
-                                name: '法国粉丝',
+                                name: '阿根廷粉丝',
                                 itemStyle:{normal:{
                                     //borderColor:'#fff',
                                     //borderWidth:1,
@@ -100,10 +100,10 @@ define(function(require) {
                                         show:false
                                     }
                                 }},
-                                value :44507,
+                                value :655107,
                             },
                             {
-                                value: 102851,
+                                value: 1707704,
                                 name:'invisible',
                                 itemStyle : placeHolderStyle
                             }
@@ -114,12 +114,12 @@ define(function(require) {
             
             
             //------------
-            var st1 = {normal:{label:{show:true,position:'inside',textStyle:{fontSize:20},formatter:function(a,b,c){return c/4 + ' 胜';}}}};
-            var st2 = {normal:{label:{show:true,position:'inside',textStyle:{fontSize:20},formatter:'{c} %'}}};
+            var st1 = {normal:{label:{show:true,position:'inside',textStyle:{fontSize:20},formatter:function(a,b,c){return Math.round(c*18/100) + ' 胜';}}}};
+            var st2 = {normal:{label:{show:true,position:'inside',textStyle:{fontSize:20},formatter:'{c}'}}};
             chart2.setOption({
                 color: ['#B5C334','#E87C25','#FCCE10'],
-                color:[teamData['德国'].color[0],'#a4a4a4', teamData['法国'].color[0]],
-                tooltip : {
+                color:[teamData['德国'].color[0],'#a4a4a4', teamData['阿根廷'].color[0]],
+                ntooltip : {
                     trigger: 'axis',
                     axisPointer: {type:'shadow'},
                     formatter: function(a) {
@@ -143,7 +143,7 @@ define(function(require) {
                 legend:{
                 y:'bottom',
                 padding:[0,0,50,0],
-                    data:['德国胜','平','法国胜']
+                    data:['德国胜','平','阿根廷胜']
                 },
                 grid:{y:5,x:'25%',x2:'15%',y2:90},
                 xAxis : [
@@ -178,8 +178,8 @@ define(function(require) {
                             }
                         },
                         data: [
-                            {value:36,itemStyle:st1},
-                            {value:30,itemStyle:st2}
+                            {value:5/18*100,itemStyle:st1},
+                            {value:65,itemStyle:st2}
                         ]
                     },
                     {
@@ -194,12 +194,12 @@ define(function(require) {
                             }
                         },
                         data: [
-                            {value:20,itemStyle:{normal:{label:{show:true,position:'inside',textStyle:{fontSize:20},formatter:function(a,b,c){return c/4 + ' 平';}}}}},
-                            {value:30,itemStyle:st2}
+                            {value:5/18*100,itemStyle:{normal:{label:{show:true,position:'inside',textStyle:{fontSize:20},formatter:function(a,b,c){return Math.round(c*18/100) + ' 平';}}}}},
+                            {value:13,itemStyle:st2}
                         ]
                     },
                     {
-                        name:'法国胜',
+                        name:'阿根廷胜',
                         type:'bar',
                         stack:'胜负',
                         barWidth:30,
@@ -210,8 +210,8 @@ define(function(require) {
                             }
                         },
                         data: [
-                            {value:44,itemStyle:st1},
-                            {value:40,itemStyle:st2}
+                            {value:8/18*100,itemStyle:st1},
+                            {value:22,itemStyle:st2}
                         ]
                     }
                 ]

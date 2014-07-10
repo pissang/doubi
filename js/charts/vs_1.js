@@ -23,12 +23,12 @@ define(function(require) {
             chart2.resize();
 
             chart1.setOption({
-                color:[teamData['德国'].color[0],teamData['法国'].color[0]],
+                color:[teamData['德国'].color[0],teamData['阿根廷'].color[0]],
                 tooltip : {
                     trigger: 'axis'
                 },
                 legend: {
-                    data: ['德国','法国'],
+                    data: ['德国','阿根廷'],
                     //x: '75%',
                     //y: '55%',
                     y:'25%',
@@ -83,8 +83,8 @@ define(function(require) {
                             },
                             {
                                 symbolSize: 3,
-                                name: '法国',
-                                value :teamData['法国'].value,
+                                name: '阿根廷',
+                                value :teamData['阿根廷'].value,
                             }
                         ]
                     }
@@ -96,7 +96,7 @@ define(function(require) {
             var data1 = [];
             var data2 = [];
             var performance = teamData['德国'].performance;
-            var performance2 = teamData['法国'].performance;
+            var performance2 = teamData['阿根廷'].performance;
             for (var key in performance) {
                 if (key == '红牌') {
                     continue;
@@ -136,7 +136,7 @@ define(function(require) {
                 });
             }
             chart2.setOption({
-                color:[teamData['德国'].color[0],teamData['法国'].color[0]],
+                color:[teamData['德国'].color[0],teamData['阿根廷'].color[0]],
                 ntooltip : {
                     trigger: 'axis',
                     axisPointer: {type:'shadow'}
@@ -172,7 +172,7 @@ define(function(require) {
                         data: data1
                     },
                     {
-                        name:'法国',
+                        name:'阿根廷',
                         type:'bar',
                         stack:'a',
                         data: data2

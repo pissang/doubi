@@ -9,7 +9,7 @@
             type: 'country'
         },
         {
-            name: '法国',
+            name: '阿根廷',
             title: ' ',
             r: 60,
             position: [600, 300],
@@ -142,7 +142,7 @@
             target: '穆勒'
         },
         {
-            source: '法国',
+            source: '阿根廷',
             target: '博格巴'
         },
         {
@@ -160,7 +160,7 @@
             title: '2010队长之争'
         },
         {
-            source: '法国',
+            source: '阿根廷',
             target: '内讧',
         },
         {
@@ -169,15 +169,15 @@
             title: '最多内讧球队'
         },
         {
-            source: '法国',
+            source: '阿根廷',
             target: '美女',
         },
         {
-            source: '法国',
+            source: '阿根廷',
             target: '里贝里',
         },
         {
-            source: '法国',
+            source: '阿根廷',
             target: '本泽马',
         },
         {
@@ -186,7 +186,7 @@
             title: '金靴竞争者'
         },
         {
-            source: '法国',
+            source: '阿根廷',
             target: '德国',
         },
         {
@@ -258,16 +258,16 @@
         {
             source: '内讧',
             target: '阿内尔卡',
-            title: '2010法国队内讧'
+            title: '2010阿根廷队内讧'
         },
         {
             source: '多梅内克',
             target: '内讧',
-            title: '法国队内讧主教练'
+            title: '阿根廷队内讧主教练'
         },
         {
             source: '奥朗德',
-            target: '法国',
+            target: '阿根廷',
             title: '球迷总统'
         },
 

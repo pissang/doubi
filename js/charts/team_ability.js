@@ -22,7 +22,7 @@ define(function(require) {
             var value = teamData[curTeam].value;
             
             chart1.setOption({
-                tooltip : {
+                ntooltip : {
                     trigger: 'axis'
                 },
                 title: {
