@@ -13,7 +13,6 @@ body {
 }
 
 #cover {
-    opacity: 0;
     background-image: url(../imgs/dianzhui.png);
     /*-webkit-transition: all 0.6s linear;*/
     position: absolute;

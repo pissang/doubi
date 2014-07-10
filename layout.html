@@ -3,6 +3,7 @@
         <meta charset="utf-8" />
         <script type="text/javascript" src="lib/esl.js"></script>
         <script type="text/javascript" src="lib/FileSaver.js"></script>
+        <script type="text/javascript" src="lib/echarts-original.js"></script>
         <style>
             body {
             }
@@ -22,20 +23,20 @@
         <div id="main"></div>
         <button id="save">Save</button>
         <script type="text/javascript">
-            require.config({
-                packages: [
-                    {
-                        name: 'echarts',
-                        location: '../echarts/src',
-                        main: 'echarts'
-                    },
-                    {
-                        name: 'zrender',
-                        location: '../zrender/src',
-                        main: 'zrender'
-                    }
-                ]
-            });
+            // require.config({
+            //     packages: [
+            //         {
+            //             name: 'echarts',
+            //             location: '../echarts/src',
+            //             main: 'echarts'
+            //         },
+            //         {
+            //             name: 'zrender',
+            //             location: '../zrender/src',
+            //             main: 'zrender'
+            //         }
+            //     ]
+            // });
             // Boot
             require([
                 'echarts',
@@ -100,7 +101,7 @@
                         },
                         minRadius: minRadius,
                         maxRadius: maxRadius,
-                        attractiveness: 1,
+                        attractiveness: 0.7,
                         centripetal: 0.1,
                         density : 0.01,
                         nodes: nodes,

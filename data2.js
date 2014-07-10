@@ -6,6 +6,7 @@
             r: 70,
             position: [400, 300],
             image: "imgs/german.png",
+            fixed: true,
             type: 'country'
         },
         {
@@ -14,282 +15,550 @@
             r: 60,
             position: [600, 300],
             image: "imgs/france.png",
+            fixed: true,
             type: 'country'
         },
         {
+            name: "vs",
+            title: " ",
+            r:25,
+            position: [
+                500,
+                250
+            ],
+            image: "imgs/vs.png",
+            type: "vs",
+            fixed: true
+        },
+        {
             name: '穆勒',
+            team: '德国',
+            type: 'player',
             r: 35
         },
         {
-            name: '本泽马',
-            r: 40
+            name: '克罗斯',
+            team: '德国',
+            type: 'player',
+            r: 30
         },
         {
             name: '拉姆',
+            team: '德国',
+            type: 'player',
+            r: 30
+        },
+        {
+            name: '胡梅尔斯',
+            team: '德国',
             r: 20
         },
         {
-            name: '足球青训',
+            name: '默特萨克',
+            team: '德国',
+            r: 18
+        },
+        {
+            name: '赫韦德斯',
+            team: '德国',
+            r: 22
+        },
+        {
+            name: '穆斯塔菲',
+            team: '德国',
+            r: 16
+        },
+        {
+            name: '格罗斯克罗伊茨',
+            team: '德国',
+            r: 25
+        },
+        {
+            name: '金特尔',
+            team: '德国',
+            r: 15
+        },
+        {
+            name: '博阿滕',
+            team: '德国',
+            r: 15
+        },
+        {
+            name: '克洛泽',
+            team: '德国',
+            r: 35
+        },
+        {
+            name: '波多尔斯基',
+            team: '德国',
+            r: 16
+        },
+        {
+            name: '诺伊尔',
+            team: '德国',
+            r: 16
+        },
+        {
+            name: '齐勒',
+            team: '德国',
+            r: 16
+        },
+        {
+            name: '魏登费勒',
+            team: '德国',
+            r: 16
+        },
+        {
+            name: '厄齐尔',
+            team: '德国',
+            r: 37
+        },
+        {
+            name: '格策',
+            team: '德国',
+            r: 16
+        },
+        {
+            name: '赫迪拉',
+            team: '德国',
+            r: 16
+        },
+        {
+            name: '施魏因施泰格',
+            team: '德国',
+            r: 16
+        },
+        {
+            name: '许尔勒',
+            team: '德国',
+            r: 16
+        },
+        {
+            name: '德拉克斯勒',
+            team: '德国',
+            r: 16
+        },
+        {
+            name: '克拉默',
+            team: '德国',
+            r: 16
+        },
+        {
+            name: '杜尔姆',
+            team: '德国',
+            r: 16
+        },
+/**************************************************/
+        {
+            name: '梅西',
+            team: '阿根廷',
+            type: 'player',
+            r: 40
+        },
+        {
+            name: '马斯切拉诺',
+            team: '阿根廷',
+            type: 'player',
+            r: 30
+        },
+        {
+            name: '罗霍',
+            team: '阿根廷',
+            type: 'player',
             r: 28
         },
         {
-            name: '内讧',
-            r: 30
+            name: '萨巴莱塔',
+            team: '阿根廷',
+            r: 25
         },
         {
-            name: '荷兰',
-            r: 30
+            name: '德米凯利斯',
+            team: '阿根廷',
+            r: 25
         },
         {
-            name: '美女',
-            r: 30
+            name: '加雷',
+            team: '阿根廷',
+            r: 20
         },
         {
-            name: '里贝里',
-            r: 35
+            name: '坎帕尼亚罗',
+            team: '阿根廷',
+            r: 20
         },
         {
-            name: '默克尔',
+            name: '巴桑塔',
+            team: '阿根廷',
             r: 18
         },
-		{
-            name: '厄齐尔',
-            r: 40
+        {
+            name: '费尔南德斯',
+            team: '阿根廷',
+            r: 18
         },
-		{
-            name: '克洛泽',
+        {
+            name: '阿奎罗',
+            team: '阿根廷',
             r: 30
         },
-		{
-            name: '沃勒尔',
-            r: 15
+        {
+            name: '拉维奇',
+            team: '阿根廷',
+            r: 25
         },
-		{
-            name: '里杰卡尔德',
-            r: 15
+        {
+            name: '伊瓜因',
+            team: '阿根廷',
+            r: 28
         },
-		{
-            name: '排人墙',
+        {
+            name: '帕拉西奥',
+            team: '阿根廷',
+            r: 25
+        },
+        {
+            name: '安杜哈尔',
+            team: '阿根廷',
             r: 15
         },
         {
-            name: '勒夫',
-            r: 15
-        },
-		{
-            name: '盖德·穆勒',
-            r: 20
-        },
-		{
-            name: '罗纳尔多',
-            r: 20
-        },
-		{
-            name: '挖鼻屎',
-            r: 20
-        },
-		{
-            name: '克林斯曼',
+            name: '奥里昂',
+            team: '阿根廷',
             r: 15
         },
         {
-            name: '博格巴',
-            r: 15
+            name: '罗梅罗',
+            team: '阿根廷',
+            r: 14
         },
-		{
-            name: '欧洲金童奖',
-            r: 10
+        {
+            name: '迪玛利亚',
+            team: '阿根廷',
+            r: 22
         },
-		{
-            name: '梅西',
-            r: 35
-        },
-		{
-            name: '阿内尔卡',
+        {
+            name: '费尔南德斯',
+            team: '阿根廷',
             r: 20
         },
-		{
-            name: '多梅内克',
+        {
+            name: '阿尔瓦雷斯',
+            team: '阿根廷',
+            r: 20
+        },
+        {
+            name: '佩雷斯',
+            team: '阿根廷',
             r: 15
         },
-		{
-            name: '奥朗德',
-            r: 20
+        {
+            name: '比格利亚',
+            team: '阿根廷',
+            r: 15
+        },
+        {
+            name: '马克西',
+            team: '阿根廷',
+            r: 15
+        },
+        {
+            name: '加戈',
+            team: '阿根廷',
+            r: 15
         }
-
-
-
-
-
     ],
     links: [
         {
             source: '德国',
+            target: '阿根廷'
+        },
+        {
+            source: '德国',
+            target: 'vs'
+        },
+        {
+            source: '阿根廷',
+            target: 'vs'
+        },
+        {
+            target: '穆勒',
+            source: '德国'
+        },
+        {
+            target: '克罗斯',
+            source: '德国'
+        },
+        {
             target: '拉姆',
-            title: "队长"
+            source: '德国'
         },
         {
-            source: '德国',
-            target: '足球青训',
-            title: "助力崛起"
+            target: '胡梅尔斯',
+            source: '德国'
         },
         {
-            source: '德国',
-            target: '穆勒'
+            target: '默特萨克',
+            source: '德国'
         },
         {
-            source: '德国',
-            target: '穆勒'
+            target: '赫韦德斯',
+            source: '德国'
         },
         {
-            source: '阿根廷',
-            target: '博格巴'
+            target: '穆斯塔菲',
+            source: '德国'
         },
         {
-            source: '德国',
-            target: '厄齐尔'
+            target: '格罗斯克罗伊茨',
+            source: '德国'
         },
         {
-            source: '德国',
-            target: '默克尔',
-            title: '总理球迷'
+            target: '金特尔',
+            source: '德国'
         },
         {
-            source: '德国',
-            target: '内讧',
-            title: '2010队长之争'
+            target: '博阿滕',
+            source: '德国'
         },
         {
-            source: '阿根廷',
-            target: '内讧',
+            target: '克洛泽',
+            source: '德国'
         },
         {
-            source: '荷兰',
-            target: '内讧',
-            title: '最多内讧球队'
+            target: '波多尔斯基',
+            source: '德国'
         },
         {
-            source: '阿根廷',
-            target: '美女',
+            target: '诺伊尔',
+            source: '德国'
         },
         {
-            source: '阿根廷',
-            target: '里贝里',
+            target: '齐勒',
+            source: '德国'
         },
         {
-            source: '阿根廷',
-            target: '本泽马',
+            target: '魏登费勒',
+            source: '德国'
         },
         {
-            source: '穆勒',
-            target: '本泽马',
-            title: '金靴竞争者'
+            target: '厄齐尔',
+            source: '德国'
         },
         {
-            source: '阿根廷',
-            target: '德国',
+            target: '格策',
+            source: '德国'
         },
         {
-            source: '荷兰',
-            target: '里杰卡尔德',
+            target: '赫迪拉',
+            source: '德国'
         },
         {
-            source: '厄齐尔',
-            target: '排人墙',
-            title: '最怕排人墙'
+            target: '施魏因施泰格',
+            source: '德国'
         },
         {
-            source: '穆勒',
-            target: '盖德·穆勒',
-            title: '衣钵继承者'
+            target: '许尔勒',
+            source: '德国'
         },
         {
-            source: '克洛泽',
-            target: '罗纳尔多'
+            target: '德拉克斯勒',
+            source: '德国'
         },
         {
-            source: '德国',
-            target: '克洛泽'
+            target: '克拉默',
+            source: '德国'
         },
         {
-            source: '德国',
-            target: '勒夫'
+            target: '杜尔姆',
+            source: '德国'
         },
+/**************************************************/
         {
-            source: '勒夫',
-            target: '挖鼻屎',
-            title: '被网友恶搞'
-        },
-        {
-            source: '德国',
-            target: '克林斯曼',
-            title: '前球员、前主教练'
-        },
-        {
-            source: '德国',
-            target: '沃勒尔',
-            title: '前主教练'
-        },
-        {
-            source: '沃勒尔',
-            target: '里杰卡尔德',
-            title: '口水事件'
-        },
-        {
-            source: '里杰卡尔德',
-            target: '荷兰队',
-            title: '前队员'
-        },
-        {
-            source: '博格巴',
-            target: '欧洲金童奖',
-            title: '2013获奖者'
-        },
-        {
-            source: '欧洲金童奖',
             target: '梅西',
-            title: '2005获奖者'
+            source: '阿根廷'
         },
         {
-            source: '格策',
-            target: '欧洲金童奖',
-            title: '2011获奖者'
+            target: '马斯切拉诺',
+            source: '阿根廷'
         },
         {
-            source: '内讧',
-            target: '阿内尔卡',
-            title: '2010阿根廷队内讧'
+            target: '罗霍',
+            source: '阿根廷'
         },
         {
-            source: '多梅内克',
-            target: '内讧',
-            title: '阿根廷队内讧主教练'
+            target: '萨巴莱塔',
+            source: '阿根廷'
         },
         {
-            source: '奥朗德',
-            target: '阿根廷',
-            title: '球迷总统'
+            target: '德米凯利斯',
+            source: '阿根廷'
         },
-
-
+        {
+            target: '加雷',
+            source: '阿根廷'
+        },
+        {
+            target: '坎帕尼亚罗',
+            source: '阿根廷'
+        },
+        {
+            target: '巴桑塔',
+            source: '阿根廷'
+        },
+        {
+            target: '费尔南德斯',
+            source: '阿根廷'
+        },
+        {
+            target: '阿奎罗',
+            source: '阿根廷'
+        },
+        {
+            target: '拉维奇',
+            source: '阿根廷'
+        },
+        {
+            target: '伊瓜因',
+            source: '阿根廷'
+        },
+        {
+            target: '帕拉西奥',
+            source: '阿根廷'
+        },
+        {
+            target: '安杜哈尔',
+            source: '阿根廷'
+        },
+        {
+            target: '奥里昂',
+            source: '阿根廷'
+        },
+        {
+            target: '罗梅罗',
+            source: '阿根廷'
+        },
+        {
+            target: '迪玛利亚',
+            source: '阿根廷'
+        },
+        {
+            target: '费尔南德斯',
+            source: '阿根廷'
+        },
+        {
+            target: '阿尔瓦雷斯',
+            source: '阿根廷'
+        },
+        {
+            target: '佩雷斯',
+            source: '阿根廷'
+        },
+        {
+            target: '比格利亚',
+            source: '阿根廷'
+        },
+        {
+            target: '马克西',
+            source: '阿根廷'
+        },
+        {
+            target: '加戈',
+            source: '阿根廷'
+        }
     ],
     menus: {
-        "country": [{
-          "title": "球员俱乐部",
-          "position": [-300, -180]
-        },{
-          "title": "本届表现",
-          "position": [200, 200]
-        },{
-          "title": "历届表现走势",
-          "position": [-230, 180]
-        },{
-          "title": "实力",
-          "position": [280, -180]
-        }, {
-          "position": [-350, 0],
-          "back": true,
-          "image": "imgs/worldcup.png"
-        }]
+        country: [
+          {
+            title: "球员\n俱乐部",
+            position: [
+              -350,
+              0
+            ]
+          },
+          {
+            title: "本届\n表现",
+            position: [
+              200,
+              180
+            ]
+          },
+          {
+            title: "历届\n表现",
+            position: [
+              -230,
+              180
+            ]
+          },
+          {
+            title: "实力",
+            position: [
+              280,
+              -180
+            ]
+          },
+          {
+            position: [
+              -340,
+              -180
+            ],
+            back: true,
+            image: "imgs/worldcup.png"
+          }
+        ],
+        player: [
+            {
+              title: "实力",
+              position: [
+                200,
+                -160
+              ]
+            },
+            {
+              title: "本届\n表现",
+              position: [
+                200,
+                180
+              ]
+            },
+            {
+            position: [
+              -340,
+              -180
+            ],
+            back: true,
+            image: "imgs/worldcup.png"
+        }],
+        vs: [
+          {
+            title: "实力\n对比",
+            position: [
+              200,
+              -160
+            ]
+          },
+          {
+            title: "交战\n情况",
+            position: [
+              200,
+              180
+            ]
+          },
+          {
+            title: "身价\n对比",
+            position: [
+              -230,
+              180
+            ]
+          },
+          {
+            position: [
+              -340,
+              -180
+            ],
+            back: true,
+            image: "imgs/worldcup.png"
+          }
+        ]
     }
 });

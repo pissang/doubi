@@ -260,8 +260,6 @@ define(function(require) {
         pos.y -= zr.getHeight() / 2;
         pos.z -= 0.25;
 
-        $cover.style.opacity = 1.0;
-
         animation.animate(camera.position)
             .when(1000, {
                 _array: pos._array
@@ -305,8 +303,6 @@ define(function(require) {
             return;
         }
         animating = true;
-
-        $cover.style.opacity = 0.0;
 
         animation.animate(camera.position)
             .when(1000, {

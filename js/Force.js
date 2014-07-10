@@ -115,19 +115,19 @@ define(function(require) {
         }
 
         var centroid = [this.width / 2, this.height / 2];
-        for (var i = 0; i < len; i++){
-            var node = this.nodes[i];
-            if (node.fixed) {
-                continue;
-            }
-            vec2.sub(v12, centroid, node.position);
+        // for (var i = 0; i < len; i++){
+        //     var node = this.nodes[i];
+        //     if (node.fixed) {
+        //         continue;
+        //     }
+        //     vec2.sub(v12, centroid, node.position);
 
-            var d = vec2.len(v12);
-            var factor = d / 200;
-            vec2.scaleAndAdd(
-                node.force, node.force, v12, factor
-            );
-        }
+        //     var d = vec2.len(v12);
+        //     var factor = d / 200;
+        //     vec2.scaleAndAdd(
+        //         node.force, node.force, v12, factor
+        //     );
+        // }
 
         // Nodes attraction force
         for (var i= 0; i < this.links.length; i++) {
@@ -145,7 +145,7 @@ define(function(require) {
                 continue;
             }
 
-            var factor = d * d / 1.5 / k;
+            var factor = d * d / 10 / k;
             if (!n1.fixed) {
                 vec2.scaleAndAdd(n1.force, n1.force, v12, factor);
             }

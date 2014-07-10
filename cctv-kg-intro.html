@@ -1,0 +1,50 @@
+<!Doctype html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <script type="text/javascript" src="lib/esl.js"></script>
+        <script type="text/javascript" src="lib/echarts-original.js"></script>
+        <link rel="stylesheet" href="css/index.css">
+
+        <!-- lightbox -->
+        <script type="text/javascript" src="lib/lightbox/js/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript" src="lib/lightbox/js/lightbox.min.js"></script>
+        <link rel="stylesheet" href="lib/lightbox/css/lightbox.css">
+    </head>
+    <body>
+        <canvas id="bg-particles"></canvas>
+        <div id="main"></div>
+        <div id="cover"></div>
+        <div id="chart-container">
+            <div id="chart1"></div>
+            <div id="chart2"></div>
+        </div>
+        <div id="copyright">
+            <img src="imgs/copyright.png" alt="" width="212px" />
+        </div>
+        <script type="text/javascript">
+            
+            require.config({paths:{'js/index':'release'}});
+
+            require(['worldcup-high'], function(worldcup) {
+                worldcup.onDone = function() {
+                    var obj = {
+                        opacity: 1
+                    };
+                    worldcup.animation.animate(obj)
+                        .when(2000, {
+                            opacity: 0
+                        })
+                        .during(function() {
+                            worldcup.renderer.canvas.style.opacity = obj.opacity;
+                        })
+                        .done(function() {
+                            worldcup.dispose();
+                            require(['js/index']);
+                        })
+                        .start('CubicIn')
+                }
+            });
+        </script>
+    </body>
+</html>
