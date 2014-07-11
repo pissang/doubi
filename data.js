@@ -253,7 +253,11 @@
         {
             name: '迪玛利亚',
             team: '阿根廷',
-            r: 22
+            r: 25,
+            title: " ",
+            image: "imgs/player/迪玛利亚.jpg",
+            fixed: true,
+            type: "player"
         },
         {
             name: 'F-费尔南德斯',

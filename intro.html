@@ -19,15 +19,18 @@
             <div id="chart1"></div>
             <div id="chart2"></div>
         </div>
-        <div id="copyright">
-            <img src="imgs/copyright.png" alt="" width="212px" />
+        <div id="logo">
+            <!-- <img src="imgs/logo.png" alt="" width="212px" /> -->
         </div>
         <script type="text/javascript">
             
-            require.config({paths:{'js/index':'release'}});
+            require.config({
+                paths:{'js/index':'release'}
+            });
 
             require(['worldcup-high'], function(worldcup) {
-                worldcup.onDone = function() {
+
+                function exit() {
                     var obj = {
                         opacity: 1
                     };
@@ -42,8 +45,26 @@
                             worldcup.dispose();
                             require(['js/index']);
                         })
-                        .start('CubicIn')
+                        .start('CubicIn');
+
+                    document.body.removeEventListener('keydown', keyDown);
                 }
+
+                worldcup.onDone = function() {
+                    exit();
+                }
+
+                function keyDown(e) {
+                    var kc = e.keyCode;
+                    if (
+                        kc == 27 // exit
+                        || kc == 13 // enter
+                        || kc == 32 // space
+                    ) {
+                        exit();
+                    }
+                }
+                document.body.addEventListener('keydown', keyDown);
             });
         </script>
     </body>
