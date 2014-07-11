@@ -4,7 +4,6 @@
         <meta charset="utf-8" />
         <script type="text/javascript" src="lib/esl.js"></script>
         <script type="text/javascript" src="lib/echarts.js"></script>
-        <script type="text/javascript" src="lib/qtek.amd.js"></script>
         <link rel="stylesheet" href="css/index.css">
     </head>
     <body>
@@ -22,7 +21,63 @@
             <img src="imgs/echarts2014.png" alt="" height="60px" />
         </a>
         <script type="text/javascript">
-            require(['js/index']);
+            
+            require.config({
+                paths:{'js/index':'release'}
+            });
+
+            require(['worldcup-high'], function(worldcup) {
+
+                var audio = document.createElement('audio');
+                audio.src = 'mp3/weareone.mp3';
+                audio.play();
+                audio.volume = 0;
+
+                worldcup.animation.animate(audio)
+                    .when(5000, {
+                        volume: 0.5
+                    })
+                    .start();
+
+                function exit() {
+                    var obj = {
+                        opacity: 1,
+                        volume: audio.volume
+                    };
+                    worldcup.animation.animate(obj)
+                        .when(2000, {
+                            opacity: 0,
+                            volume: 0
+                        })
+                        .during(function() {
+                            worldcup.renderer.canvas.style.opacity = obj.opacity;
+                            audio.volume = obj.volume;
+                        })
+                        .done(function() {
+                            worldcup.dispose();
+                            require(['js/index']);
+                        })
+                        .start('CubicIn');
+
+                    document.body.removeEventListener('keydown', keyDown);
+                }
+
+                worldcup.onDone = function() {
+                    exit();
+                }
+
+                function keyDown(e) {
+                    var kc = e.keyCode;
+                    if (
+                        kc == 27 // exit
+                        || kc == 13 // enter
+                        || kc == 32 // space
+                    ) {
+                        exit();
+                    }
+                }
+                document.body.addEventListener('keydown', keyDown);
+            });
         </script>
     </body>
 </html>
