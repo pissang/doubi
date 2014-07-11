@@ -121,7 +121,7 @@ define(function(require) {
                 lineWidth: 1,
                 strokeColor : '#6ed6ea',
                 opacity: 0.5,
-                lineType: 'dotted'
+                // lineType: 'dotted'
             },
             zlevel: 1,
             highlightStyle: {
