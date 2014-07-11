@@ -20,7 +20,7 @@ define({
         600,
         300
       ],
-      "image": "imgs/france.png",
+      "image": "imgs/argentina.png",
       "fixed": true,
       "type": "country"
     },

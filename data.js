@@ -14,7 +14,7 @@
             title: ' ',
             r: 60,
             position: [600, 300],
-            image: "imgs/france.png",
+            image: "imgs/argentina.png",
             fixed: true,
             type: 'country'
         },
@@ -211,7 +211,7 @@
             r: 18
         },
         {
-            name: '费尔南德斯',
+            name: 'A-费尔南德斯',
             team: '阿根廷',
             r: 18
         },
@@ -256,7 +256,7 @@
             r: 22
         },
         {
-            name: '费尔南德斯',
+            name: 'F-费尔南德斯',
             team: '阿根廷',
             r: 20
         },
@@ -425,7 +425,7 @@
             source: '阿根廷'
         },
         {
-            target: '费尔南德斯',
+            target: 'A-费尔南德斯',
             source: '阿根廷'
         },
         {
@@ -461,7 +461,7 @@
             source: '阿根廷'
         },
         {
-            target: '费尔南德斯',
+            target: 'F-费尔南德斯',
             source: '阿根廷'
         },
         {
