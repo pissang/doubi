@@ -380,53 +380,53 @@ define(function(require) {
         })
         .start('CubicOut');
 
-    var inDrag = false;
-    var x = 0;
-    var y = 0;
-    document.body.addEventListener('mousedown', function(e) {
-        if (currentPlanet) {
-            return;
-        }
-        inDrag = true;
-        x = e.pageX;
-        y = e.pageY;
-    });
-    document.body.addEventListener('mousemove', function(e) {
-        if (currentPlanet) {
-            return;
-        }
-        if (inDrag) {
-            var dx = e.pageX - x;
-            var dy = e.pageY - y;
+    // var inDrag = false;
+    // var x = 0;
+    // var y = 0;
+    // document.body.addEventListener('mousedown', function(e) {
+    //     if (currentPlanet) {
+    //         return;
+    //     }
+    //     inDrag = true;
+    //     x = e.pageX;
+    //     y = e.pageY;
+    // });
+    // document.body.addEventListener('mousemove', function(e) {
+    //     if (currentPlanet) {
+    //         return;
+    //     }
+    //     if (inDrag) {
+    //         var dx = e.pageX - x;
+    //         var dy = e.pageY - y;
 
-            camera.position.x -= dx / 5;
-            camera.position.y -= dy / 5;
+    //         camera.position.x -= dx / 5;
+    //         camera.position.y -= dy / 5;
 
-            camera.position.x = Math.max(Math.min(camera.position.x, 100), -100);
-            camera.position.y = Math.max(Math.min(camera.position.y, 100), -100);
+    //         camera.position.x = Math.max(Math.min(camera.position.x, 100), -100);
+    //         camera.position.y = Math.max(Math.min(camera.position.y, 100), -100);
 
-            x = e.pageX;
-            y = e.pageY;
-        }
-    });
-    document.body.addEventListener('mouseup', function(e) {
-        inDrag = false;
-    });
+    //         x = e.pageX;
+    //         y = e.pageY;
+    //     }
+    // });
+    // document.body.addEventListener('mouseup', function(e) {
+    //     inDrag = false;
+    // });
 
-    document.body.addEventListener('mousewheel', mouseWheel);
-    document.body.addEventListener('DOMMouseScroll', mouseWheel);
+    // document.body.addEventListener('mousewheel', mouseWheel);
+    // document.body.addEventListener('DOMMouseScroll', mouseWheel);
 
-    function mouseWheel(e) {
-        if (currentPlanet) {
-            return;
-        }
-        var delta = e.wheelDelta
-                    || -e.detail;
+    // function mouseWheel(e) {
+    //     if (currentPlanet) {
+    //         return;
+    //     }
+    //     var delta = e.wheelDelta
+    //                 || -e.detail;
 
-        camera.position.z += delta > 0 ? 0.05 : -0.05;
+    //     camera.position.z += delta > 0 ? 0.05 : -0.05;
 
-        camera.position.z = Math.max(Math.min(camera.position.z, 0.2), -0.5);
-    }
+    //     camera.position.z = Math.max(Math.min(camera.position.z, 0.2), -0.5);
+    // }
 
     window.onresize = function() {
         stage.resize();
