@@ -83,7 +83,9 @@ define(function(require) {
         x = (x - width / 2) * 50 / node.r + width / 2;
         y = (y - height / 2) * 50 / node.r + height / 2;
 
-        this.position.set(x, y, 40 / node.r);
+        var ratio = 1000 / width;
+
+        this.position.set(x, y, 28 / ratio / node.r);
 
         var circle = this.circle = new Circle3D({
             zr: this.zr,

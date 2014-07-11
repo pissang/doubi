@@ -145,7 +145,7 @@ define(function(require) {
                 continue;
             }
 
-            var factor = d * d / 10 / k;
+            var factor = d * d / 3 / k;
             if (!n1.fixed) {
                 vec2.scaleAndAdd(n1.force, n1.force, v12, factor);
             }
