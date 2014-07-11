@@ -374,10 +374,10 @@ define(function(require) {
             } else if (this.data.type == 'player') {
                 switch(subCircle.data.title) {
                     case "实力":
-                        player_abilityChart.show(chart1, chart2, this.data.team, this.data.playerName);
+                        player_abilityChart.show(chart1, chart2, this.data.team, this.data.playerName || this.data.name);
                         break;
                     case "本届\n表现":
-                        player_currentChart.show(chart1, chart2, this.data.team, this.data.playerName);
+                        player_currentChart.show(chart1, chart2, this.data.team, this.data.playerName || this.data.name);
                         break;
                 }
             }

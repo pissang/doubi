@@ -42,7 +42,7 @@ define(function(require) {
         }
 
         if (this.bleeding) {
-            for (var i = 0; i < 5; i++) {
+            for (var i = 0; i < 3; i++) {
                 var circle = new Circle3D();
                 this.add(circle);
 
@@ -52,7 +52,7 @@ define(function(require) {
                     y: 0,
                     strokeColor : '#6ed6ea',
                     brushType : 'stroke',
-                    lineWidth: 0.3,
+                    lineWidth: 0.7,
                     alpha: 1
                 }
                 circle.shape.hoverable = false;
@@ -144,7 +144,7 @@ define(function(require) {
                         alpha: 1
                     })
                     .when(4000, {
-                        r: this.shape.style.r * 1.4,
+                        r: this.shape.style.r * 1.2,
                         alpha: 0
                     })
                     .during(function() {
