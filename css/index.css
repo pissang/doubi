@@ -140,6 +140,10 @@ body {
     z-index: 100000;
 }
 
+a#logo:hover {
+    bottom:30px;
+}
+
 #echarts2014 {
     color: white;
     position: absolute;
@@ -147,4 +151,8 @@ body {
     right: 10px;
 
     z-index: 100000;
+}
+
+a#echarts2014:hover {
+    bottom:35px;
 }

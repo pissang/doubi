@@ -27,9 +27,9 @@ define(function(require) {
                     for (var i = 0, l = teamP.length; i < l; i++) {
                         pieData.push({
                             name: teamP[i],
-                            value : teamP2[key][i] / (teamP[i] == '传球' || teamP[i] == '触球' ? 6 : 1)
+                            value : teamP2[key][i] / (teamP[i] == '传球' || teamP[i] == '准确传球' ? 6 : 1)
                         });
-                        if (teamP[i] == '传球'|| teamP[i] == '触球') {
+                        if (teamP[i] == '传球'|| teamP[i] == '准确传球') {
                             // 传球数据太畸形了
                             pieData[pieData.length - 1].itemStyle = {
                                 normal: {
