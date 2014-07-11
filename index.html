@@ -6,11 +6,6 @@
         <script type="text/javascript" src="lib/echarts.js"></script>
         <script type="text/javascript" src="lib/qtek.amd.js"></script>
         <link rel="stylesheet" href="css/index.css">
-
-        <!-- lightbox -->
-        <script type="text/javascript" src="lib/lightbox/js/jquery-1.11.0.min.js"></script>
-        <script type="text/javascript" src="lib/lightbox/js/lightbox.min.js"></script>
-        <link rel="stylesheet" href="lib/lightbox/css/lightbox.css">
     </head>
     <body>
         <canvas id="bg-particles"></canvas>
@@ -20,25 +15,10 @@
             <div id="chart1"></div>
             <div id="chart2"></div>
         </div>
+        <a id="logo" href="http://echarts.baidu.com/" target="_blank">
+            <img src="imgs/echarts.png" alt="" width="80px" />
+        </a>
         <script type="text/javascript">
-            // require.config({
-            //     paths: {
-            //         glmatrix: 'lib/gl-matrix'
-            //     },
-            //     packages: [
-            //         {
-            //             name: 'zrender',
-            //             location: '../zrender/src',
-            //             main: 'zrender'
-            //         },
-            //         {
-            //             name: 'qtek',
-            //             location: '../../qtek/src',
-            //             main: 'qtek.amd'
-            //         }
-            //     ]
-            // });
-
             require(['js/index']);
         </script>
     </body>

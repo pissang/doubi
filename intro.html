@@ -5,11 +5,6 @@
         <script type="text/javascript" src="lib/esl.js"></script>
         <script type="text/javascript" src="lib/echarts.js"></script>
         <link rel="stylesheet" href="css/index.css">
-
-        <!-- lightbox -->
-        <script type="text/javascript" src="lib/lightbox/js/jquery-1.11.0.min.js"></script>
-        <script type="text/javascript" src="lib/lightbox/js/lightbox.min.js"></script>
-        <link rel="stylesheet" href="lib/lightbox/css/lightbox.css">
     </head>
     <body>
         <canvas id="bg-particles"></canvas>
@@ -19,9 +14,9 @@
             <div id="chart1"></div>
             <div id="chart2"></div>
         </div>
-        <div id="logo">
-            <!-- <img src="imgs/logo.png" alt="" width="212px" /> -->
-        </div>
+        <a id="logo" href="http://echarts.baidu.com/" target="_blank">
+            <img src="imgs/echarts.png" alt="" width="80px" />
+        </a>
         <script type="text/javascript">
             
             require.config({
@@ -30,16 +25,30 @@
 
             require(['worldcup-high'], function(worldcup) {
 
+                var audio = document.createElement('audio');
+                audio.src = 'mp3/weareone.mp3';
+                audio.play();
+                audio.volume = 0;
+
+                worldcup.animation.animate(audio)
+                    .when(5000, {
+                        volume: 0.5
+                    })
+                    .start();
+
                 function exit() {
                     var obj = {
-                        opacity: 1
+                        opacity: 1,
+                        volume: audio.volume
                     };
                     worldcup.animation.animate(obj)
                         .when(2000, {
-                            opacity: 0
+                            opacity: 0,
+                            volume: 0
                         })
                         .during(function() {
                             worldcup.renderer.canvas.style.opacity = obj.opacity;
+                            audio.volume = obj.volume;
                         })
                         .done(function() {
                             worldcup.dispose();

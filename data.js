@@ -51,7 +51,7 @@
         {
             name: '拉姆',
             title: " ",
-            fixe: true,
+            fixed: true,
             team: '德国',
             type: 'player',
             image: "imgs/player/拉姆.jpg",
@@ -119,8 +119,12 @@
         },
         {
             name: '厄齐尔',
+            title: " ",
             team: '德国',
-            r: 37
+            r: 37,
+            fixed: true,
+            type: "player",
+            image: "imgs/player/厄齐尔.jpg"
         },
         {
             name: '格策',

@@ -129,6 +129,15 @@ body {
 #logo {
     color: white;
     position: absolute;
-    top: 20px;
-    right: 20px;
+    bottom: 30px;
+    right: 50px;
+
+    width:80px;
+    height:80px;
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 40px;
+
+    box-shadow: 0px 0px 10px black;
+
+    z-index: 100000;
 }
