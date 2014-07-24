@@ -35,6 +35,10 @@ define(function(require) {
 
         labelColor: 'rgba(55, 145, 220, 0.5)',
 
+        highlightColor: '#8c72d4',
+
+        highlightLabelColor: 'rgba(140, 114, 212, 0.5)',
+
         label: '',
 
         image: '',
@@ -51,6 +55,8 @@ define(function(require) {
 
         this.group = new Group();
         this.shapeList = [];
+
+        var self = this;
 
         var outlineShape = new CircleShape({
             style: new CircleStyle({
@@ -80,6 +86,9 @@ define(function(require) {
                 y: -this.radius,
                 width: this.radius * 2,
                 height: this.radius * 2
+            },
+            onmouseover: function() {
+                self.trigger('hover');
             },
             highlightStyle: {
                 opacity: 0
@@ -119,6 +128,7 @@ define(function(require) {
         this.shapeList.push(this._labelShape);
         this.shapeList.push(this._outlineShape);
     }, {
+
         fadeIn: function(callback) {
             var self = this;
             this.zr.animate(this.shape.id, 'style')
@@ -171,12 +181,22 @@ define(function(require) {
             this._depth = z;
         },
 
+        highlight: function() {
+            this._outlineShape.style.color = this.highlightColor;
+            this._labelShape.style.color = this.highlightLabelColor;
+        },
+
+        leaveHighlight: function() {
+            this._outlineShape.style.color = this.color;
+            this._labelShape.style.color = this.labelColor;
+        },
+
         unprojectCoord: function(x, y, zr) {
             var width = zr.getWidth();
             var height = zr.getHeight();
 
             x = (x - width / 2) * this._depth + width / 2;
-            y = (y - width / 2) * this._depth + width / 2;
+            y = (y - height / 2) * this._depth + height / 2;
 
             this.position._array[0] = x;
             this.position._array[1] = y;

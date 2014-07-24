@@ -75,8 +75,9 @@ define(function(require) {
         this._layout.center = [width / 2, height / 2];
         this._layout.width = width;
         this._layout.height = height;
-        this._layout.scaling = 5;
-        this._layout.repulsionByDegree = true;
+        this._layout.scaling = 2;
+        this._layout.gravity = 1.5;
+        this._layout.preventOverlap = true;
 
         for (var i = 0; i < 50; i++) {
             this._layout.update();

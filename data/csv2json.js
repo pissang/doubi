@@ -28,13 +28,14 @@ lines.slice(1).forEach(function(line) {
     var name = items[0];
 
     items.slice(1).forEach(function(item, idx) {
-        if (nameList[idx] !== name) {
-            json.edges.push({
-                source: nameList[idx],
-                target: name,
-                label: item
-            });
+        if (!item.trim() || nameList[idx] === name) {
+            return;
         }
+        json.edges.push({
+            source: nameList[idx],
+            target: name,
+            label: item
+        });
     });
 });
 

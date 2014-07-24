@@ -85,11 +85,6 @@
       "label": "上下级"
     },
     {
-      "source": "席城",
-      "target": "林萧",
-      "label": ""
-    },
-    {
       "source": "顾准",
       "target": "林萧",
       "label": "闺蜜弟弟"
@@ -100,19 +95,9 @@
       "label": "好友"
     },
     {
-      "source": "卫海",
-      "target": "林萧",
-      "label": ""
-    },
-    {
       "source": "Kitty",
       "target": "林萧",
       "label": "同事"
-    },
-    {
-      "source": "叶传萍",
-      "target": "林萧",
-      "label": ""
     },
     {
       "source": "林萧",
@@ -135,11 +120,6 @@
       "label": "恋人"
     },
     {
-      "source": "周崇光",
-      "target": "顾里",
-      "label": ""
-    },
-    {
       "source": "宫洺",
       "target": "顾里",
       "label": "商业对手"
@@ -158,11 +138,6 @@
       "source": "Neil",
       "target": "顾里",
       "label": "表姐弟"
-    },
-    {
-      "source": "卫海",
-      "target": "顾里",
-      "label": ""
     },
     {
       "source": "Kitty",
@@ -193,11 +168,6 @@
       "source": "顾源",
       "target": "南湘",
       "label": "好友"
-    },
-    {
-      "source": "周崇光",
-      "target": "南湘",
-      "label": ""
     },
     {
       "source": "宫洺",
@@ -230,11 +200,6 @@
       "label": "同事"
     },
     {
-      "source": "叶传萍",
-      "target": "南湘",
-      "label": ""
-    },
-    {
       "source": "林萧",
       "target": "唐宛如",
       "label": "闺蜜"
@@ -253,26 +218,6 @@
       "source": "顾源",
       "target": "唐宛如",
       "label": "好友"
-    },
-    {
-      "source": "周崇光",
-      "target": "唐宛如",
-      "label": ""
-    },
-    {
-      "source": "宫洺",
-      "target": "唐宛如",
-      "label": ""
-    },
-    {
-      "source": "席城",
-      "target": "唐宛如",
-      "label": ""
-    },
-    {
-      "source": "顾准",
-      "target": "唐宛如",
-      "label": ""
     },
     {
       "source": "Neil",
@@ -285,16 +230,6 @@
       "label": "暗恋"
     },
     {
-      "source": "Kitty",
-      "target": "唐宛如",
-      "label": ""
-    },
-    {
-      "source": "叶传萍",
-      "target": "唐宛如",
-      "label": ""
-    },
-    {
       "source": "林萧",
       "target": "顾源",
       "label": "好友"
@@ -313,11 +248,6 @@
       "source": "唐宛如",
       "target": "顾源",
       "label": "好友"
-    },
-    {
-      "source": "周崇光",
-      "target": "顾源",
-      "label": ""
     },
     {
       "source": "宫洺",
@@ -330,11 +260,6 @@
       "label": "敌人"
     },
     {
-      "source": "顾准",
-      "target": "顾源",
-      "label": ""
-    },
-    {
       "source": "Neil",
       "target": "顾源",
       "label": "好友"
@@ -343,11 +268,6 @@
       "source": "卫海",
       "target": "顾源",
       "label": "好友"
-    },
-    {
-      "source": "Kitty",
-      "target": "顾源",
-      "label": ""
     },
     {
       "source": "叶传萍",
@@ -360,59 +280,14 @@
       "label": "恋人"
     },
     {
-      "source": "顾里",
-      "target": "周崇光",
-      "label": ""
-    },
-    {
       "source": "南湘",
       "target": "周崇光",
       "label": "一般"
     },
     {
-      "source": "唐宛如",
-      "target": "周崇光",
-      "label": ""
-    },
-    {
-      "source": "顾源",
-      "target": "周崇光",
-      "label": ""
-    },
-    {
       "source": "宫洺",
       "target": "周崇光",
       "label": "兄弟"
-    },
-    {
-      "source": "席城",
-      "target": "周崇光",
-      "label": ""
-    },
-    {
-      "source": "顾准",
-      "target": "周崇光",
-      "label": ""
-    },
-    {
-      "source": "Neil",
-      "target": "周崇光",
-      "label": ""
-    },
-    {
-      "source": "卫海",
-      "target": "周崇光",
-      "label": ""
-    },
-    {
-      "source": "Kitty",
-      "target": "周崇光",
-      "label": ""
-    },
-    {
-      "source": "叶传萍",
-      "target": "周崇光",
-      "label": ""
     },
     {
       "source": "林萧",
@@ -430,54 +305,9 @@
       "label": "卑鄙的交易"
     },
     {
-      "source": "唐宛如",
-      "target": "宫洺",
-      "label": ""
-    },
-    {
-      "source": "顾源",
-      "target": "宫洺",
-      "label": ""
-    },
-    {
       "source": "周崇光",
       "target": "宫洺",
       "label": "兄弟"
-    },
-    {
-      "source": "席城",
-      "target": "宫洺",
-      "label": ""
-    },
-    {
-      "source": "顾准",
-      "target": "宫洺",
-      "label": ""
-    },
-    {
-      "source": "Neil",
-      "target": "宫洺",
-      "label": ""
-    },
-    {
-      "source": "卫海",
-      "target": "宫洺",
-      "label": ""
-    },
-    {
-      "source": "Kitty",
-      "target": "宫洺",
-      "label": ""
-    },
-    {
-      "source": "叶传萍",
-      "target": "宫洺",
-      "label": ""
-    },
-    {
-      "source": "林萧",
-      "target": "席城",
-      "label": ""
     },
     {
       "source": "顾里",
@@ -490,54 +320,9 @@
       "label": "前男友"
     },
     {
-      "source": "唐宛如",
-      "target": "席城",
-      "label": ""
-    },
-    {
       "source": "顾源",
       "target": "席城",
       "label": "敌人"
-    },
-    {
-      "source": "周崇光",
-      "target": "席城",
-      "label": ""
-    },
-    {
-      "source": "宫洺",
-      "target": "席城",
-      "label": ""
-    },
-    {
-      "source": "顾准",
-      "target": "席城",
-      "label": ""
-    },
-    {
-      "source": "Neil",
-      "target": "席城",
-      "label": ""
-    },
-    {
-      "source": "卫海",
-      "target": "席城",
-      "label": ""
-    },
-    {
-      "source": "Kitty",
-      "target": "席城",
-      "label": ""
-    },
-    {
-      "source": "叶传萍",
-      "target": "席城",
-      "label": ""
-    },
-    {
-      "source": "林萧",
-      "target": "顾准",
-      "label": ""
     },
     {
       "source": "顾里",
@@ -548,51 +333,6 @@
       "source": "南湘",
       "target": "顾准",
       "label": "情侣"
-    },
-    {
-      "source": "唐宛如",
-      "target": "顾准",
-      "label": ""
-    },
-    {
-      "source": "顾源",
-      "target": "顾准",
-      "label": ""
-    },
-    {
-      "source": "周崇光",
-      "target": "顾准",
-      "label": ""
-    },
-    {
-      "source": "宫洺",
-      "target": "顾准",
-      "label": ""
-    },
-    {
-      "source": "席城",
-      "target": "顾准",
-      "label": ""
-    },
-    {
-      "source": "Neil",
-      "target": "顾准",
-      "label": ""
-    },
-    {
-      "source": "卫海",
-      "target": "顾准",
-      "label": ""
-    },
-    {
-      "source": "Kitty",
-      "target": "顾准",
-      "label": ""
-    },
-    {
-      "source": "叶传萍",
-      "target": "顾准",
-      "label": ""
     },
     {
       "source": "林萧",
@@ -610,59 +350,9 @@
       "label": "好友"
     },
     {
-      "source": "唐宛如",
-      "target": "Neil",
-      "label": ""
-    },
-    {
       "source": "顾源",
       "target": "Neil",
       "label": "好友"
-    },
-    {
-      "source": "周崇光",
-      "target": "Neil",
-      "label": ""
-    },
-    {
-      "source": "宫洺",
-      "target": "Neil",
-      "label": ""
-    },
-    {
-      "source": "席城",
-      "target": "Neil",
-      "label": ""
-    },
-    {
-      "source": "顾准",
-      "target": "Neil",
-      "label": ""
-    },
-    {
-      "source": "卫海",
-      "target": "Neil",
-      "label": ""
-    },
-    {
-      "source": "Kitty",
-      "target": "Neil",
-      "label": ""
-    },
-    {
-      "source": "叶传萍",
-      "target": "Neil",
-      "label": ""
-    },
-    {
-      "source": "林萧",
-      "target": "卫海",
-      "label": ""
-    },
-    {
-      "source": "顾里",
-      "target": "卫海",
-      "label": ""
     },
     {
       "source": "南湘",
@@ -680,41 +370,6 @@
       "label": "朋友"
     },
     {
-      "source": "周崇光",
-      "target": "卫海",
-      "label": ""
-    },
-    {
-      "source": "宫洺",
-      "target": "卫海",
-      "label": ""
-    },
-    {
-      "source": "席城",
-      "target": "卫海",
-      "label": ""
-    },
-    {
-      "source": "顾准",
-      "target": "卫海",
-      "label": ""
-    },
-    {
-      "source": "Neil",
-      "target": "卫海",
-      "label": ""
-    },
-    {
-      "source": "Kitty",
-      "target": "卫海",
-      "label": ""
-    },
-    {
-      "source": "叶传萍",
-      "target": "卫海",
-      "label": ""
-    },
-    {
       "source": "林萧",
       "target": "Kitty",
       "label": "同事"
@@ -728,56 +383,6 @@
       "source": "南湘",
       "target": "Kitty",
       "label": "同事"
-    },
-    {
-      "source": "唐宛如",
-      "target": "Kitty",
-      "label": ""
-    },
-    {
-      "source": "顾源",
-      "target": "Kitty",
-      "label": ""
-    },
-    {
-      "source": "周崇光",
-      "target": "Kitty",
-      "label": ""
-    },
-    {
-      "source": "宫洺",
-      "target": "Kitty",
-      "label": ""
-    },
-    {
-      "source": "席城",
-      "target": "Kitty",
-      "label": ""
-    },
-    {
-      "source": "顾准",
-      "target": "Kitty",
-      "label": ""
-    },
-    {
-      "source": "Neil",
-      "target": "Kitty",
-      "label": ""
-    },
-    {
-      "source": "卫海",
-      "target": "Kitty",
-      "label": ""
-    },
-    {
-      "source": "叶传萍",
-      "target": "Kitty",
-      "label": ""
-    },
-    {
-      "source": "林萧",
-      "target": "叶传萍",
-      "label": ""
     },
     {
       "source": "顾里",
@@ -785,54 +390,9 @@
       "label": "婆媳"
     },
     {
-      "source": "南湘",
-      "target": "叶传萍",
-      "label": ""
-    },
-    {
-      "source": "唐宛如",
-      "target": "叶传萍",
-      "label": ""
-    },
-    {
       "source": "顾源",
       "target": "叶传萍",
       "label": "母亲"
-    },
-    {
-      "source": "周崇光",
-      "target": "叶传萍",
-      "label": ""
-    },
-    {
-      "source": "宫洺",
-      "target": "叶传萍",
-      "label": ""
-    },
-    {
-      "source": "席城",
-      "target": "叶传萍",
-      "label": ""
-    },
-    {
-      "source": "顾准",
-      "target": "叶传萍",
-      "label": ""
-    },
-    {
-      "source": "Neil",
-      "target": "叶传萍",
-      "label": ""
-    },
-    {
-      "source": "卫海",
-      "target": "叶传萍",
-      "label": ""
-    },
-    {
-      "source": "Kitty",
-      "target": "叶传萍",
-      "label": ""
     }
   ]
 }

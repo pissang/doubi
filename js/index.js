@@ -35,43 +35,66 @@ define(function(require) {
     var animation = zr.animation;
     var camera = stage.camera;
 
-    for (var i = 0; i < graph.nodes.length; i++) {
-        var node = graph.nodes[i];
-        node.circleEntity = new NodeEntity({
+    graph.nodes.forEach(function(node) {
+        node.entity = new NodeEntity({
             label: node.name,
             image: 'imgs/person/林萧.jpg'
         });
-        node.circleEntity.position.z = 50 / node.radius;
+        node.entity.position.z = 50 / node.radius;
 
-        stage.add(node.circleEntity);
+        stage.add(node.entity);
+
+        node.entity.on('hover', highlightNode, node)
+    });
+
+    function highlightNode(node) {
+        for (var i = 0; i < graph.nodes.length; i++) {
+            graph.nodes[i].entity.leaveHighlight();
+        }
+        for (var i = 0; i < graph.edges.length; i++) {
+            graph.edges[i].entity.leaveHighlight();
+        }
+        this.entity.highlight();
+
+        // Highlight adjency nodes and edges
+        for (var i = 0; i < this.edges.length; i++) {
+            var edge = this.edges[i];
+            edge.entity.highlight();
+            if (edge.source == this) {
+                edge.target.entity.highlight();
+            } else {
+                edge.source.entity.highlight();
+            }
+        }
+
+        zr.render();
     }
 
-    for (var i = 0; i < graph.edges.length; i++) {
-        var edge = graph.edges[i];
-        var edgeEntity = new EdgeEntity(edge.source.circleEntity, edge.target.circleEntity, edge.label);
+    graph.edges.forEach(function(edge) {
+        var edgeEntity = new EdgeEntity(edge.source.entity, edge.target.entity, edge.label);
 
-        edge.edgeEntity = edgeEntity;
+        edge.entity = edgeEntity;
         zr.addShape(edgeEntity.lineShape);
         if (edgeEntity.labelShape) {
             zr.addShape(edgeEntity.labelShape);
         }
-    }
+    })
 
     stage.update();
 
     for (var i = 0; i < graph.nodes.length; i++) {
         var node = graph.nodes[i];
-        node.circleEntity.unprojectCoord(node.position[0], node.position[1], zr);
+        node.entity.unprojectCoord(node.position[0], node.position[1], zr);
     }
 
     stage.update();
     updateEdgeEntites();
-    
+
     stage.render();
 
     function updateEdgeEntites() {
         for (var i = 0; i < graph.edges.length; i++) {
-            graph.edges[i].edgeEntity.update(zr);
+            graph.edges[i].entity.update(zr);
         }
     }
 
