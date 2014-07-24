@@ -1,173 +1,91 @@
 define(function(require) {
 
+    var Graph = require('./Graph');
+
+    var ForceLayout = require('echarts/chart/ForceLayoutWorker');
     var glMatrix = require('glmatrix');
     var vec2 = glMatrix.vec2;
 
-    var Node = function(name, radius, position, fixed) {
-        this.name = name;
-        this.radius = radius;
-        this.position = position || vec2.create();
-        this.fixed = fixed || false;
+    var Force = function(graph) {
+        
+        this.graph = graph || new Graph();
 
-        this.velocity = vec2.create();
-        this.force = vec2.create();
+        this._layout = new ForceLayout();
+
+        this.width = 0;
+        this.height = 0;
     }
 
-    var Link = function(source, target) {
-        this.source = source;
-        this.target = target;
-    }
+    Force.prototype.run = function() {
 
-    function Force(opts) {
+        var width = this.width;
+        var height = this.height;
 
-        opts = opts || {};
+        var graph = this.graph;
 
-        this.nodes = [];
+        var positionArr = new Float32Array(graph.nodes.length * 2);
+        var radiusArr = new Float32Array(graph.nodes.length);
+        var weightArr = new Float32Array(graph.nodes.length);
 
-        this.links = [];
+        var minR = Infinity;
+        var maxR = -Infinity;
+        var nodesIdxMap = {};
 
-        this.width = opts.width || 0;
-        this.height = opts.height || 0;
+        for (var i = 0; i < graph.nodes.length; i++) {
+            var node = graph.nodes[i];
 
-        this._nodesMap = {};
-    }
+            nodesIdxMap[node.name] = i;
 
-    Force.prototype.addNode = function(name, radius, position, fixed) {
-        if (!position) {
-            position = ve2.fromValues(width * Math.random(), height * Math.random());
-        }
-        var node = new Node(name, radius, position, fixed);
+            var x = width / 2 * (1.5 - Math.random());
+            var y = height / 2 * (1.5 - Math.random());
 
-        this._nodesMap[name] = node;
-        this.nodes.push(node);
-
-        return node;
-    }
-
-    Force.prototype.removeNode = function(node) {
-        var len = this.links.length;
-        for (var i = 0; i < len;) {
-            var link = this.links[i];
-
-            if (link.source == node || link.target == node) {
-                this.links.splice(i, 1);
-                len--;
-            } else {
-                i++;
+            if (!graph.nodes[i].position) {
+                graph.nodes[i].position = [x, y];
             }
-        }
-    }
 
-    Force.prototype.addLink = function(source, target) {
-        if (typeof(source) == 'string') {
-            source = this._nodesMap[source];
-            target = this._nodesMap[target];
-        }
-        if (source && target) {
-            var link = new Link(source, target);
-            this.links.push(link);
+            positionArr[i * 2] = x;
+            positionArr[i * 2 + 1] = y;
 
-            return link;
-        }
-    }
+            radiusArr[i] = node.radius;
 
-    Force.prototype.step = function(stepTime) {
-        var len = this.nodes.length;
-
-        var v12 = vec2.create();
-
-        var area = this.width * this.height;
-        var k = Math.sqrt(area / len);
-        var k2 = k * k;
-
-        // Nodes repulse force
-        for (var i = 0; i < len; i++) {
-            for (var j = i + 1; j < len; j++) {
-                var n1 = this.nodes[i];
-                var n2 = this.nodes[j];
-
-                if (n1.fixed && n2.fixed) {
-                    continue;
-                }
-
-                vec2.sub(v12, n2.position, n1.position);
-                var d = vec2.len(v12);
-
-                // Prevent overlap
-                d -= n1.radius + n2.radius;
-
-                if (d > 500) {
-                    continue;
-                }
-                if (d < 5) {
-                    d = 5;
-                }
-
-                var factor = k * k / d / d;
-
-                if (!n1.fixed) {
-                    vec2.scaleAndAdd(n1.force, n1.force, v12, -factor);
-                }
-                if (!n2.fixed) {
-                    vec2.scaleAndAdd(n2.force, n2.force, v12, factor);   
-                }
+            if (node.radius > maxR) {
+                maxR = node.radius;
+            }
+            if (node.radius < minR) {
+                minR = node.radius;
             }
         }
 
-        var centroid = [this.width / 2, this.height / 2];
-        // for (var i = 0; i < len; i++){
-        //     var node = this.nodes[i];
-        //     if (node.fixed) {
-        //         continue;
-        //     }
-        //     vec2.sub(v12, centroid, node.position);
+        for (var i = 0; i < radiusArr.length; i++) {
+            weightArr[i] = radiusArr[i] / maxR;
+        }
+        
+        var edgeArr = new Float32Array(graph.edges.length * 2);
+        var edgeWeightArr = new Float32Array(graph.edges.length)
+        for (var i = 0; i < graph.edges.length; i++) {
+            var edge = graph.edges[i];
+            edgeArr[i * 2] = nodesIdxMap[edge.source.name];
+            edgeArr[i * 2 + 1] = nodesIdxMap[edge.target.name];
 
-        //     var d = vec2.len(v12);
-        //     var factor = d / 200;
-        //     vec2.scaleAndAdd(
-        //         node.force, node.force, v12, factor
-        //     );
-        // }
-
-        // Nodes attraction force
-        for (var i= 0; i < this.links.length; i++) {
-            var link = this.links[i];
-            var n1 = link.source;
-            var n2 = link.target;
-
-            if (n1.fixed && n2.fixed) {
-                continue;
-            }
-
-            vec2.sub(v12, n2.position, n1.position);
-            var d = vec2.len(v12);
-            if (d === 0) {
-                continue;
-            }
-
-            var factor = d * d / 3 / k;
-            if (!n1.fixed) {
-                vec2.scaleAndAdd(n1.force, n1.force, v12, factor);
-            }
-            if (!n2.fixed) {
-                vec2.scaleAndAdd(n2.force, n2.force, v12, -factor);
-            }
+            edgeWeightArr[i] = edge.weight || 1;
         }
 
-        for (var i = 0; i < len; i++) {
-            var node = this.nodes[i];
-            if (node.fixed) {
-                continue;
-            }
-            var velocity = node.velocity;
-            vec2.scaleAndAdd(velocity, velocity, node.force, stepTime / 100000);
+        this._layout.initNodes(positionArr, weightArr, radiusArr);
+        this._layout.initEdges(edgeArr, edgeWeightArr);
+        this._layout.center = [width / 2, height / 2];
+        this._layout.width = width;
+        this._layout.height = height;
+        this._layout.scaling = 5;
+        this._layout.repulsionByDegree = true;
 
-            velocity[0] = Math.max(Math.min(velocity[0], 1), -1);
-            velocity[1] = Math.max(Math.min(velocity[1], 1), -1);
+        for (var i = 0; i < 50; i++) {
+            this._layout.update();
+        }
 
-            vec2.scaleAndAdd(node.position, node.position, velocity, 0.2);
+        for (var i = 0; i < this._layout.nodes.length; i++) {
+            vec2.copy(graph.nodes[i].position, this._layout.nodes[i].position);
         }
     }
 
     return Force;
-})
+});

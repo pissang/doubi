@@ -1,0 +1,195 @@
+define(function(require) {
+
+    'use strict';
+
+    var Graph = function() {
+        this.nodes = [];
+        this.edges = [];
+
+        this._nodesMap = {};
+        this._edgesMap = {};
+    }
+
+    Graph.prototype.addNode = function(name) {
+        if (this._nodesMap[name]) {
+            return this._nodesMap[name];
+        }
+
+        var node = new Graph.Node(name);
+        this.nodes.push(node);
+
+        this._nodesMap[name] = node;
+        return node;
+    }
+
+    Graph.prototype.getNodeByName = function(name) {
+        return this._nodesMap[name];
+    }
+
+    Graph.prototype.addEdge = function(source, target, weight) {
+        if (typeof(source) == 'string') {
+            source = this._nodesMap[source];
+        }
+        if (typeof(target) == 'string') {
+            target = this._nodesMap[target];
+        }
+        if (! source || !target) {
+            return;
+        }
+
+        var key = source.name + '-' + target.name;
+        if (this._edgesMap[key]) {
+            return this._edgesMap[key];
+        }
+        var edge = new Graph.Edge(source, target, weight);
+
+        source.edges.push(edge);
+        target.edges.push(edge);
+
+        this.edges.push(edge);
+        this._edgesMap[key] = edge;
+
+        return edge;
+    }
+
+    Graph.prototype.fromJSON = function(json) {
+        for (var i = 0; i < json.nodes.length; i++) {
+            var node = this.addNode(json.nodes[i]);
+        }
+
+        for (var i = 0; i < json.edges.length; i++) {
+            var edge = json.edges[i];
+            var source = this._nodesMap[edge.source];
+            var target = this._nodesMap[edge.target];
+            var edge = this.addEdge(source, target, edge.weight);
+        }
+    }
+
+    /**
+     * Get a new create filtered graph
+     * @param  {string} name
+     * @param  {number} maxDepth
+     * @param {number} w1 跟中心节点相关的边的最低权重
+     * @param {number} w2 其它边的最低权重
+     * @return {Graph}
+     */
+    Graph.prototype.filter = function(name, maxDepth, w1, w2) {
+        var graph = new Graph();
+        if (!name || !this._nodesMap[name]) {
+            return graph;
+        }
+        if (typeof(w1) == 'undefined') {
+            w1 = 0;
+        }
+        if (typeof(w2) == 'undefined') {
+            w2 = w1;
+        }
+
+        var node = this._nodesMap[name];
+
+        filter(node, graph.addNode(node.name), 0);
+
+        function filter(node, newNode, depth) {
+            if (depth >= maxDepth) {
+                return;
+            }
+            var edges = node.edges;
+
+            for (var i = 0; i < edges.length; i++) {
+                var edge = edges[i];
+                var w = depth == 0 ? w1 : w2;
+                if (edge.weight < w) {
+                    continue;
+                }
+
+                if (edge.source === node) {
+                    var target = graph.addNode(edge.target.name);
+                    graph.addEdge(newNode, target, edge.weight);
+
+                    filter(edge.target, target, depth+1);
+                } else {
+                    var source = graph.addNode(edge.source.name);
+                    graph.addEdge(source, newNode, edge.weight);
+
+                    filter(edge.source, source, depth+1);
+                }
+            }
+        }
+
+        // Find if any relation between each nodes
+        for (var i = 0; i < graph.nodes.length; i++) {
+            var na = graph.nodes[i];
+            for (var j = 0; j < graph.nodes.length; j++) {
+                var nb = graph.nodes[j];
+                var key = na.name + '-' + nb.name;
+                var edge = this._edgesMap[key];
+                if (edge) {
+                    var w = na.name == name || nb.name == name ? w1 : w2;
+                    if (edge.weight < w) {
+                        continue;
+                    }
+                    graph.addEdge(na, nb, edge.weight);
+                } else {
+                    key = nb.name + '-' + na.name;
+                    edge = this._edgesMap[key];
+                    if (edge) {
+                        var w = na.name == name || nb.name == name ? w1 : w2;
+                        if (edge.weight < w) {
+                            continue;
+                        }
+                        graph.addEdge(nb, na, edge.weight);
+                    }
+                }
+            }
+        }
+
+        return graph;
+    }
+
+    Graph.prototype.removeEdge = function(edge) {
+        var key = source.name + '-' + target.name;
+        edge.source.edges.splice(edge.source.edges.indexOf(edge), 1);
+        edge.target.edges.splice(edge.target.edges.indexOf(edge), 1);
+
+        delete this._edgesMap[edge];
+        this.edges.splice(this.edges.indexOf(edge), 1);
+    }
+
+    Graph.prototype.removeNode = function(node) {
+        var name = node.name;
+        delete this._nodesMap[name];
+        this.nodes.splice(this.nodes.indexOf(node), 1);
+
+        for (var i = 0; i < this.edges.length;) {
+            var edge = this.edges[i];
+            if (edge.source == node || edge.target == node) {
+                this.removeEdge(edge);
+            } else {
+                i++;
+            }
+        }
+    }
+
+    Graph.Node = function(name) {
+        this.name = name;
+
+        this.fixed = false;
+
+        this.edges = [];
+    }
+
+    Graph.prototype.degree = function() {
+        return this.edges.length;
+    }
+
+    Graph.Edge = function(source, target, weight) {
+        this.source = source;
+        this.target = target;
+
+        this.weight = weight;
+
+        this.title = '';
+    }
+
+    return Graph;
+});

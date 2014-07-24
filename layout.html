@@ -23,57 +23,22 @@
         <div id="main"></div>
         <button id="save">Save</button>
         <script type="text/javascript">
-            // require.config({
-            //     packages: [
-            //         {
-            //             name: 'echarts',
-            //             location: '../echarts/src',
-            //             main: 'echarts'
-            //         },
-            //         {
-            //             name: 'zrender',
-            //             location: '../zrender/src',
-            //             main: 'zrender'
-            //         }
-            //     ]
-            // });
             // Boot
             require([
                 'echarts',
                 'echarts/chart/force',
                 'echarts/config',
-                'data'
+                'text!data/relation1.json'
             ], function(echarts, force, ecConfig, data) {
                 var chart = echarts.init(document.getElementById('main'));
-
-                var minRadius = Infinity;
-                var maxRadius = -Infinity;
-                
-                var nodeIndexMap = {};
+                data = JSON.parse(data);
 
                 var nodes = data.nodes.map(function(node, idx) {
-                    minRadius = Math.min(node.r, minRadius);
-                    maxRadius = Math.max(node.r, maxRadius);
-
-                    nodeIndexMap[node.name] = idx;
-
                     var n = {
-                        name: node.title || node.name,
-                        value: node.r
-                    }
-                    if (node.position) {
-                        n.initial = node.position;
-                        n.fixX = true;
-                        n.fixY = true;
+                        name: node.name,
+                        value: node.radius
                     }
                     return n;
-                });
-
-                var links = data.links.map(function(link, idx) {
-                    return {
-                        source: nodeIndexMap[link.source],
-                        target: nodeIndexMap[link.target]
-                    }
                 });
 
                 chart.setOption({
@@ -99,13 +64,11 @@
                                 }
                             }
                         },
-                        minRadius: minRadius,
-                        maxRadius: maxRadius,
-                        attractiveness: 0.7,
-                        centripetal: 0.01,
-                        density : 0.01,
+                        minRadius: 30,
+                        maxRadius: 60,
+                        scaling: 5,
                         nodes: nodes,
-                        links: links
+                        links: data.edges
                     }]
                 });
 

@@ -1,0 +1,50 @@
+<!Doctype html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <script type="text/javascript" src="lib/esl.js"></script>
+        <!--
+        <script type="text/javascript" src="lib/echarts-original.js"></script>
+        <script type="text/javascript" src="lib/zrender-original.js"></script>
+        -->
+        <script type="text/javascript" src="lib/qtek.amd.js"></script>
+        <link rel="stylesheet" href="css/index.css">
+    </head>
+    <body>
+        <div id="main"></div>
+        <script type="text/javascript">
+            require.config({
+                packages: [
+                    {
+                        name: 'zrender',
+                        location: '../../zrender/src',
+                        main: 'zrender'
+                    },
+                    {
+                        name: 'echarts',
+                        location: '../../echarts/src',
+                        main: 'echarts'
+                    }
+                ]
+            });
+            require([
+                'js/CanvasRenderer',
+                'js/Circle3D'
+            ], function(CanvasRenderer, Circle3D) {
+                var $main = document.getElementById('main');
+                var stage = new CanvasRenderer($main);
+
+                var circle = new Circle3D({
+                    label: '林萧',
+                    image: 'imgs/person/林萧.jpg'
+                });
+                circle.position.z = 1;
+                circle.position.x = 300;
+                circle.position.y = 300;
+                stage.add(circle);
+
+                stage.render();
+            });
+        </script>
+    </body>
+</html>

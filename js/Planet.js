@@ -14,12 +14,6 @@ define(function(require) {
     var chart2 = echarts.init(document.getElementById('chart2'), theme);
     chart2.setOption({});
 
-    // 球队图表
-    var team_historyChart = require('./charts/team_history');
-    var team_abilityChart = require('./charts/team_ability');
-    var team_currentChart = require('./charts/team_current');
-    var team_clubChart = require('./charts/team_club');
-
     // 对阵信息
     var vs_1Chart = require('./charts/vs_1');
     var vs_2Chart = require('./charts/vs_2');
@@ -30,12 +24,6 @@ define(function(require) {
     var player_currentChart = require('./charts/player_current');
 
     var animating = false;
-
-    var presetMenuPositions = [
-        [-350, -200],
-        [-400, 200],
-        [-580, 80]
-    ]
 
     var backPosition = [-500, -100];
     var wordcupPosition = [-600, -290];

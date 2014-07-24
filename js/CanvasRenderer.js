@@ -1,9 +1,9 @@
 define(function(require) {
 
     var zrender = require('zrender');
-    var Node3D = require('qtek/Node');
     var Matrix4 = require('qtek/math/Matrix4');
     var Camera = require('qtek/camera/Perspective');
+    var Node3D = require('qtek/Node');
 
     var notifier = require('qtek/core/mixin/notifier');
     var qtekUtil = require('qtek/core/util');
@@ -19,7 +19,6 @@ define(function(require) {
         this._renderables = [];
 
         this._needsRender = false;
-        this._needsRenfresh = false;
 
         var self = this;
 
@@ -28,14 +27,25 @@ define(function(require) {
         }
     }
 
+    CanvasRenderer.prototype.add = function(node) {
+        this.root.add(node);
+
+        this.zr.addGroup(node.group);
+    }
+
+    CanvasRenderer.prototype.remove = function(node) {
+        this.root.remove(node);
+        node.zr = null;
+        
+        this.zr.delGroup(node.group);
+    }
+
     CanvasRenderer.prototype._frame = function(frameTime) {
         if (this._needsRender) {
             this.update();
             this.zr.render();
-        }  else if (this._needsRenfresh) {
-            this.update();
-            this.zr.refresh();
         }
+        
         this._needsRenfresh = false;
         this._needsRender = false;
 
@@ -44,10 +54,6 @@ define(function(require) {
 
     CanvasRenderer.prototype.render = function() {
         this._needsRender = true;
-    }
-
-    CanvasRenderer.prototype.refresh = function() {
-        this._needsRenfresh = true;
     }
 
     CanvasRenderer.prototype.resize = function() {
@@ -69,7 +75,7 @@ define(function(require) {
     }
 
     CanvasRenderer.prototype._updateRenderables = function(node) {
-        if (node.shape && node.projectShape) {
+        if (node.projectShape) {
             this._renderables[this._offset++] = node;
         }
         for (var i = 0; i < node._children.length; i++) {
@@ -91,7 +97,9 @@ define(function(require) {
 
                 renderable.projectShape(worldView, this.zr);
 
-                this.zr.modShape(renderable.shape.id);
+                for (var j = 0; j < renderable.shapeList.length; j++) {
+                    this.zr.modShape(renderable.shapeList[j].id);
+                }
             }
         }
     })();
