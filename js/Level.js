@@ -13,6 +13,10 @@ define(function(require) {
         this.zr = zr;
 
         this.root = new Group();
+
+        this.level = 0;
+
+        this.canvas = null;
     }
 
     Level.prototype.init = function() {
@@ -29,11 +33,14 @@ define(function(require) {
         force.graph = graph;
         force.run();
 
+        graph.layout = force;
+
         // 更新节点位置大小
         graph.nodes.forEach(function(node) {
             node.entity = new NodeEntity({
                 label: node.name,
-                image: node.image
+                image: node.image,
+                level: this.level
             });
 
             node.entity.group.position = node.position;
@@ -45,10 +52,20 @@ define(function(require) {
             node.entity.on('hover', function() {
                 this.highlightNode(node);
             }, this);
+
+            node.entity.on('click', function() {
+                this.highlightNode(node);
+            }, this);
+
         }, this);
 
         graph.edges.forEach(function(edge) {
-            var edgeEntity = new EdgeEntity(edge.source.entity, edge.target.entity, edge.label);
+            var edgeEntity = new EdgeEntity({
+                source: edge.source.entity,
+                target: edge.target.entity,
+                label: edge.label,
+                level: this.level
+            });
 
             edge.entity = edgeEntity;
             this.root.addChild(edgeEntity.lineShape);
@@ -58,6 +75,11 @@ define(function(require) {
         }, this);
 
         this.updateEdgeEntites();
+
+        zr.addGroup(this.root);
+        zr.refresh();
+
+        this.dom = zr.painter.getLayer(this.level).dom;
     }
 
     Level.prototype.leaveHighlight = function() {
@@ -97,6 +119,10 @@ define(function(require) {
         for (var i = 0; i < this.graph.edges.length; i++) {
             this.graph.edges[i].entity.update(this.zr);
         }
+    }
+
+    Level.prototype.outOfFocus = function() {
+
     }
 
     return Level;

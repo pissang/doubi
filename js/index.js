@@ -6,6 +6,14 @@ define(function(require) {
     var Graph = require('./Graph');
     var Level = require('./Level');
     var particles = require('./particles');
+    var BlurFilter = require('./BlurFilter');
+
+    var outOfFocusCanvas = document.getElementById('out-of-focus');
+    outOfFocusCanvas.width = window.innerWidth;
+    outOfFocusCanvas.height = window.innerHeight;
+    var blurFilter = new BlurFilter({
+        canvas: outOfFocusCanvas
+    });
 
     var graph = new Graph();
     for (var i = 0; i < relation1.nodes.length; i++) {
@@ -27,8 +35,29 @@ define(function(require) {
     var level = new Level(graph, zr);
     level.init();
 
-    zr.addGroup(level.root);
-    zr.render();
+    blurFilter.addImage(level.dom);
+    setTimeout(function() {
+        zr.animation.animate(blurFilter)
+            .when(0, {
+                blurSize: 0,
+                scale: 1
+            })
+            .when(200, {
+                blurSize: 3
+            })
+            .when(500, {
+                scale: 0.8
+            })
+            .during(function() {
+                blurFilter.render();
+            })
+            .start();
+
+        // level.graph.layout.run();
+        // level.updateEdgeEntites();
+
+        // zr.refresh();
+    }, 1000);
 
     particles.start();
     animation.bind('frame', function(frameTime) {

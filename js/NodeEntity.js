@@ -42,6 +42,8 @@ define(function(require) {
 
         radius: 60,
 
+        level: 0,
+
         _depth: 0,
 
         _labelShape: null,
@@ -68,7 +70,8 @@ define(function(require) {
             highlightStyle: {
                 opacity: 0
             },
-            zlevel: 1
+            z: 1,
+            zlevel: this.level
         });
         this.group.addChild(outlineShape);
         
@@ -88,13 +91,18 @@ define(function(require) {
                 width: this.radius * 2,
                 height: this.radius * 2
             },
+            clickable: true,
+            onclick: function() {
+                self.trigger('click');
+            },
             onmouseover: function() {
                 self.trigger('hover');
             },
             highlightStyle: {
                 opacity: 0
             },
-            zlevel: 1
+            z: 1,
+            zlevel: this.level
         });
         var labelShape = new RectShape({
             style: {
@@ -114,7 +122,8 @@ define(function(require) {
             highlightStyle: {
                 opacity: 0
             },
-            zlevel: 1
+            z: 1,
+            zlevel: this.level
         });
         contentGroup.addChild(imageShape);
         contentGroup.addChild(labelShape);
