@@ -19,13 +19,13 @@ define(function(require) {
 
         this.lineShape = new LineShape({
             style: {
-                lineWidth: 1,
+                lineWidth: 2,
                 strokeColor: '#3791dc',
                 xStart: 0,
                 yStart: 0,
                 xEnd: 0,
                 yEnd: 0,
-                opacity: 0.2
+                opacity: 0.3
             },
             highlightStyle: {
                 opacity: 0
@@ -97,22 +97,28 @@ define(function(require) {
         }
     }
 
-    EdgeEntity.prototype.highlight = function() {
-        this.lineShape.style.lineWidth = 2;
+    EdgeEntity.prototype.highlight = function(zr) {
+        this.lineShape.style.lineWidth = 3;
         this.lineShape.style.strokeColor = '#8c72d4';
         this.lineShape.style.opacity = 1;
 
         this.labelShape.ignore = false;
         this.labelShape.style.color = '#8c72d4';
+
+        zr.modShape(this.lineShape.id);
+        zr.modShape(this.labelShape.id);
     }
 
-    EdgeEntity.prototype.leaveHighlight = function() {
-        this.lineShape.style.lineWidth = 1;
+    EdgeEntity.prototype.leaveHighlight = function(zr) {
+        this.lineShape.style.lineWidth = 2;
         this.lineShape.style.strokeColor = '#3791dc';
-        this.lineShape.style.opacity = 0.2;
+        this.lineShape.style.opacity = 0.3;
 
         this.labelShape.style.color = '#3791dc';
         this.labelShape.ignore = true;
+        
+        zr.modShape(this.lineShape.id);
+        zr.modShape(this.labelShape.id);
     }
 
     return EdgeEntity;

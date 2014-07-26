@@ -1,9 +1,6 @@
 define(function(require) {
 
-    var Node3D = require('qtek/Node');
-    var Vector4 = require('qtek/math/Vector4');
-    var Vector3 = require('qtek/math/Vector3');
-    var Matrix4 = require('qtek/math/Matrix4');
+    var Base = require('qtek/core/Base');
 
     var Group = require('zrender/shape/Group');
     var RectShape = require('zrender/shape/Rectangle');
@@ -21,7 +18,7 @@ define(function(require) {
     CircleStyle.prototype.y = 0;
     CircleStyle.prototype.r = 50;
 
-    var NodeEntity = Node3D.derive({
+    var NodeEntity = Base.derive({
         
         group: null,
 
@@ -62,11 +59,16 @@ define(function(require) {
             style: new CircleStyle({
                 color: this.color,
                 r: this.radius + this.lineWidth,
-                brushType: 'both'
+                brushType: 'both',
+                shadowColor: 'black',
+                shadowBlur: 20,
+                shadowOffsetX: 0,
+                shadowOffsetY: 0
             }),
             highlightStyle: {
                 opacity: 0
-            }
+            },
+            zlevel: 1
         });
         this.group.addChild(outlineShape);
         
@@ -74,8 +76,7 @@ define(function(require) {
         var clipShape = new CircleShape({
             style: new CircleStyle({
                 r: this.radius
-            }),
-            zlevel: 1
+            })
         });
         contentGroup.clipShape = clipShape;
 
@@ -152,35 +153,7 @@ define(function(require) {
                 })
                 .start('CubicOut');
         },
-
-        projectShape: function(m4, zr) {
-            m4 = m4._array;
-            var x = m4[12];
-            var y = m4[13];
-            var z = m4[14];
-            var w = z;
-            
-            var width = zr.getWidth();
-            var height = zr.getHeight();
-
-            this.group.position[0] = (x - width / 2) / w + width / 2;
-            this.group.position[1] = (y - height / 2) / w + height / 2;
-
-            // TODO
-            this.group.scale[0] = this.scale._array[0] / w;
-            this.group.scale[1] = this.scale._array[1] / w;
-
-            // this.shape.style.opacity = this.alpha / Math.max(w, 1);
-
-            if (z <= 0 || !this.visible) {
-                this.group.ignore = true;
-            } else {
-                this.group.ignore = false;
-            }
-
-            this._depth = z;
-        },
-
+        
         highlight: function() {
             this._outlineShape.style.color = this.highlightColor;
             this._labelShape.style.color = this.highlightLabelColor;
@@ -189,18 +162,6 @@ define(function(require) {
         leaveHighlight: function() {
             this._outlineShape.style.color = this.color;
             this._labelShape.style.color = this.labelColor;
-        },
-
-        unprojectCoord: function(x, y, zr) {
-            var width = zr.getWidth();
-            var height = zr.getHeight();
-
-            x = (x - width / 2) * this._depth + width / 2;
-            y = (y - height / 2) * this._depth + height / 2;
-
-            this.position._array[0] = x;
-            this.position._array[1] = y;
-            this.position._dirty = true;
         }
     });
 

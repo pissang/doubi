@@ -2,55 +2,68 @@
   "nodes": [
     {
       "name": "林萧",
-      "radius": 50
+      "radius": 60,
+      "image": "imgs/person/林萧.jpg"
     },
     {
       "name": "顾里",
-      "radius": 48
+      "radius": 48,
+      "image": "imgs/person/顾里.jpg"
     },
     {
       "name": "南湘",
-      "radius": 46
+      "radius": 46,
+      "image": "imgs/person/南湘.jpg"
     },
     {
       "name": "唐宛如",
-      "radius": 44
+      "radius": 44,
+      "image": "imgs/person/唐宛如.jpg"
     },
     {
       "name": "顾源",
-      "radius": 42
+      "radius": 42,
+      "image": "imgs/person/顾源.jpg"
     },
     {
       "name": "周崇光",
-      "radius": 40
+      "radius": 40,
+      "image": "imgs/person/周崇光.jpg"
     },
     {
       "name": "宫洺",
-      "radius": 38
+      "radius": 38,
+      "image": "imgs/person/宫洺.jpg"
     },
     {
       "name": "席城",
-      "radius": 36
+      "radius": 36,
+      "image": "imgs/person/席城.jpg"
     },
     {
       "name": "顾准",
-      "radius": 34
+      "radius": 34,
+      "image": "imgs/person/顾准.jpg"
     },
     {
       "name": "Neil",
-      "radius": 32
+      "radius": 32,
+      "image": "imgs/person/Neil.jpg"
     },
     {
       "name": "卫海",
-      "radius": 30
+      "radius": 30,
+      "image": "imgs/person/卫海.jpg"
     },
     {
       "name": "Kitty",
-      "radius": 28
+      "radius": 28,
+      "image": "imgs/person/Kitty.jpg"
     },
     {
       "name": "叶传萍",
-      "radius": 26
+      "radius": 26,
+      "image": "imgs/person/叶传萍.jpg"
     }
   ],
   "edges": [

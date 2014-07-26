@@ -21,3 +21,22 @@ body {
     right: 0px;
     z-index: 10;
 }
+
+#bg-particles {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    z-index: 1;
+}
+
+#logo {
+    width: 154px;
+    height: 72px;
+    position: absolute;
+    left: 30px;
+    top: 30px;
+
+    background-image: url(../imgs/logo.png);
+}

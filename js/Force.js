@@ -79,7 +79,7 @@ define(function(require) {
         this._layout.gravity = 1.5;
         this._layout.preventOverlap = true;
 
-        for (var i = 0; i < 50; i++) {
+        for (var i = 0; i < 100; i++) {
             this._layout.update();
         }
 

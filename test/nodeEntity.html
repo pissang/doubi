@@ -2,18 +2,19 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <script type="text/javascript" src="lib/esl.js"></script>
+        <script type="text/javascript" src="../lib/esl.js"></script>
         <!--
         <script type="text/javascript" src="lib/echarts-original.js"></script>
         <script type="text/javascript" src="lib/zrender-original.js"></script>
         -->
-        <script type="text/javascript" src="lib/qtek.amd.js"></script>
+        <script type="text/javascript" src="../lib/qtek.amd.js"></script>
         <link rel="stylesheet" href="css/index.css">
     </head>
     <body>
         <div id="main"></div>
         <script type="text/javascript">
             require.config({
+                baseUrl: '../',
                 packages: [
                     {
                         name: 'zrender',
