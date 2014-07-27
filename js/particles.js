@@ -89,7 +89,7 @@ define(function(require) {
             max: 1000,
             amount: 4,
             life: Emitter.random1D(2, 4),
-            spriteSize: Emitter.constant(300),
+            spriteSize: Emitter.constant(400 * (window.devicePixelRatio || 1)),
             position: Emitter.random3D(
                 new Vector3(-100, -80, 60),
                 new Vector3(100, 0, -60)
@@ -103,7 +103,7 @@ define(function(require) {
             max: 1000,
             amount: 3,
             life: Emitter.random1D(2, 4),
-            spriteSize: Emitter.constant(300),
+            spriteSize: Emitter.constant(400 * (window.devicePixelRatio || 1)),
             position: Emitter.random3D(
                 new Vector3(-100, 0, 60),
                 new Vector3(100, 40, -60)

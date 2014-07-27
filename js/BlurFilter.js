@@ -30,11 +30,11 @@ define(function(require) {
 
         scale: 1,
 
-        scaleRatio: 0.8,
+        scaleRatio: 0.95,
 
         blurSize: 3,
 
-        blurRepeat: 3,
+        blurRepeat: 5,
 
         _sceneNode: null,
 
@@ -136,16 +136,21 @@ define(function(require) {
     }, {
 
         addImage: function(image) {
-            var texture = new Texture2D({
-                image: image
-            });
+            if (!image._texture) {
+                image._texture = new Texture2D({
+                    image: image
+                });
+            }
+            image._texture.dirty();
+            image._texture.getWebGLTexture(this._renderer.gl);
+
             var mesh = new Mesh({
                 geometry: planeGeo,
                 material: new Material({
                     shader: planeShader
                 })
             });
-            mesh.material.set('diffuseMap', texture);
+            mesh.material.set('diffuseMap', image._texture);
 
             this._imageMeshes.push(mesh);
 
@@ -179,6 +184,11 @@ define(function(require) {
 
             this._compositor.render(renderer);
             // renderer.render(this._sceneNode.scene, this._sceneNode.camera);
+        },
+
+        clear: function() {
+            var gl = this._renderer.gl;
+            gl.clear(gl.DEPTH_BUFFER_BIT | gl.COLOR_BUFFER_BIT);
         }
     });
 

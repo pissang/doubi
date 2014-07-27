@@ -10,12 +10,22 @@ define(function(require) {
         this._edgesMap = {};
     }
 
-    Graph.prototype.addNode = function(name) {
+    Graph.prototype.addNode = function(name, extraData) {
         if (this._nodesMap[name]) {
             return this._nodesMap[name];
         }
 
         var node = new Graph.Node(name);
+
+        for (var key in extraData) {
+            if (key == 'name' || key == 'edges') {
+                continue;
+            }
+            if (extraData.hasOwnProperty(key)) {
+                node[key] = extraData[key];
+            }
+        }
+
         this.nodes.push(node);
 
         this._nodesMap[name] = node;
@@ -26,7 +36,7 @@ define(function(require) {
         return this._nodesMap[name];
     }
 
-    Graph.prototype.addEdge = function(source, target, weight) {
+    Graph.prototype.addEdge = function(source, target, extraData) {
         if (typeof(source) == 'string') {
             source = this._nodesMap[source];
         }
@@ -41,7 +51,16 @@ define(function(require) {
         if (this._edgesMap[key]) {
             return this._edgesMap[key];
         }
-        var edge = new Graph.Edge(source, target, weight);
+        var edge = new Graph.Edge(source, target);
+
+        for (var key in extraData) {
+            if (key == 'source' || key == 'target') {
+                continue;
+            }
+            if (extraData.hasOwnProperty(key)) {
+                edge[key] = extraData[key];
+            }
+        }
 
         source.edges.push(edge);
         target.edges.push(edge);
@@ -50,19 +69,6 @@ define(function(require) {
         this._edgesMap[key] = edge;
 
         return edge;
-    }
-
-    Graph.prototype.fromJSON = function(json) {
-        for (var i = 0; i < json.nodes.length; i++) {
-            var node = this.addNode(json.nodes[i]);
-        }
-
-        for (var i = 0; i < json.edges.length; i++) {
-            var edge = json.edges[i];
-            var source = this._nodesMap[edge.source];
-            var target = this._nodesMap[edge.target];
-            var edge = this.addEdge(source, target, edge.weight);
-        }
     }
 
     /**
@@ -172,9 +178,6 @@ define(function(require) {
 
     Graph.Node = function(name) {
         this.name = name;
-
-        this.fixed = false;
-
         this.edges = [];
     }
 
@@ -182,13 +185,9 @@ define(function(require) {
         return this.edges.length;
     }
 
-    Graph.Edge = function(source, target, weight) {
+    Graph.Edge = function(source, target) {
         this.source = source;
         this.target = target;
-
-        this.weight = weight;
-
-        this.title = '';
     }
 
     return Graph;

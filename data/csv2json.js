@@ -19,8 +19,9 @@ var nameList = lines[0].split('\t').slice(1);
 json.nodes = nameList.map(function(name, idx) {
     return {
         name: name,
-        radius: 50 - idx * 2,
-        image: 'imgs/person/' + name + '.jpg'
+        radius: Math.max(50 - idx * 2, 30),
+        image: 'imgs/roles/' + name + '.jpg',
+        action: 'role/' + name
     }
 });
 

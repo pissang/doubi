@@ -37,7 +37,8 @@ define(function(require) {
             highlightStyle: {
                 opacity: 0
             },
-            level: this.level
+            zlevel: this.level,
+            z: 0.1
         });
 
         if (this.label) {
@@ -59,7 +60,8 @@ define(function(require) {
                     opacity: 0
                 },
                 ignore: true,
-                level: this.level
+                zlevel: this.level,
+                z: 0.5
             });
         }
     }, {

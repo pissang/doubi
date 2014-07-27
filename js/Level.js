@@ -6,6 +6,9 @@ define(function(require) {
     var EdgeEntity = require('./EdgeEntity');
     var Force = require('./Force');
 
+    var notifier = require('qtek/core/mixin/notifier');
+    var qtekUtil = require('qtek/core/util');
+
     var Level = function(graph, zr) {
 
         this.graph = graph;
@@ -16,7 +19,9 @@ define(function(require) {
 
         this.level = 0;
 
-        this.canvas = null;
+        this.dom = null;
+
+        this.disableHover = false;
     }
 
     Level.prototype.init = function() {
@@ -35,31 +40,32 @@ define(function(require) {
 
         graph.layout = force;
 
-        // 更新节点位置大小
-        graph.nodes.forEach(function(node) {
+        qtekUtil.each(graph.nodes, function(node) {
             node.entity = new NodeEntity({
-                label: node.name,
+                label: typeof(node.title) !== 'undefined' ? node.title : node.name,
                 image: node.image,
-                level: this.level
+                level: this.level,
+                radius: node.radius
             });
 
             node.entity.group.position = node.position;
-            node.entity.group.scale[0] = 
-            node.entity.group.scale[1] = node.radius / 50;
 
             this.root.addChild(node.entity.group);
 
             node.entity.on('hover', function() {
+                if (this.disableHover) {
+                    return;
+                }
                 this.highlightNode(node);
             }, this);
 
             node.entity.on('click', function() {
-                this.highlightNode(node);
+                this.trigger('action', node.action, node);
             }, this);
 
         }, this);
 
-        graph.edges.forEach(function(edge) {
+        qtekUtil.each(graph.edges, function(edge) {
             var edgeEntity = new EdgeEntity({
                 source: edge.source.entity,
                 target: edge.target.entity,
@@ -79,7 +85,10 @@ define(function(require) {
         zr.addGroup(this.root);
         zr.refresh();
 
-        this.dom = zr.painter.getLayer(this.level).dom;
+    }
+
+    Level.prototype.getDom = function() {
+        return this.zr.painter.getLayer(this.level).dom;
     }
 
     Level.prototype.leaveHighlight = function() {
@@ -121,9 +130,7 @@ define(function(require) {
         }
     }
 
-    Level.prototype.outOfFocus = function() {
-
-    }
+    qtekUtil.extend(Level.prototype, notifier);
 
     return Level;
 });

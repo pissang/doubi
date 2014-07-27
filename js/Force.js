@@ -75,7 +75,8 @@ define(function(require) {
         this._layout.center = [width / 2, height / 2];
         this._layout.width = width;
         this._layout.height = height;
-        this._layout.scaling = 2;
+        // TODO
+        this._layout.scaling = Math.sqrt(Math.sqrt(graph.edges.length / graph.nodes.length));
         this._layout.gravity = 1.5;
         this._layout.preventOverlap = true;
 
@@ -84,7 +85,11 @@ define(function(require) {
         }
 
         for (var i = 0; i < this._layout.nodes.length; i++) {
-            vec2.copy(graph.nodes[i].position, this._layout.nodes[i].position);
+            if (graph.nodes[i].fixed) {
+                vec2.copy(this._layout.nodes[i].position, graph.nodes[i].position);
+            } else {
+                vec2.copy(graph.nodes[i].position, this._layout.nodes[i].position);
+            }
         }
     }
 
