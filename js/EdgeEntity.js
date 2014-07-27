@@ -110,24 +110,27 @@ define(function(require) {
             this.lineShape.style.lineWidth = 3;
             this.lineShape.style.strokeColor = '#8c72d4';
             this.lineShape.style.opacity = 1;
-
-            this.labelShape.ignore = false;
-            this.labelShape.style.color = '#8c72d4';
-
             zr.modShape(this.lineShape.id);
-            zr.modShape(this.labelShape.id);
+
+            if (this.labelShape) {
+                this.labelShape.ignore = false;
+                this.labelShape.style.color = '#8c72d4';
+                zr.modShape(this.labelShape.id);
+            }
         },
 
         leaveHighlight : function(zr) {
             this.lineShape.style.lineWidth = 2;
             this.lineShape.style.strokeColor = '#3791dc';
             this.lineShape.style.opacity = 0.3;
-
-            this.labelShape.style.color = '#3791dc';
-            this.labelShape.ignore = true;
-            
             zr.modShape(this.lineShape.id);
-            zr.modShape(this.labelShape.id);
+
+            if (this.labelShape) {
+                this.labelShape.style.color = '#3791dc';
+                this.labelShape.ignore = true;   
+                zr.modShape(this.labelShape.id);
+            }
+            
         }
 
     });

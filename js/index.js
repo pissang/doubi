@@ -2,6 +2,7 @@ define(function(require) {
 
     var relation1 = JSON.parse(require('text!../data/relation1.json'));
     var relation2 = require('../data/relation2');
+    var relation3 = require('../data/relation3');
     var qtekUtil = require('qtek/core/util');
 
     var zrender = require('zrender');
@@ -71,17 +72,56 @@ define(function(require) {
             level.disableHover = true;
             level.init();
 
+            level.mainNode = mainNode;
+
             level.highlightNode(mainNode);
 
             enterLevel(level);
+        }
+        else if (action.indexOf('actor/') == 0)  // 进入演员level
+        {
+            var graph = new Graph();
+            var name = action.slice('actor/'.length);
+            var data = relation3.get(name, currentLevel.mainNode);
+            if (!data) {
+                return;
+            }
+            var mainNode;
+            qtekUtil.each(data.nodes, function(node) {
+                var n = graph.addNode(node.name, node);
+                if (node.name == name ) {
+                    mainNode = n;
+                }
+            });
+            qtekUtil.each(data.edges, function(edge) {
+                graph.addEdge(edge.source, edge.target, edge);
+            });
 
-        } else if (action == 'back') {
+            mainNode.position = [zr.getWidth() / 2, zr.getHeight() / 2];
+
+            var level = new Level(graph, zr);
+            level.level = levelStack.length;
+            level.disableHover = true;
+            level.init();
+            
+            level.mainNode = mainNode;
+
+            level.highlightNode(mainNode);
+
+            enterLevel(level);
+        }
+        else if (action == 'back') {
 
             leaveLevel();
         }
     }
 
     function enterLevel(level) {
+
+        if (levelStack.length > 1) {
+            // TODO
+            blurFilter.popImage();
+        }
 
         blurFilter.addImage(currentLevel.getDom());
 

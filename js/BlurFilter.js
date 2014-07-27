@@ -6,6 +6,7 @@ define(function(require) {
     var FilterNode = require('qtek/compositor/Node');
     var SceneNode = require('qtek/compositor/SceneNode');
     var Texture2D = require('qtek/texture/Texture2D');
+    var Texture = require('qtek/Texture');
     var Scene = require('qtek/Scene');
     var OrthoCamera = require('qtek/camera/Orthographic');
     var Plane = require('qtek/geometry/Plane');
@@ -62,17 +63,13 @@ define(function(require) {
             name: 'scene',
             scene: scene,
             camera: camera,
-            color: {
-                parameters: {
-                    width: function(renderer) {return renderer.width},
-                    height: function(renderer) {return renderer.height}
-                }
-            },
             outputs: {
                 color: {
                     parameters: {
                         width: function(renderer) {return renderer.width},
-                        height: function(renderer) {return renderer.height}
+                        height: function(renderer) {return renderer.height},
+                        minFilter: Texture.NEAREST,
+                        magFilter: Texture.NEAREST
                     }
                 }
             }
@@ -96,7 +93,9 @@ define(function(require) {
                     color: {
                         parameters: {
                             width: function(renderer) {return renderer.width},
-                            height: function(renderer) {return renderer.height}
+                            height: function(renderer) {return renderer.height},
+                            minFilter: Texture.NEAREST,
+                            magFilter: Texture.NEAREST
                         }
                     }
                 }
@@ -114,7 +113,9 @@ define(function(require) {
                     color: {
                         parameters: {
                             width: function(renderer) {return renderer.width},
-                            height: function(renderer) {return renderer.height}
+                            height: function(renderer) {return renderer.height},
+                            minFilter: Texture.NEAREST,
+                            magFilter: Texture.NEAREST
                         }
                     }
                 }
@@ -136,13 +137,13 @@ define(function(require) {
     }, {
 
         addImage: function(image) {
-            if (!image._texture) {
-                image._texture = new Texture2D({
-                    image: image
-                });
-            }
-            image._texture.dirty();
-            image._texture.getWebGLTexture(this._renderer.gl);
+            var texture = new Texture2D({
+                image: image,
+                minFilter: Texture.NEAREST,
+                magFilter: Texture.NEAREST
+            });
+            texture.dirty();
+            texture.getWebGLTexture(this._renderer.gl);
 
             var mesh = new Mesh({
                 geometry: planeGeo,
@@ -150,7 +151,7 @@ define(function(require) {
                     shader: planeShader
                 })
             });
-            mesh.material.set('diffuseMap', image._texture);
+            mesh.material.set('diffuseMap', texture);
 
             this._imageMeshes.push(mesh);
 

@@ -6,7 +6,7 @@ define(function(require) {
         '林萧': {
             actor: '杨幂',
             life: 'imgs/actors/林萧-杨幂-生活照.jpg',
-            still: 'imgs/actors/林萧-剧照.jpg',
+            still: 'imgs/actors/林萧-剧照.jpg'
         },
         '宫洛': {
             actor: '锦荣',
@@ -82,12 +82,14 @@ define(function(require) {
                 {
                     name: opt.actor,
                     image: opt.life,
-                    radius: 60
+                    radius: 60,
+                    action: 'actor/' + opt.actor
                 },
                 {
                     name: '郭敬明',
                     image: 'imgs/郭敬明.jpg',
-                    radius: 55
+                    radius: 55,
+                    action: 'actor/郭敬明'
                 },
                 {
                     name: '角色概况',

@@ -22,6 +22,8 @@ define(function(require) {
         this.dom = null;
 
         this.disableHover = false;
+
+        this.mainNode = null;
     }
 
     Level.prototype.init = function() {

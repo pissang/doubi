@@ -3,9 +3,11 @@
     <head>
         <meta charset="utf-8" />
         <script type="text/javascript" src="lib/esl.js"></script>
+        <!--
         <script type="text/javascript" src="lib/echarts-original.js"></script>
         <script type="text/javascript" src="lib/zrender-original.js"></script>
         <script type="text/javascript" src="lib/qtek.amd.js"></script>
+        -->
         <link rel="stylesheet" href="css/index.css">
     </head>
     <body>
@@ -14,6 +16,28 @@
         <div id="main"></div>
         <div id="logo"></div>
         <script type="text/javascript">
+            require.config({
+                paths: {
+                    'glmatrix': '../../qtek/thirdparty/gl-matrix'
+                },
+                packages: [
+                    {
+                        name: 'zrender',
+                        location: '../../zrender/src',
+                        main: 'zrender'
+                    },
+                    {
+                        name: 'echarts',
+                        location: '../../echarts/src',
+                        main: 'echarts'
+                    },
+                    {
+                        name: 'qtek',
+                        location: '../../qtek/src',
+                        main: 'qtek'
+                    }
+                ]
+            });
             require(['js/index']);
         </script>
     </body>

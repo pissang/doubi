@@ -73,11 +73,11 @@ define(function(require) {
         this._layout.initNodes(positionArr, weightArr, radiusArr);
         this._layout.initEdges(edgeArr, edgeWeightArr);
         this._layout.center = [width / 2, height / 2];
-        this._layout.width = width;
-        this._layout.height = height;
+        this._layout.width = width * 1.3;
+        this._layout.height = height / 1.3;
         // TODO
         this._layout.scaling = Math.sqrt(Math.sqrt(graph.edges.length / graph.nodes.length));
-        this._layout.gravity = 1.5;
+        this._layout.gravity = 0.5;
         this._layout.preventOverlap = true;
 
         for (var i = 0; i < 100; i++) {
