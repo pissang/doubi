@@ -29,7 +29,7 @@ define(function(require) {
 
         alpha: 1,
 
-        lineWidth: 3,
+        lineWidth: 5,
 
         color: '#3791dc',
 
@@ -53,6 +53,7 @@ define(function(require) {
         _outlineShape: null,
         _imageShape: null,
         _shadowShape: null,
+        _glowShape: null,
 
         _clipShape: null
 
@@ -66,8 +67,6 @@ define(function(require) {
         var outlineShape = new CircleShape({
             style: new CircleStyle({
                 strokeColor: this.color,
-                r: this.radius,
-                lineWidth: this.lineWidth,
                 brushType: 'stroke'
             }),
             highlightStyle: {
@@ -86,22 +85,37 @@ define(function(require) {
                 self.trigger('mouseout');
             }
         });
+        var glowShape = new CircleShape({
+            style: new CircleStyle({
+                strokeColor: this.highlightColor,
+                brushType: 'stroke',
+                opacity: 0.3
+            }),
+            highlightStyle: {
+                opacity: 0
+            },
+            z: 1.5,
+            ignore: true,
+            zlevel: this.level,
+            hoverable: false,
+        });
+
         var shadowShape = new CircleShape({
             style: new CircleStyle({
                 color: 'black',
-                r: this.radius,
                 brushType: 'fill',
                 shadowColor: 'black',
                 shadowBlur: 20,
                 shadowOffsetX: 0,
                 shadowOffsetY: 0
             }),
-            z: 0.9,
+            z: 0.5,
             zlevel: this.level,
             hoverable: false
         });
         this.group.addChild(shadowShape);
         this.group.addChild(outlineShape);
+        this.group.addChild(glowShape);
         
         var contentGroup = new Group();
         var clipShape = new CircleShape({
@@ -113,11 +127,7 @@ define(function(require) {
 
         var imageShape = new ImageShape({
             style: {
-                image: this.image || textNodeBG,
-                x: -this.radius,
-                y: -this.radius,
-                width: this.radius * 2,
-                height: this.radius * 2
+                image: this.image || textNodeBG
             },
             hoverable: false,
             z: 1,
@@ -127,11 +137,6 @@ define(function(require) {
         if (this.label) {
             var labelShape = new RectShape({
                 style: {
-                    x: -this.radius,
-                    y: this.radius - 20,
-                    height: 20,
-                    width: this.radius * 2,
-
                     color: this.labelColor,
                     brushType: 'fill',
                     text: this.label,
@@ -147,11 +152,6 @@ define(function(require) {
             });
 
             if (!this.image) {
-                labelShape.style.x = -this.radius;
-                labelShape.style.y = -this.radius;
-                labelShape.style.width = this.radius * 2;
-                labelShape.style.height = this.radius * 2;
-
                 // Empty inside
                 labelShape.style.color = 'rgba(0, 0, 0, 0)';
                 labelShape.style.textFont = '20px 微软雅黑';
@@ -169,6 +169,8 @@ define(function(require) {
         this._labelShape = labelShape;
         this._outlineShape = outlineShape;
         this._clipShape = clipShape;
+        this._shadowShape = shadowShape;
+        this._glowShape = glowShape;
 
         this.shapeList.push(this._imageShape);
 
@@ -180,38 +182,47 @@ define(function(require) {
     }, {
 
         update: function(zr) {
-            this._outlineShape.style.r = this.radius;
+            var radius = zr.getWidth() / 1200 * this.radius;
 
-            this._imageShape.style.x = -this.radius;
-            this._imageShape.style.y = -this.radius;
-            this._imageShape.style.width = this.radius * 2;
-            this._imageShape.style.height = this.radius * 2;
+            this._outlineShape.style.r = radius;
+            this._outlineShape.style.lineWidth = radius / 50 * this.lineWidth;
+            this._glowShape.style.lineWidth = this._outlineShape.style.lineWidth * 2;
+            this._glowShape.style.r = radius + this._outlineShape.style.lineWidth;
 
-            this._clipShape.style.r = this.radius;
+            this._imageShape.style.x = -radius;
+            this._imageShape.style.y = -radius;
+            this._imageShape.style.width = radius * 2;
+            this._imageShape.style.height = radius * 2;
+
+            this._clipShape.style.r = radius;
 
             if (this._labelShape) {
                 if (this.image) {
-                    this._labelShape.style.x = -this.radius;
-                    this._labelShape.style.y = this.radius - 20;
-                    this._labelShape.style.width = this.radius * 2;
+                    this._labelShape.style.x = -radius;
+                    this._labelShape.style.y = radius - 20;
+                    this._labelShape.style.width = radius * 2;
+                    this._labelShape.style.height = 20;
                 } else {
-                    this._labelShape.style.x = -this.radius;
-                    this._labelShape.style.y = -this.radius;
-                    this._labelShape.style.width = this.radius * 2;
-                    this._labelShape.style.height = this.radius * 2;
+                    this._labelShape.style.x = -radius;
+                    this._labelShape.style.y = -radius;
+                    this._labelShape.style.width = radius * 2;
+                    this._labelShape.style.height = radius * 2;
                 }
+                zr.modShape(this._labelShape.id);
             }
 
+            this._shadowShape.style.r = radius;
+
             zr.modShape(this._outlineShape.id);
-            zr.modShape(this._labelShape.id);
             zr.modShape(this._imageShape.id);
+            zr.modShape(this._shadowShape.id);
 
             zr.modGroup(this.group.id);
         },
 
         highlight: function() {
             this._outlineShape.style.strokeColor = this.highlightColor;
-
+            this._glowShape.ignore = false;
             if (this.image && this._labelShape) {
                 this._labelShape.style.color = this.highlightLabelColor;
             }
@@ -219,7 +230,7 @@ define(function(require) {
 
         leaveHighlight: function() {
             this._outlineShape.style.strokeColor = this.color;
-
+            this._glowShape.ignore = true;
             if (this.image && this._labelShape) {
                 this._labelShape.style.color = this.labelColor;
             }

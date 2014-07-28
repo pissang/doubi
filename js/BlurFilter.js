@@ -236,6 +236,11 @@ define(function(require) {
             // frameBuffer && frameBuffer.unbind(renderer);
         },
 
+        resize: function() {
+            var canvas = this._renderer.canvas;
+            this._renderer.resize(canvas.clientWidth, canvas.clientHeight);
+        },
+
         clear: function() {
             var gl = this._renderer.gl;
             gl.clear(gl.DEPTH_BUFFER_BIT | gl.COLOR_BUFFER_BIT);

@@ -51,6 +51,7 @@ define(function(require) {
                 level: this.level,
                 radius: node.radius
             });
+            node.entity.update(zr);
 
             node.entity.group.position = node.position;
 

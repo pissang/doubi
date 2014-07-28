@@ -15,6 +15,8 @@ define(function(require) {
         this.width = 0;
         this.height = 0;
 
+        this.ratioScaling = 1.3;
+
         this.steps = 100;
     }
 
@@ -74,16 +76,28 @@ define(function(require) {
 
         this._layout.initNodes(positionArr, weightArr, radiusArr);
         this._layout.initEdges(edgeArr, edgeWeightArr);
-        this._layout.center = [width / 2, height / 2];
-        this._layout.width = width * 1.3;
-        this._layout.height = height / 1.3;
+
+        this.resize(this.width, this.height);
         // TODO
-        this._layout.scaling = Math.sqrt(Math.sqrt(graph.edges.length / graph.nodes.length));
-        this._layout.gravity = 0.5;
+        this._layout.scaling = 2;
+        this._layout.gravity = 0.7;
         this._layout.preventOverlap = true;
         // this._layout.maxSpeedIncrease = 10.0;
 
         this._temperature = 1.0
+    }
+
+    Force.prototype.resize = function(width, height) {
+        this.width = width;
+        this.height = height;
+        this._layout.center = [width / 2, height / 2];
+        if (width > height) {
+            this._layout.width = width * this.ratioScaling;
+            this._layout.height = height / this.ratioScaling;
+        } else {
+            this._layout.width = width / this.ratioScaling;
+            this._layout.height = height * this.ratioScaling;
+        }
     }
 
     Force.prototype.warmUp = function(temp) {

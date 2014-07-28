@@ -52,6 +52,7 @@ define(function(require) {
                     text: this.label,
                     textPosition: 'inside',
                     textAlign: 'center',
+                    textFont: '12px 微软雅黑',
                     color: '#3791dc',
                     brushType: 'fill',
                     x: -width / 2,

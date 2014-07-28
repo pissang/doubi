@@ -535,14 +535,17 @@ define('data/relation2',['require'],function(require) {
                 },
                 {
                     name: '微博',
+                    image: 'imgs/weibo.jpg',
                     radius: 40
                 },
                 {
                     name: '小时代',
-                    title: '',
+                    title: '返回',
                     image: 'imgs/logo-back.png',
                     action: 'back',
-                    radius: 40
+                    radius: 40,
+                    position: [300, 150],
+                    fixed: true
                 }
             ],
             edges: [
@@ -602,21 +605,45 @@ define('data/relation3',['require','text!./relation3.json'],function(require) {
     var data = JSON.parse(require('text!./relation3.json'));
 
     return {
-        get: function(name, backNode) {
+        get: function(name, node, backNode) {
             var graph = data[name];
             if (graph) {
                 graph.nodes.push({
+                    name: '小时代-返回',
+                    title: '返回',
+                    radius: 45,
+                    position: [200, 150],
+                    fixed: true,
+                    image: 'imgs/logo-back.png',
+                    action: 'back/back'
+                });
+
+                graph.nodes.push({
                     name: backNode.name,
                     radius: 40,
-                    position: [300, 300],
                     image: backNode.image,
+                    position: [300, 300],
                     action: 'back'
-                });
+                })
+
                 graph.edges.push({
                     source: name,
                     target: backNode.name,
-                    label: '扮演者'
-                })
+                    label: '扮演者',
+                    weight: 10
+                });
+                graph.edges.push({
+                    source: backNode.name,
+                    target: '小时代-返回',
+                    label: '小说角色',
+                    weight: 10
+                });
+
+                for (var i = 0 ; i < graph.nodes.length; i++) {
+                    if (graph.nodes[i].name === name) {
+                        graph.nodes[i].image = node.image;
+                    }
+                }
             }
             return graph;
         }
@@ -2733,7 +2760,7 @@ define(
          * @type {Function}
          * @param {Event} e : event对象
          */
-        var stop = window.Event && window.Event.prototype.preventDefault
+        var stop = typeof window.addEventListener === 'function'
             ? function (e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -2944,6 +2971,7 @@ define(
         };
     }
 );
+
 /**
  * Handler控制模块
  *
@@ -7623,11 +7651,10 @@ define(
 
         Painter.prototype._paintList = function(list) {
 
-            var layerStatus = this._getLayerStatus(list);
+            this._updateLayerStatus(list);
 
             var currentLayer;
             var currentZLevel;
-            var currentLayerDirty = true;
             var ctx;
 
             for (var id in this._layers) {
@@ -7645,12 +7672,11 @@ define(
                     currentLayer = this.getLayer(shape.zlevel, currentLayer);
                     ctx = currentLayer.ctx;
                     currentZLevel = shape.zlevel;
-                    currentLayerDirty = layerStatus[currentZLevel];
 
                     // Reset the count
                     currentLayer.unusedCount = 0;
 
-                    if (currentLayerDirty) {
+                    if (currentLayer.dirty) {
                         currentLayer.clear();
                     }
                 }
@@ -7685,7 +7711,7 @@ define(
                     }
                 }
 
-                if (currentLayerDirty && !shape.invisible) {
+                if (currentLayer.dirty && !shape.invisible) {
                     if (
                         !shape.onbrush
                         || (shape.onbrush && !shape.onbrush(ctx, false))
@@ -7718,7 +7744,9 @@ define(
             for (var id in this._layers) {
                 if (id !== 'hover') {
                     var layer = this._layers[id];
-                    if (layer.unusedCount >= 2) {
+                    layer.dirty = false;
+                    // 删除过期的层
+                    if (layer.unusedCount >= 500) {
                         delete this._layers[id];
                         layer.dom.parentNode.removeChild(layer.dom);
                     }
@@ -7755,21 +7783,40 @@ define(
             return currentLayer;
         };
 
-        Painter.prototype._getLayerStatus = function(list) {
+        Painter.prototype._updateLayerStatus = function(list) {
+            
+            var layers = this._layers;
 
-            var obj = {};
+            var elCounts = {};
+            for (var z in layers) {
+                if (z !== 'hover') {
+                    elCounts[z] = layers[z].elCount;
+                    layers[z].elCount = 0;
+                }
+            }
 
             for (var i = 0, l = list.length; i < l; i++) {
                 var shape = list[i];
                 var zlevel = shape.zlevel;
-                // Already mark as dirty
-                if (obj[zlevel]) {
-                    continue;
+                var layer = layers[zlevel];
+                if (layer) {
+                    layer.elCount++;
+                    // 已经被标记为需要刷新
+                    if (layer.dirty) {
+                        continue;
+                    }
+                    layer.dirty = shape.__dirty;
                 }
-                obj[zlevel] = shape.__dirty;
             }
 
-            return obj;
+            // 层中的元素数量有发生变化
+            for (var z in layers) {
+                if (z !== 'hover') {
+                    if (elCounts[z] !== layers[z].elCount) {
+                        layers[z].dirty = true;
+                    }
+                }
+            }
         };
 
         /**
@@ -8178,6 +8225,10 @@ define(
             this.unusedCount = 0;
 
             this.config = null;
+
+            this.dirty = true;
+
+            this.elCount = 0;
         }
 
         Layer.prototype.createBackBuffer = function() {
@@ -10798,7 +10849,7 @@ define('js/NodeEntity',['require','qtek/core/Base','zrender/shape/Group','zrende
 
         alpha: 1,
 
-        lineWidth: 4,
+        lineWidth: 3,
 
         color: '#3791dc',
 
@@ -10821,6 +10872,7 @@ define('js/NodeEntity',['require','qtek/core/Base','zrender/shape/Group','zrende
         _labelShape: null,
         _outlineShape: null,
         _imageShape: null,
+        _shadowShape: null,
 
         _clipShape: null
 
@@ -10833,20 +10885,40 @@ define('js/NodeEntity',['require','qtek/core/Base','zrender/shape/Group','zrende
 
         var outlineShape = new CircleShape({
             style: new CircleStyle({
-                color: this.color,
-                r: this.radius + this.lineWidth,
-                brushType: 'both',
+                strokeColor: this.color,
+                lineWidth: this.lineWidth,
+                brushType: 'stroke'
+            }),
+            highlightStyle: {
+                opacity: 0
+            },
+            z: 2,
+            zlevel: this.level,
+            clickable: true,
+            onclick: function() {
+                self.trigger('click');
+            },
+            onmouseover: function() {
+                self.trigger('mouseover');
+            },
+            onmouseout: function() {
+                self.trigger('mouseout');
+            }
+        });
+        var shadowShape = new CircleShape({
+            style: new CircleStyle({
+                color: 'black',
+                brushType: 'fill',
                 shadowColor: 'black',
                 shadowBlur: 20,
                 shadowOffsetX: 0,
                 shadowOffsetY: 0
             }),
-            highlightStyle: {
-                opacity: 0
-            },
-            z: 1,
-            zlevel: this.level
+            z: 0.9,
+            zlevel: this.level,
+            hoverable: false
         });
+        this.group.addChild(shadowShape);
         this.group.addChild(outlineShape);
         
         var contentGroup = new Group();
@@ -10859,25 +10931,9 @@ define('js/NodeEntity',['require','qtek/core/Base','zrender/shape/Group','zrende
 
         var imageShape = new ImageShape({
             style: {
-                image: this.image || textNodeBG,
-                x: -this.radius,
-                y: -this.radius,
-                width: this.radius * 2,
-                height: this.radius * 2
+                image: this.image || textNodeBG
             },
-            clickable: true,
-            onclick: function() {
-                self.trigger('click');
-            },
-            onmouseover: function() {
-                self.trigger('mouseover');
-            },
-            onmouseout: function() {
-                self.trigger('mouseout');
-            },
-            highlightStyle: {
-                opacity: 0
-            },
+            hoverable: false,
             z: 1,
             zlevel: this.level
         });
@@ -10885,11 +10941,6 @@ define('js/NodeEntity',['require','qtek/core/Base','zrender/shape/Group','zrende
         if (this.label) {
             var labelShape = new RectShape({
                 style: {
-                    x: -this.radius,
-                    y: this.radius - 20,
-                    height: 20,
-                    width: this.radius * 2,
-
                     color: this.labelColor,
                     brushType: 'fill',
                     text: this.label,
@@ -10899,29 +10950,12 @@ define('js/NodeEntity',['require','qtek/core/Base','zrender/shape/Group','zrende
                     textColor: 'white',
                     textFont: '14px 微软雅黑'
                 },
-                highlightStyle: {
-                    opacity: 0
-                },
+                hoverable: false,
                 z: 1,
-                zlevel: this.level,
-                clickable: true,
-                onclick: function() {
-                    self.trigger('click');
-                },
-                onmouseover: function() {
-                    self.trigger('mouseover');
-                },
-                onmouseout: function() {
-                    self.trigger('mouseout');
-                }
+                zlevel: this.level
             });
 
             if (!this.image) {
-                labelShape.style.x = -this.radius;
-                labelShape.style.y = -this.radius;
-                labelShape.style.width = this.radius * 2;
-                labelShape.style.height = this.radius * 2;
-
                 // Empty inside
                 labelShape.style.color = 'rgba(0, 0, 0, 0)';
                 labelShape.style.textFont = '20px 微软雅黑';
@@ -10929,7 +10963,6 @@ define('js/NodeEntity',['require','qtek/core/Base','zrender/shape/Group','zrende
         }
 
         contentGroup.addChild(imageShape);
-
         if (labelShape) {
             contentGroup.addChild(labelShape);
         }
@@ -10940,6 +10973,7 @@ define('js/NodeEntity',['require','qtek/core/Base','zrender/shape/Group','zrende
         this._labelShape = labelShape;
         this._outlineShape = outlineShape;
         this._clipShape = clipShape;
+        this._shadowShape = shadowShape;
 
         this.shapeList.push(this._imageShape);
 
@@ -10951,37 +10985,43 @@ define('js/NodeEntity',['require','qtek/core/Base','zrender/shape/Group','zrende
     }, {
 
         update: function(zr) {
-            this._outlineShape.style.r = this.radius + this.lineWidth;
+            var radius = zr.getWidth() / 1200 * this.radius;
 
-            this._imageShape.style.x = -this.radius;
-            this._imageShape.style.y = -this.radius;
-            this._imageShape.style.width = this.radius * 2;
-            this._imageShape.style.height = this.radius * 2;
+            this._outlineShape.style.r = radius;
 
-            this._clipShape.style.r = this.radius;
+            this._imageShape.style.x = -radius;
+            this._imageShape.style.y = -radius;
+            this._imageShape.style.width = radius * 2;
+            this._imageShape.style.height = radius * 2;
+
+            this._clipShape.style.r = radius;
 
             if (this._labelShape) {
                 if (this.image) {
-                    this._labelShape.style.x = -this.radius;
-                    this._labelShape.style.y = this.radius - 20;
-                    this._labelShape.style.width = this.radius * 2;
+                    this._labelShape.style.x = -radius;
+                    this._labelShape.style.y = radius - 20;
+                    this._labelShape.style.width = radius * 2;
+                    this._labelShape.style.height = 20;
                 } else {
-                    this._labelShape.style.x = -this.radius;
-                    this._labelShape.style.y = -this.radius;
-                    this._labelShape.style.width = this.radius * 2;
-                    this._labelShape.style.height = this.radius * 2;
+                    this._labelShape.style.x = -radius;
+                    this._labelShape.style.y = -radius;
+                    this._labelShape.style.width = radius * 2;
+                    this._labelShape.style.height = radius * 2;
                 }
+                zr.modShape(this._labelShape.id);
             }
 
+            this._shadowShape.style.r = radius;
+
             zr.modShape(this._outlineShape.id);
-            zr.modShape(this._labelShape.id);
             zr.modShape(this._imageShape.id);
+            zr.modShape(this._shadowShape.id);
 
             zr.modGroup(this.group.id);
         },
 
         highlight: function() {
-            this._outlineShape.style.color = this.highlightColor;
+            this._outlineShape.style.strokeColor = this.highlightColor;
 
             if (this.image && this._labelShape) {
                 this._labelShape.style.color = this.highlightLabelColor;
@@ -10989,7 +11029,7 @@ define('js/NodeEntity',['require','qtek/core/Base','zrender/shape/Group','zrende
         },
 
         leaveHighlight: function() {
-            this._outlineShape.style.color = this.color;
+            this._outlineShape.style.strokeColor = this.color;
 
             if (this.image && this._labelShape) {
                 this._labelShape.style.color = this.labelColor;
@@ -15323,6 +15363,8 @@ define('js/EdgeEntity',['require','qtek/core/Base','zrender/shape/Rectangle','zr
     var ctx = canvas.getContext('2d');
 
     var v = vec2.create();
+    var v1 = vec2.create();
+    var v2 = vec2.create();
 
     var EdgeEntity = Base.derive({
         source: null,
@@ -15384,10 +15426,17 @@ define('js/EdgeEntity',['require','qtek/core/Base','zrender/shape/Rectangle','zr
 
             var p1 = sourceEntity.group.position;
             var p2 = targetEntity.group.position;
-            lineShape.style.xStart = p1[0];
-            lineShape.style.yStart = p1[1];
-            lineShape.style.xEnd = p2[0];
-            lineShape.style.yEnd = p2[1];
+
+            vec2.sub(v, p1, p2);
+            vec2.normalize(v, v);
+
+            vec2.scaleAndAdd(v1, p1, v, -sourceEntity.radius);
+            vec2.scaleAndAdd(v2, p2, v, targetEntity.radius);
+
+            lineShape.style.xStart = v1[0];
+            lineShape.style.yStart = v1[1];
+            lineShape.style.xEnd = v2[0];
+            lineShape.style.yEnd = v2[1];
 
             lineShape.ignore = sourceEntity.ignore || targetEntity.ignore;
 
@@ -15395,9 +15444,6 @@ define('js/EdgeEntity',['require','qtek/core/Base','zrender/shape/Rectangle','zr
 
             if (this.labelShape) {
                 var labelShape = this.labelShape;
-
-                vec2.sub(v, sourceEntity.group.position, targetEntity.group.position);
-                vec2.normalize(v, v);
 
                 if (v[0] > 0) {
                     vec2.negate(v, v);
@@ -15408,8 +15454,8 @@ define('js/EdgeEntity',['require','qtek/core/Base','zrender/shape/Rectangle','zr
                     var angle = Math.acos(-v[0]);
                 }
                 labelShape.rotation[0] = angle;
-                labelShape.position[0] = (p1[0] + p2[0]) / 2;
-                labelShape.position[1] = (p1[1] + p2[1]) / 2;
+                labelShape.position[0] = (v1[0] + v2[0]) / 2;
+                labelShape.position[1] = (v1[1] + v2[1]) / 2;
 
                 labelShape.style.opacity = 1;
 
@@ -15441,7 +15487,6 @@ define('js/EdgeEntity',['require','qtek/core/Base','zrender/shape/Rectangle','zr
                 this.labelShape.ignore = true;   
                 zr.modShape(this.labelShape.id);
             }
-            
         }
 
     });
@@ -16156,6 +16201,8 @@ define('js/Force',['require','./Graph','echarts/chart/ForceLayoutWorker','glmatr
         this.width = 0;
         this.height = 0;
 
+        this.ratioScaling = 1.3;
+
         this.steps = 100;
     }
 
@@ -16215,16 +16262,28 @@ define('js/Force',['require','./Graph','echarts/chart/ForceLayoutWorker','glmatr
 
         this._layout.initNodes(positionArr, weightArr, radiusArr);
         this._layout.initEdges(edgeArr, edgeWeightArr);
-        this._layout.center = [width / 2, height / 2];
-        this._layout.width = width * 1.3;
-        this._layout.height = height / 1.3;
+
+        this.resize(this.width, this.height);
         // TODO
-        this._layout.scaling = Math.sqrt(Math.sqrt(graph.edges.length / graph.nodes.length));
-        this._layout.gravity = 0.5;
+        this._layout.scaling = 2;
+        this._layout.gravity = 0.7;
         this._layout.preventOverlap = true;
         // this._layout.maxSpeedIncrease = 10.0;
 
         this._temperature = 1.0
+    }
+
+    Force.prototype.resize = function(width, height) {
+        this.width = width;
+        this.height = height;
+        this._layout.center = [width / 2, height / 2];
+        if (width > height) {
+            this._layout.width = width * this.ratioScaling;
+            this._layout.height = height / this.ratioScaling;
+        } else {
+            this._layout.width = width / this.ratioScaling;
+            this._layout.height = height * this.ratioScaling;
+        }
     }
 
     Force.prototype.warmUp = function(temp) {
@@ -16307,6 +16366,7 @@ define('js/Level',['require','zrender/shape/Group','./NodeEntity','./EdgeEntity'
                 level: this.level,
                 radius: node.radius
             });
+            node.entity.update(zr);
 
             node.entity.group.position = node.position;
 
@@ -29635,6 +29695,11 @@ define('js/BlurFilter',['require','qtek/core/Base','qtek/Renderer','qtek/composi
             // frameBuffer && frameBuffer.unbind(renderer);
         },
 
+        resize: function() {
+            var canvas = this._renderer.canvas;
+            this._renderer.resize(canvas.clientWidth, canvas.clientHeight);
+        },
+
         clear: function() {
             var gl = this._renderer.gl;
             gl.clear(gl.DEPTH_BUFFER_BIT | gl.COLOR_BUFFER_BIT);
@@ -29671,7 +29736,7 @@ define('js/index',['require','text!../data/relation1.json','../data/relation2','
     for (var i = 0; i < relation1.edges.length; i++) {
         var e = relation1.edges[i];
         var edge = graph.addEdge(e.source, e.target, {
-            weight: 1,
+            weight: e.weight || 1,
             label: e.label
         });
     }
@@ -29707,7 +29772,7 @@ define('js/index',['require','text!../data/relation1.json','../data/relation2','
         {
             var graph = new Graph();
             var name = action.slice('actor/'.length);
-            var data = relation3.get(name, currentLevel.mainNode);
+            var data = relation3.get(name, clickNode, currentLevel.mainNode);
             if (!data) {
                 return;
             }
@@ -29742,15 +29807,17 @@ define('js/index',['require','text!../data/relation1.json','../data/relation2','
         mainNode.position = Array.prototype.slice.call(fromNode.position);
         mainNode.fixed = true;
         level.init();
-        var prevScaling = level.layout._layout.scaling;
         level.layout._layout.center = Array.prototype.slice.call(fromNode.position);
         level.layout._layout.scaling = 0.6;
+        // 调整长宽比
+        level.layout._layout.width /= 1.2;
+        level.layout._layout.height *= 1.2;
         level.doLayout();
 
         // 移动布局到整个界面中心
         level.layout._layout.center = [zr.getWidth() / 2, zr.getHeight() / 2];
         zr.animation.animate(mainNode)
-            .when(500, {
+            .when(300, {
                 position: [zr.getWidth() / 2, zr.getHeight() / 2]
             })
             .start('CubicOut');
@@ -29759,7 +29826,7 @@ define('js/index',['require','text!../data/relation1.json','../data/relation2','
             .when(0, {
                 radius: fromNode.radius
             })
-            .when(500, {
+            .when(300, {
                 radius: mainNode.radius
             })
             .during(function() {
@@ -29768,8 +29835,8 @@ define('js/index',['require','text!../data/relation1.json','../data/relation2','
             .start('CubicOut');
 
         level.layout._layout.maxSpeedIncrease = 10000.0;
-        level.layout._layout.scaling = prevScaling;
-        level.layout.steps = 2;
+        level.layout._layout.scaling = 1.2;
+        level.layout.steps = 10;
         level.layout.warmUp(0.7);
         level.startLayouting();
 
@@ -29849,5 +29916,20 @@ define('js/index',['require','text!../data/relation1.json','../data/relation2','
     window.onresize = function() {
         zr.resize();
         particles.resize();
+        blurFilter.resize();
+        if (currentLevel) {
+            currentLevel.layout.resize(zr.getWidth(), zr.getHeight());
+            currentLevel.layout.warmUp(0.9);
+            currentLevel.startLayouting();
+
+            if (currentLevel.mainNode) {
+                currentLevel.mainNode.position[0] = zr.getWidth() / 2;
+                currentLevel.mainNode.position[1] = zr.getHeight() / 2;
+            }
+        }
+
+        for (var i = 0; i < levelStack.length - 1; i++) {
+            levelStack[i].needsLayout = true;
+        }
     }
 });
