@@ -14,9 +14,11 @@ define(function(require) {
 
         this.width = 0;
         this.height = 0;
+
+        this.steps = 100;
     }
 
-    Force.prototype.run = function() {
+    Force.prototype.init = function() {
 
         var width = this.width;
         var height = this.height;
@@ -79,9 +81,25 @@ define(function(require) {
         this._layout.scaling = Math.sqrt(Math.sqrt(graph.edges.length / graph.nodes.length));
         this._layout.gravity = 0.5;
         this._layout.preventOverlap = true;
+        // this._layout.maxSpeedIncrease = 10.0;
 
-        for (var i = 0; i < 100; i++) {
+        this._temperature = 1.0
+    }
+
+    Force.prototype.warmUp = function(temp) {
+        this._temperature = temp;
+    }
+
+    Force.prototype.isCoolDown = function() {
+        return this._temperature < 0.02;
+    }
+
+    Force.prototype.update = function() {
+        var graph = this.graph;
+        for (var i = 0; i < this.steps; i++) {
             this._layout.update();
+            this._layout.temperature = this._temperature;
+            this._temperature *= 0.99;
         }
 
         for (var i = 0; i < this._layout.nodes.length; i++) {

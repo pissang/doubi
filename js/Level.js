@@ -24,6 +24,8 @@ define(function(require) {
         this.disableHover = false;
 
         this.mainNode = null;
+
+        this.layout = null;
     }
 
     Level.prototype.init = function() {
@@ -38,9 +40,9 @@ define(function(require) {
         force.height = window.innerHeight;
 
         force.graph = graph;
-        force.run();
+        force.init();
 
-        graph.layout = force;
+        this.layout = force;
 
         qtekUtil.each(graph.nodes, function(node) {
             node.entity = new NodeEntity({
@@ -54,11 +56,18 @@ define(function(require) {
 
             this.root.addChild(node.entity.group);
 
-            node.entity.on('hover', function() {
+            node.entity.on('mouseover', function() {
                 if (this.disableHover) {
                     return;
                 }
                 this.highlightNode(node);
+            }, this);
+
+            node.entity.on('mouseout', function() {
+                if (this.disableHover) {
+                    return;
+                }
+                this.leaveHighlight();
             }, this);
 
             node.entity.on('click', function() {
@@ -82,11 +91,28 @@ define(function(require) {
             }
         }, this);
 
-        this.updateEdgeEntites();
-
         zr.addGroup(this.root);
-        zr.refresh();
 
+        this.updateGraphRendering();
+    }
+
+    Level.prototype.startLayouting = function() {
+        this.zr.animation.bind('frame', this.doLayout, this);
+    }
+
+    Level.prototype.stopLayouting = function() {
+        this.zr.animation.unbind('frame', this.doLayout);
+    }
+
+    Level.prototype.doLayout = function() {
+        this.layout.update();
+        this.updateGraphRendering();
+        this.trigger('layout');
+        // PENDING
+        // 停止的逻辑放这？
+        if (this.layout.isCoolDown()) {
+            this.stopLayouting();
+        } 
     }
 
     Level.prototype.getDom = function() {
@@ -103,6 +129,8 @@ define(function(require) {
         for (var i = 0; i < graph.edges.length; i++) {
             graph.edges[i].entity.leaveHighlight(zr);
         }
+
+        zr.refreshNextFrame();
     }
 
     Level.prototype.highlightNode = function(node) {
@@ -126,10 +154,15 @@ define(function(require) {
         zr.refreshNextFrame();
     }
 
-    Level.prototype.updateEdgeEntites = function() {
+    Level.prototype.updateGraphRendering = function() {
+        for (var i = 0; i < this.graph.nodes.length; i++) {
+            this.zr.modGroup(this.graph.nodes[i].entity.group.id);
+        }
         for (var i = 0; i < this.graph.edges.length; i++) {
             this.graph.edges[i].entity.update(this.zr);
         }
+
+        this.zr.refreshNextFrame();
     }
 
     qtekUtil.extend(Level.prototype, notifier);

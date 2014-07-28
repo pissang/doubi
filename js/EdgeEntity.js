@@ -12,6 +12,8 @@ define(function(require) {
     var ctx = canvas.getContext('2d');
 
     var v = vec2.create();
+    var v1 = vec2.create();
+    var v2 = vec2.create();
 
     var EdgeEntity = Base.derive({
         source: null,
@@ -26,13 +28,13 @@ define(function(require) {
 
         this.lineShape = new LineShape({
             style: {
-                lineWidth: 2,
+                lineWidth: 1,
                 strokeColor: '#3791dc',
                 xStart: 0,
                 yStart: 0,
                 xEnd: 0,
                 yEnd: 0,
-                opacity: 0.3
+                opacity: 0.4
             },
             highlightStyle: {
                 opacity: 0
@@ -73,10 +75,17 @@ define(function(require) {
 
             var p1 = sourceEntity.group.position;
             var p2 = targetEntity.group.position;
-            lineShape.style.xStart = p1[0];
-            lineShape.style.yStart = p1[1];
-            lineShape.style.xEnd = p2[0];
-            lineShape.style.yEnd = p2[1];
+
+            vec2.sub(v, p1, p2);
+            vec2.normalize(v, v);
+
+            vec2.scaleAndAdd(v1, p1, v, -sourceEntity.radius);
+            vec2.scaleAndAdd(v2, p2, v, targetEntity.radius);
+
+            lineShape.style.xStart = v1[0];
+            lineShape.style.yStart = v1[1];
+            lineShape.style.xEnd = v2[0];
+            lineShape.style.yEnd = v2[1];
 
             lineShape.ignore = sourceEntity.ignore || targetEntity.ignore;
 
@@ -84,9 +93,6 @@ define(function(require) {
 
             if (this.labelShape) {
                 var labelShape = this.labelShape;
-
-                vec2.sub(v, sourceEntity.group.position, targetEntity.group.position);
-                vec2.normalize(v, v);
 
                 if (v[0] > 0) {
                     vec2.negate(v, v);
@@ -97,8 +103,8 @@ define(function(require) {
                     var angle = Math.acos(-v[0]);
                 }
                 labelShape.rotation[0] = angle;
-                labelShape.position[0] = (p1[0] + p2[0]) / 2;
-                labelShape.position[1] = (p1[1] + p2[1]) / 2;
+                labelShape.position[0] = (v1[0] + v2[0]) / 2;
+                labelShape.position[1] = (v1[1] + v2[1]) / 2;
 
                 labelShape.style.opacity = 1;
 
@@ -120,9 +126,9 @@ define(function(require) {
         },
 
         leaveHighlight : function(zr) {
-            this.lineShape.style.lineWidth = 2;
+            this.lineShape.style.lineWidth = 1;
             this.lineShape.style.strokeColor = '#3791dc';
-            this.lineShape.style.opacity = 0.3;
+            this.lineShape.style.opacity = 0.4;
             zr.modShape(this.lineShape.id);
 
             if (this.labelShape) {
@@ -130,7 +136,6 @@ define(function(require) {
                 this.labelShape.ignore = true;   
                 zr.modShape(this.labelShape.id);
             }
-            
         }
 
     });

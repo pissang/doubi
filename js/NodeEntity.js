@@ -29,7 +29,7 @@ define(function(require) {
 
         alpha: 1,
 
-        lineWidth: 4,
+        lineWidth: 3,
 
         color: '#3791dc',
 
@@ -51,7 +51,10 @@ define(function(require) {
 
         _labelShape: null,
         _outlineShape: null,
-        _imageShape: null
+        _imageShape: null,
+        _shadowShape: null,
+
+        _clipShape: null
 
     }, function() {
 
@@ -62,20 +65,42 @@ define(function(require) {
 
         var outlineShape = new CircleShape({
             style: new CircleStyle({
-                color: this.color,
-                r: this.radius + this.lineWidth,
-                brushType: 'both',
+                strokeColor: this.color,
+                r: this.radius,
+                lineWidth: this.lineWidth,
+                brushType: 'stroke'
+            }),
+            highlightStyle: {
+                opacity: 0
+            },
+            z: 2,
+            zlevel: this.level,
+            clickable: true,
+            onclick: function() {
+                self.trigger('click');
+            },
+            onmouseover: function() {
+                self.trigger('mouseover');
+            },
+            onmouseout: function() {
+                self.trigger('mouseout');
+            }
+        });
+        var shadowShape = new CircleShape({
+            style: new CircleStyle({
+                color: 'black',
+                r: this.radius,
+                brushType: 'fill',
                 shadowColor: 'black',
                 shadowBlur: 20,
                 shadowOffsetX: 0,
                 shadowOffsetY: 0
             }),
-            highlightStyle: {
-                opacity: 0
-            },
-            z: 1,
-            zlevel: this.level
+            z: 0.9,
+            zlevel: this.level,
+            hoverable: false
         });
+        this.group.addChild(shadowShape);
         this.group.addChild(outlineShape);
         
         var contentGroup = new Group();
@@ -94,16 +119,7 @@ define(function(require) {
                 width: this.radius * 2,
                 height: this.radius * 2
             },
-            clickable: true,
-            onclick: function() {
-                self.trigger('click');
-            },
-            onmouseover: function() {
-                self.trigger('hover');
-            },
-            highlightStyle: {
-                opacity: 0
-            },
+            hoverable: false,
             z: 1,
             zlevel: this.level
         });
@@ -125,18 +141,9 @@ define(function(require) {
                     textColor: 'white',
                     textFont: '14px 微软雅黑'
                 },
-                highlightStyle: {
-                    opacity: 0
-                },
+                hoverable: false,
                 z: 1,
-                zlevel: this.level,
-                clickable: true,
-                onclick: function() {
-                    self.trigger('click');
-                },
-                onmouseover: function() {
-                    self.trigger('hover');
-                }
+                zlevel: this.level
             });
 
             if (!this.image) {
@@ -152,7 +159,6 @@ define(function(require) {
         }
 
         contentGroup.addChild(imageShape);
-
         if (labelShape) {
             contentGroup.addChild(labelShape);
         }
@@ -162,6 +168,7 @@ define(function(require) {
         this._imageShape = imageShape;
         this._labelShape = labelShape;
         this._outlineShape = outlineShape;
+        this._clipShape = clipShape;
 
         this.shapeList.push(this._imageShape);
 
@@ -171,8 +178,39 @@ define(function(require) {
         
         this.shapeList.push(this._outlineShape);
     }, {
+
+        update: function(zr) {
+            this._outlineShape.style.r = this.radius;
+
+            this._imageShape.style.x = -this.radius;
+            this._imageShape.style.y = -this.radius;
+            this._imageShape.style.width = this.radius * 2;
+            this._imageShape.style.height = this.radius * 2;
+
+            this._clipShape.style.r = this.radius;
+
+            if (this._labelShape) {
+                if (this.image) {
+                    this._labelShape.style.x = -this.radius;
+                    this._labelShape.style.y = this.radius - 20;
+                    this._labelShape.style.width = this.radius * 2;
+                } else {
+                    this._labelShape.style.x = -this.radius;
+                    this._labelShape.style.y = -this.radius;
+                    this._labelShape.style.width = this.radius * 2;
+                    this._labelShape.style.height = this.radius * 2;
+                }
+            }
+
+            zr.modShape(this._outlineShape.id);
+            zr.modShape(this._labelShape.id);
+            zr.modShape(this._imageShape.id);
+
+            zr.modGroup(this.group.id);
+        },
+
         highlight: function() {
-            this._outlineShape.style.color = this.highlightColor;
+            this._outlineShape.style.strokeColor = this.highlightColor;
 
             if (this.image && this._labelShape) {
                 this._labelShape.style.color = this.highlightLabelColor;
@@ -180,7 +218,7 @@ define(function(require) {
         },
 
         leaveHighlight: function() {
-            this._outlineShape.style.color = this.color;
+            this._outlineShape.style.strokeColor = this.color;
 
             if (this.image && this._labelShape) {
                 this._labelShape.style.color = this.labelColor;

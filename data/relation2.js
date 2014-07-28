@@ -98,15 +98,17 @@ define(function(require) {
                 },
                 {
                     name: '微博',
+                    image: 'imgs/weibo.jpg',
                     radius: 40
                 },
                 {
                     name: '小时代',
-                    title: '',
+                    title: '返回',
                     image: 'imgs/logo-back.png',
                     action: 'back',
                     radius: 40,
-                    position: [300, 200]
+                    position: [300, 150],
+                    fixed: true
                 }
             ],
             edges: [

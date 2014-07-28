@@ -14,6 +14,8 @@ define(function(require) {
     var Material = require('qtek/Material');
     var Mesh = require('qtek/Mesh');
     var Shader = require('qtek/Shader');
+    var FrameBuffer = require('qtek/FrameBuffer');
+    var shaderLibrary = require('qtek/shader/library');
 
     var planeGeo = new Plane();
     var planeShader = new Shader({
@@ -23,28 +25,36 @@ define(function(require) {
     planeShader.enableTexture('diffuseMap');
     planeShader.define('fragment', 'DIFFUSEMAP_ALPHA_ALPHA');
 
-    var BlurFilter = Base.derive({
+    var BlurFilter = Base.derive(function() {
+        return {
         
-        _imageMeshes: [],
+            _textureStack: [],
 
-        canvas: null,
+            _rttStack: [],
 
-        scale: 1,
+            canvas: null,
 
-        scaleRatio: 0.95,
+            scale: 1,
 
-        blurSize: 3,
+            scaleRatio: 0.8,
 
-        blurRepeat: 5,
+            blurSize: 3,
 
-        _sceneNode: null,
+            blurRepeat: 5,
 
-        _compositor: null,
+            _sceneNode: null,
 
-        _renderer: null,
+            _compositor: null,
 
-        _blurNodes: null
+            _renderer: null,
 
+            _blurNodes: [],
+
+            _meshBack: null,
+            _meshFront: null,
+
+            _frameBuffer: new FrameBuffer()
+        }
     }, function() {
         var renderer = new Renderer({
             canvas: this.canvas,
@@ -57,7 +67,35 @@ define(function(require) {
 
         var scene = new Scene();
         var camera = new OrthoCamera();
-        camera.position.z = -1;
+        camera.position.z = 2;
+        camera.far = 100;
+
+        this._meshBack = new Mesh({
+            name: 'BACK',
+            geometry: planeGeo,
+            material: new Material({
+                shader: planeShader,
+                // TODO 不加 transparent 图片中的线条不能透明了
+                transparent: true,
+                depthMask : false
+            })
+        });
+        this._meshBack.position.z = -1;
+
+        this._meshFront = new Mesh({
+            name: 'FRONT',
+            geometry: planeGeo,
+            material: new Material({
+                shader: planeShader,
+                // TODO 不加 transparent 图片中的线条不能透明了
+                transparent: true,
+                depthMask : false
+            })
+        });
+        this._meshFront.position.z = 0;
+
+        scene.add(this._meshBack);
+        scene.add(this._meshFront);
 
         var sceneNode = new SceneNode({
             name: 'scene',
@@ -68,15 +106,14 @@ define(function(require) {
                     parameters: {
                         width: function(renderer) {return renderer.width},
                         height: function(renderer) {return renderer.height},
-                        minFilter: Texture.NEAREST,
-                        magFilter: Texture.NEAREST
+                        // minFilter: Texture.NEAREST,
+                        // magFilter: Texture.NEAREST
                     }
                 }
             }
         });
         this._sceneNode = sceneNode;
 
-        this._blurNodes = [];
         var blurNodeH, blurNodeV;
 
         for (var i = 0; i < this.blurRepeat; i++) {
@@ -94,8 +131,8 @@ define(function(require) {
                         parameters: {
                             width: function(renderer) {return renderer.width},
                             height: function(renderer) {return renderer.height},
-                            minFilter: Texture.NEAREST,
-                            magFilter: Texture.NEAREST
+                            // minFilter: Texture.NEAREST,
+                            // magFilter: Texture.NEAREST
                         }
                     }
                 }
@@ -114,8 +151,8 @@ define(function(require) {
                         parameters: {
                             width: function(renderer) {return renderer.width},
                             height: function(renderer) {return renderer.height},
-                            minFilter: Texture.NEAREST,
-                            magFilter: Texture.NEAREST
+                            // minFilter: Texture.NEAREST,
+                            // magFilter: Texture.NEAREST
                         }
                     }
                 }
@@ -139,34 +176,46 @@ define(function(require) {
         addImage: function(image) {
             var texture = new Texture2D({
                 image: image,
-                minFilter: Texture.NEAREST,
-                magFilter: Texture.NEAREST
+                // minFilter: Texture.NEAREST,
+                // magFilter: Texture.NEAREST
             });
-            texture.dirty();
             texture.getWebGLTexture(this._renderer.gl);
 
-            var mesh = new Mesh({
-                geometry: planeGeo,
-                material: new Material({
-                    shader: planeShader
-                })
-            });
-            mesh.material.set('diffuseMap', texture);
+            // Add previus scene to a rtt
+            if (this._textureStack.length > 0) {
+                var rtt = new Texture2D({
+                    width: this._renderer.width,
+                    height: this._renderer.height
+                });
+                this.blurSize = 5.0;
+                this.scale = 1.0;
 
-            this._imageMeshes.push(mesh);
+                this._frameBuffer.attach(this._renderer.gl, rtt);
+                this.render(this._frameBuffer);
 
-            this._sceneNode.scene.add(mesh);
+                this._rttStack.push(rtt);
+
+                this._meshBack.material.set('diffuseMap', rtt);
+            }
+
+            this._meshFront.material.set('diffuseMap', texture);
+            this._textureStack.push(texture);
         },
 
         popImage: function() {
-            var mesh = this._imageMeshes.pop();
-            if (mesh) {
-                this._sceneNode.scene.remove(mesh);
-                this._renderer.disposeTexture(mesh.material.get('diffuseMap'));
+            var tex = this._textureStack.pop();
+            var rtt = this._rttStack.pop();
+            if (tex) {
+                this._renderer.disposeTexture(tex);
             }
+            if (rtt) {
+                this._renderer.disposeTexture(rtt);
+            }
+            this._meshBack.material.set('diffuseMap', this._rttStack[this._rttStack.length - 1] || null);
+            this._meshFront.material.set('diffuseMap', this._textureStack[this._textureStack.length - 1] || null);
         },
 
-        render: function() {
+        render: function(frameBuffer) {
             var renderer = this._renderer;
             for (var i = 0; i < this._blurNodes.length; i++) {
                 this._blurNodes[i].setParameter('blurSize', this.blurSize);
@@ -175,16 +224,16 @@ define(function(require) {
             }
 
             var scale = this.scale;
-            var z = 0;
-            for (var i = 0; i < this._imageMeshes.length; i++) {
-                var mesh = this._imageMeshes[i];
-                mesh.scale.set(scale, scale, scale);
-                scale *= this.scaleRatio;
-                mesh.position.z = z++;
-            }
+            this._meshFront.visible = !!this._meshFront.material.get('diffuseMap');
+            this._meshFront.scale.set(scale, scale, scale);
+            scale *= this.scaleRatio;
+            this._meshBack.visible = !!this._meshBack.material.get('diffuseMap');
+            this._meshBack.scale.set(scale, scale, scale);
 
-            this._compositor.render(renderer);
+            this._compositor.render(renderer, frameBuffer);
+            // frameBuffer && frameBuffer.bind(renderer);
             // renderer.render(this._sceneNode.scene, this._sceneNode.camera);
+            // frameBuffer && frameBuffer.unbind(renderer);
         },
 
         clear: function() {
