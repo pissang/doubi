@@ -134,6 +134,20 @@ define(function(require) {
         zr.refreshNextFrame();
     }
 
+    Level.prototype.highlightAll = function() {
+        var graph = this.graph;
+        var zr = this.zr;
+
+        for (var i = 0; i < graph.nodes.length; i++) {
+            graph.nodes[i].entity.highlight(zr);
+        }
+        for (var i = 0; i < graph.edges.length; i++) {
+            graph.edges[i].entity.highlight(zr);
+        }
+
+        zr.refreshNextFrame();
+    }
+
     Level.prototype.highlightNode = function(node) {
         
         this.leaveHighlight();

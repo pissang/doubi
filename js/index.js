@@ -57,10 +57,10 @@ define(function(require) {
             var graph = new Graph();
             var name = action.slice('role/'.length);
             var data = relation2.get(name, clickNode);
-            
+
             currentLevel.leaveHighlight();
             zr.refresh();
-            
+
             if (!data) {
                 return;
             }
@@ -141,7 +141,7 @@ define(function(require) {
         level.layout.warmUp(0.7);
         level.startLayouting();
 
-        level.highlightNode(mainNode);
+        level.highlightAll();
 
         blurFilter.addImage(currentLevel.getDom());
 

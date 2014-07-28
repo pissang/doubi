@@ -9795,7 +9795,6 @@ define(
 
                 if (animatingShapes.length || zrInstance._needsRefreshNextFrame) {
                     zrInstance.refresh();
-                    zrInstance._needsRefreshNextFrame = false;
                 }
             };
         }
@@ -9928,6 +9927,7 @@ define(
          */
         ZRender.prototype.render = function (callback) {
             this.painter.render(callback);
+            this._needsRefreshNextFrame = false;
             return this;
         };
 
@@ -9938,6 +9938,7 @@ define(
          */
         ZRender.prototype.refresh = function (callback) {
             this.painter.refresh(callback);
+            this._needsRefreshNextFrame = false;
             return this;
         };
 
@@ -10849,7 +10850,7 @@ define('js/NodeEntity',['require','qtek/core/Base','zrender/shape/Group','zrende
 
         alpha: 1,
 
-        lineWidth: 3,
+        lineWidth: 5,
 
         color: '#3791dc',
 
@@ -10873,6 +10874,7 @@ define('js/NodeEntity',['require','qtek/core/Base','zrender/shape/Group','zrende
         _outlineShape: null,
         _imageShape: null,
         _shadowShape: null,
+        _glowShape: null,
 
         _clipShape: null
 
@@ -10886,7 +10888,6 @@ define('js/NodeEntity',['require','qtek/core/Base','zrender/shape/Group','zrende
         var outlineShape = new CircleShape({
             style: new CircleStyle({
                 strokeColor: this.color,
-                lineWidth: this.lineWidth,
                 brushType: 'stroke'
             }),
             highlightStyle: {
@@ -10905,6 +10906,21 @@ define('js/NodeEntity',['require','qtek/core/Base','zrender/shape/Group','zrende
                 self.trigger('mouseout');
             }
         });
+        var glowShape = new CircleShape({
+            style: new CircleStyle({
+                strokeColor: this.highlightColor,
+                brushType: 'stroke',
+                opacity: 0.3
+            }),
+            highlightStyle: {
+                opacity: 0
+            },
+            z: 1.5,
+            ignore: true,
+            zlevel: this.level,
+            hoverable: false,
+        });
+
         var shadowShape = new CircleShape({
             style: new CircleStyle({
                 color: 'black',
@@ -10914,12 +10930,13 @@ define('js/NodeEntity',['require','qtek/core/Base','zrender/shape/Group','zrende
                 shadowOffsetX: 0,
                 shadowOffsetY: 0
             }),
-            z: 0.9,
+            z: 0.5,
             zlevel: this.level,
             hoverable: false
         });
         this.group.addChild(shadowShape);
         this.group.addChild(outlineShape);
+        this.group.addChild(glowShape);
         
         var contentGroup = new Group();
         var clipShape = new CircleShape({
@@ -10974,6 +10991,7 @@ define('js/NodeEntity',['require','qtek/core/Base','zrender/shape/Group','zrende
         this._outlineShape = outlineShape;
         this._clipShape = clipShape;
         this._shadowShape = shadowShape;
+        this._glowShape = glowShape;
 
         this.shapeList.push(this._imageShape);
 
@@ -10988,6 +11006,9 @@ define('js/NodeEntity',['require','qtek/core/Base','zrender/shape/Group','zrende
             var radius = zr.getWidth() / 1200 * this.radius;
 
             this._outlineShape.style.r = radius;
+            this._outlineShape.style.lineWidth = radius / 50 * this.lineWidth;
+            this._glowShape.style.lineWidth = this._outlineShape.style.lineWidth * 2;
+            this._glowShape.style.r = radius + this._outlineShape.style.lineWidth;
 
             this._imageShape.style.x = -radius;
             this._imageShape.style.y = -radius;
@@ -11022,7 +11043,7 @@ define('js/NodeEntity',['require','qtek/core/Base','zrender/shape/Group','zrende
 
         highlight: function() {
             this._outlineShape.style.strokeColor = this.highlightColor;
-
+            this._glowShape.ignore = false;
             if (this.image && this._labelShape) {
                 this._labelShape.style.color = this.highlightLabelColor;
             }
@@ -11030,7 +11051,7 @@ define('js/NodeEntity',['require','qtek/core/Base','zrender/shape/Group','zrende
 
         leaveHighlight: function() {
             this._outlineShape.style.strokeColor = this.color;
-
+            this._glowShape.ignore = true;
             if (this.image && this._labelShape) {
                 this._labelShape.style.color = this.labelColor;
             }
@@ -15403,6 +15424,7 @@ define('js/EdgeEntity',['require','qtek/core/Base','zrender/shape/Rectangle','zr
                     text: this.label,
                     textPosition: 'inside',
                     textAlign: 'center',
+                    textFont: '12px 微软雅黑',
                     color: '#3791dc',
                     brushType: 'fill',
                     x: -width / 2,
@@ -16444,6 +16466,20 @@ define('js/Level',['require','zrender/shape/Group','./NodeEntity','./EdgeEntity'
         }
         for (var i = 0; i < graph.edges.length; i++) {
             graph.edges[i].entity.leaveHighlight(zr);
+        }
+
+        zr.refreshNextFrame();
+    }
+
+    Level.prototype.highlightAll = function() {
+        var graph = this.graph;
+        var zr = this.zr;
+
+        for (var i = 0; i < graph.nodes.length; i++) {
+            graph.nodes[i].entity.highlight(zr);
+        }
+        for (var i = 0; i < graph.edges.length; i++) {
+            graph.edges[i].entity.highlight(zr);
         }
 
         zr.refreshNextFrame();
@@ -29754,16 +29790,23 @@ define('js/index',['require','text!../data/relation1.json','../data/relation2','
 
     currentLevel.on('action', handleAction);
 
+    var inAnimation = false;
+
     function handleAction(action, clickNode) {
-        if (!action) {
+        if (!action || inAnimation) {
             return;
         }
+
         var data, graph;
         if (action.indexOf('role/') == 0)  // 进入角色level
         {
             var graph = new Graph();
             var name = action.slice('role/'.length);
             var data = relation2.get(name, clickNode);
+
+            currentLevel.leaveHighlight();
+            zr.refresh();
+
             if (!data) {
                 return;
             }
@@ -29778,7 +29821,11 @@ define('js/index',['require','text!../data/relation1.json','../data/relation2','
             }
         }
         else if (action == 'back') {
-            leaveLevel();
+            leaveLevel(false);
+        }
+        else if (action == 'back/back') {
+            leaveLevel(true);
+            leaveLevel(false);
         }
         // 进入下一个层级
         if (data && graph) {
@@ -29840,7 +29887,7 @@ define('js/index',['require','text!../data/relation1.json','../data/relation2','
         level.layout.warmUp(0.7);
         level.startLayouting();
 
-        level.highlightNode(mainNode);
+        level.highlightAll();
 
         blurFilter.addImage(currentLevel.getDom());
 
@@ -29856,6 +29903,9 @@ define('js/index',['require','text!../data/relation1.json','../data/relation2','
             .during(function() {
                 blurFilter.render();
             })
+            .done(function() {
+                inAnimation = false;
+            })
             .start();
 
         zr.delGroup(currentLevel.root);
@@ -29863,41 +29913,52 @@ define('js/index',['require','text!../data/relation1.json','../data/relation2','
         changeCurrentLevel(level);
 
         levelStack.push(level);
+
+        inAnimation = true;
     }
 
-    function leaveLevel() {
+    function leaveLevel(immediately) {
         var level = levelStack.pop();
 
         zr.delGroup(level.root);
 
         changeCurrentLevel(levelStack[levelStack.length - 1]);
 
-        zr.animation.animate(blurFilter)
-            .when(0, {
-                scale: 0.95,
-                blurSize: 5
-            })
-            .when(500, {
-                scale: 1,
-                blurSize: 0
-            })
-            .during(function() {
-                blurFilter.render();
-            })
-            .done(function() {
-                zr.addGroup(currentLevel.root);
-                zr.refresh();
+        if (!immediately) {
+            zr.animation.animate(blurFilter)
+                .when(0, {
+                    scale: 0.95,
+                    blurSize: 5
+                })
+                .when(500, {
+                    scale: 1,
+                    blurSize: 0
+                })
+                .during(function() {
+                    blurFilter.render();
+                })
+                .done(function() {
+                    zr.addGroup(currentLevel.root);
+                    zr.refresh();
 
-                blurFilter.popImage();
-                if (levelStack.length > 1) {
-                    blurFilter.blurSize = 5;
-                    blurFilter.scale = 0.95;
-                    blurFilter.render();   
-                } else {
-                    blurFilter.clear();
-                }
-            })
-            .start();
+                    blurFilter.popImage();
+                    if (levelStack.length > 1) {
+                        blurFilter.blurSize = 5;
+                        blurFilter.scale = 0.95;
+                        blurFilter.render();   
+                    } else {
+                        blurFilter.clear();
+                    }
+
+                    inAnimation = false;
+                })
+                .start();
+
+            inAnimation = true;
+
+        } else {
+            blurFilter.popImage();
+        }
 
         zr.refreshNextFrame();
     }
