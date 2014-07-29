@@ -1,7 +1,7 @@
 {
     // appDir: './',
     baseUrl: '../',
-    optimize: 'none',
+    // optimize: 'none',
 
     paths: {
         'glmatrix': '../qtek/thirdparty/gl-matrix'

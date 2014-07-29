@@ -19,7 +19,6 @@ body {
     top: 0px;
     bottom: 0px;
     right: 0px;
-    z-index: 10;
 }
 
 #bg-particles {
@@ -28,7 +27,6 @@ body {
     top: 0px;
     bottom: 0px;
     right: 0px;
-    z-index: 1;
 }
 
 #out-of-focus {
@@ -37,15 +35,58 @@ body {
     top: 0px;
     bottom: 0px;
     right: 0px;
-    z-index: 2;
 }
 
 #logo {
     width: 154px;
     height: 72px;
-    position: absolute;
+    position: fixed;
     left: 30px;
     top: 30px;
 
     background-image: url(../imgs/logo.png);
+    z-index: 10;
+}
+
+#logo-kg {
+    width: 183px;
+    height: 43px;
+    position: fixed;
+    right: 30px;
+    bottom: 50px;
+
+    background-image: url(../imgs/logo-kg.png);
+    z-index: 10;
+}
+
+#browser-upgrade {
+    background-image: url(../imgs/browser-upgrade.jpg);
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 1280px;
+    height: 800px;
+}
+
+#browser-upgrade p {
+    color: white;
+    left: 560px;
+    top: 300px;
+    width: 400px;
+    position: absolute;
+
+    line-height: 30px;
+    font-family: "微软雅黑";
+    font-size: 16px;
+}
+
+#browser-upgrade a {
+    color: #00b9f6;
+    text-decoration: none;
+    padding: 2px 3px;
+}
+
+#browser-upgrade a:hover {
+    background-color: #00b9f6;
+    color: white;
 }

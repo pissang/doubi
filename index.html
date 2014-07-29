@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <script type="text/javascript" src="lib/esl.js"></script>
+        <script type="text/javascript" src="http://s1.bdstatic.com/r/www/cache/ecom/esl/1-8-2/esl.js"></script>
         <link rel="stylesheet" href="css/index.css">
     </head>
     <body>
@@ -10,13 +10,28 @@
         <canvas id="out-of-focus"></canvas>
         <div id="main"></div>
         <div id="logo"></div>
+        <div id="logo-kg"></div>
+        <div id="browser-upgrade" style="display:none;">
+            <p>
+                对不起你当前使用的浏览器无法浏览该页面
+                <br />百度建议你使用<a href="http://www.baidu.com/s?wd=chrome">chrome</a>，<a href="http://www.baidu.com/s?wd=firefox">firefox</a>，<a href="http://www.baidu.com/s?wd=IE10">IE10+</a>
+                <br />或<a href="http://www.baidu.com/s?ie=utf-8&wd=%E7%99%BE%E5%BA%A6%E6%B5%8F%E8%A7%88%E5%99%A8">百度浏览器</a>极速模式进行浏览
+            </p>
+        </div>
         <script type="text/javascript">
-            require.config({
-                paths: {
-                    'js/index': 'release'
-                }
-            })
-            require(['js/index'], function() {});
+            if (document.createElement('canvas').getContext) {
+                // Support canvas
+                require.config({
+                    paths: {
+                        'js/index': 'release'
+                    }
+                });
+                require(['js/index'], function() {});
+            } else {
+                // 显示浏览器升级信息
+                document.body.getElementById('browser-upgrade').style.display = 'block';
+            }
         </script>
+        <script type="text/javascript" src="loading.js"></script>
     </body>
 </html>

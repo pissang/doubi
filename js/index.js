@@ -1,5 +1,7 @@
 define(function(require) {
 
+    window.stopLoading && window.stopLoading();
+
     var relation1 = JSON.parse(require('text!../data/relation1.json'));
     var relation2 = require('../data/relation2');
     var relation3 = require('../data/relation3');
@@ -121,6 +123,10 @@ define(function(require) {
 
             enterLevel(graph, zr, mainNode, clickNode);
         }
+    }
+
+    function backToIndex() {
+
     }
 
     function enterLevel(graph, zr, mainNode, fromNode) {
@@ -270,7 +276,7 @@ define(function(require) {
         // TODO
         // 强制更新防止鼠标多次触发事件
         zr.storage.updateShapeList();
-        
+
         zr.refreshNextFrame();
 
         inAnimation = true;
@@ -305,5 +311,9 @@ define(function(require) {
         for (var i = 0; i < levelStack.length - 1; i++) {
             levelStack[i].needsLayout = true;
         }
+    }
+
+    if (typeof(console) !== 'undefined') {
+        console.log('Painted with ECharts')
     }
 });

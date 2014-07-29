@@ -34,7 +34,7 @@ define(function(require) {
         );
         gradient.addColorStop(0, 'rgba(255,255,255,1)');
         gradient.addColorStop(0.3, 'rgba(255,255,255,1)');
-        gradient.addColorStop(0.8, 'rgba(255,255,255,0.51)');
+        gradient.addColorStop(0.6, 'rgba(255,255,255,0.4)');
         gradient.addColorStop(1.0, 'rgba(255,255,255,0.0)');
         ctx.fillStyle = gradient;
         ctx.fill();
