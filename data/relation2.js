@@ -1,5 +1,4 @@
 define(function(require) {
-    // TODO 顾里
     // TODO 宫洛
     // TODO 周崇光 剧照
     var actors = {
@@ -8,10 +7,10 @@ define(function(require) {
             life: 'imgs/actors/林萧-杨幂-生活照.jpg',
             still: 'imgs/actors/林萧-剧照.jpg'
         },
-        '宫洛': {
+        '宫洺': {
             actor: '锦荣',
-            life: 'imgs/actors/宫洛-锦荣-生活照.jpg',
-            still: 'imgs/actors/宫洛-剧照.jpg'
+            life: 'imgs/actors/宫洺-锦荣-生活照.jpg',
+            still: 'imgs/actors/宫洺-剧照.jpg'
         },
         '顾源': {
             actor: '柯震东',
@@ -57,6 +56,11 @@ define(function(require) {
             actor: '任佑明',
             life: 'imgs/actors/顾准-任佑明-生活照.jpg',
             still: 'imgs/actors/顾准-剧照.jpg'
+        },
+        '顾里': {
+            actor: '郭采洁',
+            life: 'imgs/actors/顾里-郭采洁-生活照.jpg',
+            still: 'imgs/actors/顾里-剧照.jpg'
         },
         '卫海': {
             actor: '杜天皓',

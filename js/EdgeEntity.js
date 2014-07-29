@@ -80,8 +80,8 @@ define(function(require) {
             vec2.sub(v, p1, p2);
             vec2.normalize(v, v);
 
-            vec2.scaleAndAdd(v1, p1, v, -sourceEntity.radius);
-            vec2.scaleAndAdd(v2, p2, v, targetEntity.radius);
+            vec2.scaleAndAdd(v1, p1, v, -sourceEntity.getBoundingRadius());
+            vec2.scaleAndAdd(v2, p2, v, targetEntity.getBoundingRadius());
 
             lineShape.style.xStart = v1[0];
             lineShape.style.yStart = v1[1];

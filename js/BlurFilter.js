@@ -183,19 +183,20 @@ define(function(require) {
 
             // Add previus scene to a rtt
             if (this._textureStack.length > 0) {
-                var rtt = new Texture2D({
-                    width: this._renderer.width,
-                    height: this._renderer.height
-                });
-                this.blurSize = 5.0;
-                this.scale = 1.0;
+                // TODO
+                // var rtt = new Texture2D({
+                //     width: this._renderer.width,
+                //     height: this._renderer.height
+                // });
+                // this.blurSize = 5.0;
+                // this.scale = 1.0;
 
-                this._frameBuffer.attach(this._renderer.gl, rtt);
-                this.render(this._frameBuffer);
+                // this._frameBuffer.attach(this._renderer.gl, rtt);
+                // this.render(this._frameBuffer);
 
-                this._rttStack.push(rtt);
+                // this._rttStack.push(rtt);
 
-                this._meshBack.material.set('diffuseMap', rtt);
+                // this._meshBack.material.set('diffuseMap', rtt);
             }
 
             this._meshFront.material.set('diffuseMap', texture);

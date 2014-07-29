@@ -102,10 +102,9 @@ define(function(require) {
 
         var shadowShape = new CircleShape({
             style: new CircleStyle({
-                color: 'black',
-                brushType: 'fill',
+                brushType: 'stroke',
                 shadowColor: 'black',
-                shadowBlur: 20,
+                shadowBlur: 15,
                 shadowOffsetX: 0,
                 shadowOffsetY: 0
             }),
@@ -189,6 +188,9 @@ define(function(require) {
             this._glowShape.style.lineWidth = this._outlineShape.style.lineWidth * 2;
             this._glowShape.style.r = radius + this._outlineShape.style.lineWidth;
 
+            this._shadowShape.style.r = this._outlineShape.style.r;
+            this._shadowShape.style.lineWidth = this._outlineShape.style.lineWidth;
+
             this._imageShape.style.x = -radius;
             this._imageShape.style.y = -radius;
             this._imageShape.style.width = radius * 2;
@@ -211,13 +213,15 @@ define(function(require) {
                 zr.modShape(this._labelShape.id);
             }
 
-            this._shadowShape.style.r = radius;
-
             zr.modShape(this._outlineShape.id);
             zr.modShape(this._imageShape.id);
             zr.modShape(this._shadowShape.id);
 
             zr.modGroup(this.group.id);
+        },
+
+        getBoundingRadius: function() {
+            return this._outlineShape.style.r + this._outlineShape.style.lineWidth / 2;
         },
 
         highlight: function() {

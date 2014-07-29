@@ -1,11 +1,15 @@
 define(function(require) {
 
     var data = JSON.parse(require('text!./relation3.json'));
+    var zrUtil = require('zrender/tool/util');
 
     return {
         get: function(name, node, backNode) {
             var graph = data[name];
             if (graph) {
+                
+                graph = zrUtil.clone(graph);
+
                 graph.nodes.push({
                     name: '小时代-返回',
                     title: '返回',
