@@ -55,7 +55,9 @@ define(function(require) {
         _shadowShape: null,
         _glowShape: null,
 
-        _clipShape: null
+        _clipShape: null,
+
+        _labelHeight: 25
 
     }, function() {
 
@@ -134,6 +136,17 @@ define(function(require) {
         });
 
         if (this.label) {
+            // TODO
+            // 简单的换行机制
+            var wrapLabel = false;
+            if (this.label.length > 4 && this.image) {
+                var len = this.label.length;
+                var idx = Math.round(len / 1.4);
+                this.label = this.label.substr(0, idx) + '\n' + this.label.substr(idx);
+                this._labelHeight = 40;
+                wrapLabel = true;
+            }
+
             var labelShape = new RectShape({
                 style: {
                     color: this.labelColor,
@@ -143,7 +156,7 @@ define(function(require) {
                     textAlign: 'center',
                     brushType: 'both',
                     textColor: 'white',
-                    textFont: '14px 微软雅黑'
+                    textFont: this.radius > 50 ? '14px 微软雅黑' : '12px 微软雅黑'
                 },
                 hoverable: false,
                 z: 1,
@@ -202,9 +215,9 @@ define(function(require) {
             if (this._labelShape) {
                 if (this.image) {
                     this._labelShape.style.x = -radius;
-                    this._labelShape.style.y = radius - 20;
+                    this._labelShape.style.y = radius - this._labelHeight;
                     this._labelShape.style.width = radius * 2;
-                    this._labelShape.style.height = 20;
+                    this._labelShape.style.height = this._labelHeight;
                 } else {
                     this._labelShape.style.x = -radius;
                     this._labelShape.style.y = -radius;

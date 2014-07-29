@@ -8,6 +8,16 @@ define(function(require) {
 
     var ArrayCtor = typeof(Float32Array) !== 'undefined' ? Float32Array : Array;
 
+    // Use inline web worker
+    // var workerUrl;
+    // if (
+    //     typeof(Worker) !== 'undefined' &&
+    //     typeof(Blob) !== 'undefined'
+    // ) {
+    //     var blob = new Blob([ForceLayout.getWorkerCode()]);
+    //     workerUrl = window.URL.createObjectURL(blob);
+    // }
+
     var Force = function(graph) {
         
         this.graph = graph || new Graph();
@@ -42,8 +52,8 @@ define(function(require) {
 
             nodesIdxMap[node.name] = i;
 
-            var x = width / 2 * (1.5 - Math.random());
-            var y = height / 2 * (1.5 - Math.random());
+            var x = (Math.random() - 0.5) * 500 + width / 2;
+            var y = (Math.random() - 0.5) * 500 + height / 2;
 
             if (!graph.nodes[i].position) {
                 graph.nodes[i].position = [x, y];
