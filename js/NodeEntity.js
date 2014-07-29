@@ -181,7 +181,8 @@ define(function(require) {
     }, {
 
         update: function(zr) {
-            var radius = zr.getWidth() / 1200 * this.radius;
+            var ratio = Math.min(zr.getWidth() / 1280, zr.getHeight() / 800);
+            var radius = ratio * this.radius;
 
             this._outlineShape.style.r = radius;
             this._outlineShape.style.lineWidth = radius / 50 * this.lineWidth;

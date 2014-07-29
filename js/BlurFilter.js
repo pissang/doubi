@@ -241,7 +241,9 @@ define(function(require) {
 
         resize: function() {
             var canvas = this._renderer.canvas;
-            this._renderer.resize(canvas.clientWidth, canvas.clientHeight);
+            this._renderer.resize(window.innerWidth, window.innerHeight);
+
+            this.render();
         },
 
         clear: function() {

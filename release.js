@@ -24991,6 +24991,8 @@ define('js/Force',['require','./Graph','echarts/chart/ForceLayoutWorker','glmatr
     var glMatrix = require('glmatrix');
     var vec2 = glMatrix.vec2;
 
+    var ArrayCtor = typeof(Float32Array) !== 'undefined' ? Float32Array : Array;
+
     var Force = function(graph) {
         
         this.graph = graph || new Graph();
@@ -25012,9 +25014,9 @@ define('js/Force',['require','./Graph','echarts/chart/ForceLayoutWorker','glmatr
 
         var graph = this.graph;
 
-        var positionArr = new Float32Array(graph.nodes.length * 2);
-        var radiusArr = new Float32Array(graph.nodes.length);
-        var weightArr = new Float32Array(graph.nodes.length);
+        var positionArr = new ArrayCtor(graph.nodes.length * 2);
+        var radiusArr = new ArrayCtor(graph.nodes.length);
+        var weightArr = new ArrayCtor(graph.nodes.length);
 
         var minR = Infinity;
         var maxR = -Infinity;
@@ -25049,8 +25051,8 @@ define('js/Force',['require','./Graph','echarts/chart/ForceLayoutWorker','glmatr
             weightArr[i] = radiusArr[i] / maxR;
         }
         
-        var edgeArr = new Float32Array(graph.edges.length * 2);
-        var edgeWeightArr = new Float32Array(graph.edges.length)
+        var edgeArr = new ArrayCtor(graph.edges.length * 2);
+        var edgeWeightArr = new ArrayCtor(graph.edges.length)
         for (var i = 0; i < graph.edges.length; i++) {
             var edge = graph.edges[i];
             edgeArr[i * 2] = nodesIdxMap[edge.source.name];
@@ -30073,11 +30075,11 @@ define('js/index',['require','../data/relation1.json','../data/relation2','../da
             }
         }
         else if (action == 'back') {
-            leaveLevel(false);
+            leaveLevel(!isSupportWebGL);
         }
         else if (action == 'back/back') {
             leaveLevel(true);
-            leaveLevel(false);
+            leaveLevel(!isSupportWebGL);
         }
         // 进入下一个层级
         if (data && graph) {
@@ -30191,7 +30193,7 @@ define('js/index',['require','../data/relation1.json','../data/relation2','../da
                 })
                 .done(function() {
                     zr.addGroup(currentLevel.root);
-                    zr.refresh();
+                    zr.refreshNextFrame();
 
                     blurFilter.popImage();
                     if (levelStack.length > 1) {
@@ -30209,6 +30211,8 @@ define('js/index',['require','../data/relation1.json','../data/relation2','../da
             inAnimation = true;
 
         } else {
+            zr.addGroup(currentLevel.root);
+            zr.refreshNextFrame();
             blurFilter.popImage();
         }
 

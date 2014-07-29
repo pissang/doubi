@@ -33,8 +33,14 @@ define(function(require) {
     });
 
     var graph = new Graph();
+    var mainNode;
     for (var i = 0; i < relation1.nodes.length; i++) {
         var node = graph.addNode(relation1.nodes[i].name, relation1.nodes[i]);
+        if (node.name == '林萧') {
+            mainNode = node;
+            //争取把林萧放到靠近中间的位置
+            node.position = [window.innerWidth / 2, window.innerHeight / 2];
+        }
     }
     for (var i = 0; i < relation1.edges.length; i++) {
         var e = relation1.edges[i];
@@ -51,7 +57,10 @@ define(function(require) {
 
     var currentLevel = new Level(graph, zr);
     currentLevel.init();
-    currentLevel.doLayout();
+    currentLevel.layout.steps = 10;
+    currentLevel.startLayouting();
+
+    currentLevel.highlightNode(mainNode);
 
     var levelStack = [currentLevel];
 
@@ -71,8 +80,8 @@ define(function(require) {
             var name = action.slice('role/'.length);
             var data = relation2.get(name, clickNode);
 
-            currentLevel.leaveHighlight();
-            zr.refresh();
+            // currentLevel.leaveHighlight();
+            // zr.refresh();
 
             if (!data) {
                 return;
@@ -87,10 +96,13 @@ define(function(require) {
                 return;
             }
         }
-        else if (action == 'back') {
+        else if (action.indexOf('detail/') == 0) {  //弹出浮层
+            popupDetail(action.slice('actor/'.length));
+        }
+        else if (action == 'back') {   // 后退一级
             leaveLevel(!isSupportWebGL);
         }
-        else if (action == 'back/back') {
+        else if (action == 'back/back') { // 后退两级
             leaveLevel(true);
             leaveLevel(!isSupportWebGL);
         }
@@ -156,6 +168,83 @@ define(function(require) {
 
         level.highlightAll();
 
+        // 动画: 清晰->模糊
+        blurCurrentLevel();        
+
+        changeCurrentLevel(level);
+
+        levelStack.push(level);
+    }
+
+    function leaveLevel(immediately) {
+        var level = levelStack.pop();
+
+        zr.delGroup(level.root);
+        // TODO
+        // 强制更新防止鼠标多次触发事件
+        zr.storage.updateShapeList();
+
+        changeCurrentLevel(levelStack[levelStack.length - 1]);
+
+        if (!immediately) {
+            // 动画: 模糊->清晰
+            inAnimation = true;
+
+            focusCurrentLevel();
+        } else {
+            zr.addGroup(currentLevel.root);
+            zr.refreshNextFrame();
+            blurFilter.popImage();
+        }
+
+        zr.refreshNextFrame();
+    }
+
+    function popupDetail(path) {
+        blurCurrentLevel();
+    }
+
+    function closeDetail() {
+        focusCurrentLevel();
+    }
+
+    function focusCurrentLevel(callback) {
+        zr.animation.animate(blurFilter)
+            .when(0, {
+                scale: 0.95,
+                blurSize: 5
+            })
+            .when(500, {
+                scale: 1,
+                blurSize: 0
+            })
+            .during(function() {
+                blurFilter.render();
+            })
+            .done(function() {
+                zr.addGroup(currentLevel.root);
+                zr.refreshNextFrame();
+
+                blurFilter.popImage();
+                if (levelStack.length > 1) {
+                    blurFilter.blurSize = 5;
+                    blurFilter.scale = 0.95;
+                    blurFilter.render();   
+                } else {
+                    blurFilter.clear();
+                }
+
+                inAnimation = false;
+
+                callback && callback();
+            })
+            .start();
+
+        inAnimation = true;
+    }
+
+    function blurCurrentLevel(callback) {
+
         blurFilter.addImage(currentLevel.getDom());
 
         zr.animation.animate(blurFilter)
@@ -172,64 +261,19 @@ define(function(require) {
             })
             .done(function() {
                 inAnimation = false;
+
+                callback && callback();
             })
             .start();
 
         zr.delGroup(currentLevel.root);
-
-        changeCurrentLevel(level);
-
-        levelStack.push(level);
+        // TODO
+        // 强制更新防止鼠标多次触发事件
+        zr.storage.updateShapeList();
+        
+        zr.refreshNextFrame();
 
         inAnimation = true;
-    }
-
-    function leaveLevel(immediately) {
-        var level = levelStack.pop();
-
-        zr.delGroup(level.root);
-
-        changeCurrentLevel(levelStack[levelStack.length - 1]);
-
-        if (!immediately) {
-            zr.animation.animate(blurFilter)
-                .when(0, {
-                    scale: 0.95,
-                    blurSize: 5
-                })
-                .when(500, {
-                    scale: 1,
-                    blurSize: 0
-                })
-                .during(function() {
-                    blurFilter.render();
-                })
-                .done(function() {
-                    zr.addGroup(currentLevel.root);
-                    zr.refreshNextFrame();
-
-                    blurFilter.popImage();
-                    if (levelStack.length > 1) {
-                        blurFilter.blurSize = 5;
-                        blurFilter.scale = 0.95;
-                        blurFilter.render();   
-                    } else {
-                        blurFilter.clear();
-                    }
-
-                    inAnimation = false;
-                })
-                .start();
-
-            inAnimation = true;
-
-        } else {
-            zr.addGroup(currentLevel.root);
-            zr.refreshNextFrame();
-            blurFilter.popImage();
-        }
-
-        zr.refreshNextFrame();
     }
 
     function changeCurrentLevel(level) {

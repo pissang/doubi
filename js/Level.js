@@ -64,12 +64,12 @@ define(function(require) {
                 this.highlightNode(node);
             }, this);
 
-            node.entity.on('mouseout', function() {
-                if (this.disableHover) {
-                    return;
-                }
-                this.leaveHighlight();
-            }, this);
+            // node.entity.on('mouseout', function() {
+                // if (this.disableHover) {
+                //     return;
+                // }
+                // this.leaveHighlight();
+            // }, this);
 
             node.entity.on('click', function() {
                 this.trigger('action', node.action, node);
@@ -99,10 +99,14 @@ define(function(require) {
 
     Level.prototype.startLayouting = function() {
         this.zr.animation.bind('frame', this.doLayout, this);
+
+        this.trigger('startlayout');
     }
 
     Level.prototype.stopLayouting = function() {
         this.zr.animation.unbind('frame', this.doLayout);
+
+        this.trigger('stoplayout');
     }
 
     Level.prototype.doLayout = function() {

@@ -81,7 +81,8 @@ define(function(require) {
                     name: '剧照',
                     title: '',
                     image: opt.still,
-                    radius: 55
+                    radius: 55,
+                    action: 'detail/剧照/' + opt.roleName
                 },
                 {
                     name: opt.actor,
@@ -98,12 +99,15 @@ define(function(require) {
                 {
                     name: '角色概况',
                     title: '角色\n概况',
-                    radius: 40
+                    radius: 40,
+                    action: 'detail/角色/' + opt.roleName
                 },
                 {
                     name: '微博',
+                    title: '',
                     image: 'imgs/weibo.jpg',
-                    radius: 40
+                    radius: 40,
+                    action: 'detail/微博热议/' + opt.actor
                 },
                 {
                     name: '小时代',

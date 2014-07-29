@@ -129,8 +129,8 @@ define(function(require) {
     }
 
     function resize() {
-        canvas.width = canvas.clientWidth;
-        canvas.height = canvas.clientHeight;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
     }
 
     return {

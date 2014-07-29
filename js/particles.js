@@ -146,7 +146,7 @@ define(function(require) {
     }
 
     function resize() {
-        renderer.resize(canvas.clientWidth, canvas.clientHeight);
+        renderer.resize(window.innerWidth, window.innerHeight);
         camera.aspect = renderer.width / renderer.height;
     }
 

@@ -19,7 +19,7 @@ var nameList = lines[0].split('\t').slice(1);
 json.nodes = nameList.map(function(name, idx) {
     return {
         name: name,
-        radius: Math.max(50 - idx * 2, 30),
+        radius: Math.max(idx < 4 ? (65 - idx * 2) : (60 - idx * 2), 30),
         image: 'imgs/roles/' + name + '.jpg',
         action: 'role/' + name
     }
