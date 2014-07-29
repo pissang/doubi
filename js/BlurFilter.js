@@ -53,7 +53,9 @@ define(function(require) {
             _meshBack: null,
             _meshFront: null,
 
-            _frameBuffer: new FrameBuffer()
+            _frameBuffer: new FrameBuffer(),
+
+            notSupportWebGL: false
         }
     }, function() {
         var renderer = new Renderer({

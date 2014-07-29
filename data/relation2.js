@@ -75,7 +75,7 @@ define(function(require) {
                 {
                     name: opt.roleName,
                     image: opt.roleImage,
-                    radius: 80
+                    radius: 100
                 },
                 {
                     name: '剧照',

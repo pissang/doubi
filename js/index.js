@@ -4,13 +4,26 @@ define(function(require) {
     var relation2 = require('../data/relation2');
     var relation3 = require('../data/relation3');
     var qtekUtil = require('qtek/core/util');
+    var Renderer = require('qtek/Renderer');
 
     var zrender = require('zrender');
 
     var Graph = require('./Graph');
     var Level = require('./Level');
-    var particles = require('./particles');
-    var BlurFilter = require('./BlurFilter');
+
+    var isSupportWebGL = true;
+    try {
+        new Renderer();
+    } catch (e) {
+        isSupportWebGL = false;
+    }
+    if (isSupportWebGL) {
+        var particles = require('./particles');
+        var BlurFilter = require('./BlurFilter');
+    } else {
+        var particles = require('./particlesCanvas');
+        var BlurFilter = require('./BlurFilterCanvas');
+    }
 
     var outOfFocusCanvas = document.getElementById('out-of-focus');
     outOfFocusCanvas.width = window.innerWidth;
@@ -75,11 +88,11 @@ define(function(require) {
             }
         }
         else if (action == 'back') {
-            leaveLevel(false);
+            leaveLevel(!isSupportWebGL);
         }
         else if (action == 'back/back') {
             leaveLevel(true);
-            leaveLevel(false);
+            leaveLevel(!isSupportWebGL);
         }
         // 进入下一个层级
         if (data && graph) {
@@ -193,7 +206,7 @@ define(function(require) {
                 })
                 .done(function() {
                     zr.addGroup(currentLevel.root);
-                    zr.refresh();
+                    zr.refreshNextFrame();
 
                     blurFilter.popImage();
                     if (levelStack.length > 1) {
@@ -211,6 +224,8 @@ define(function(require) {
             inAnimation = true;
 
         } else {
+            zr.addGroup(currentLevel.root);
+            zr.refreshNextFrame();
             blurFilter.popImage();
         }
 

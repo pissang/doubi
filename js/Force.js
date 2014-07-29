@@ -6,6 +6,8 @@ define(function(require) {
     var glMatrix = require('glmatrix');
     var vec2 = glMatrix.vec2;
 
+    var ArrayCtor = typeof(Float32Array) !== 'undefined' ? Float32Array : Array;
+
     var Force = function(graph) {
         
         this.graph = graph || new Graph();
@@ -27,9 +29,9 @@ define(function(require) {
 
         var graph = this.graph;
 
-        var positionArr = new Float32Array(graph.nodes.length * 2);
-        var radiusArr = new Float32Array(graph.nodes.length);
-        var weightArr = new Float32Array(graph.nodes.length);
+        var positionArr = new ArrayCtor(graph.nodes.length * 2);
+        var radiusArr = new ArrayCtor(graph.nodes.length);
+        var weightArr = new ArrayCtor(graph.nodes.length);
 
         var minR = Infinity;
         var maxR = -Infinity;
@@ -64,8 +66,8 @@ define(function(require) {
             weightArr[i] = radiusArr[i] / maxR;
         }
         
-        var edgeArr = new Float32Array(graph.edges.length * 2);
-        var edgeWeightArr = new Float32Array(graph.edges.length)
+        var edgeArr = new ArrayCtor(graph.edges.length * 2);
+        var edgeWeightArr = new ArrayCtor(graph.edges.length)
         for (var i = 0; i < graph.edges.length; i++) {
             var edge = graph.edges[i];
             edgeArr[i * 2] = nodesIdxMap[edge.source.name];

@@ -58,7 +58,7 @@ define(function(require) {
         var steps = 3;
         for (var i = 0; i < steps; i++) {
             var p = (i+1) / (steps+1);
-            vec4.lerp(c, c1, c2, easing.QuinticInOut(p));
+            vec4.lerp(c, c1, c2, easing.CubicInOut(p));
             c[3] = Math.random();
             for (var j = 0; j < 3; j++) {
                 c[j] = Math.round(c[j]);
