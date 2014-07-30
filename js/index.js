@@ -198,6 +198,11 @@ define(function(require) {
 
         changeCurrentLevel(levelStack[levelStack.length - 1]);
 
+        if (currentLevel.needsResize) {
+            currentLevel.resize();
+            currentLevel.needsResize = false;
+        }
+
         if (!immediately) {
             // 动画: 模糊->清晰
             inAnimation = true;
@@ -304,24 +309,11 @@ define(function(require) {
         particles.resize();
         blurFilter.resize();
         if (currentLevel) {
-            currentLevel.layout.resize(zr.getWidth(), zr.getHeight());
-            currentLevel.layout.warmUp(0.9);
-            currentLevel.startLayouting();
-
-            if (currentLevel.mainNode) {
-                currentLevel.mainNode.position[0] = zr.getWidth() / 2;
-                currentLevel.mainNode.position[1] = zr.getHeight() / 2;
-            }
-
-            if (currentLevel.graph) {
-                for (var i = 0; i < currentLevel.graph.nodes.length; i++) {
-                    currentLevel.graph.nodes[i].entity.update(zr);
-                }
-            }
+            currentLevel.resize();
         }
 
         for (var i = 0; i < levelStack.length - 1; i++) {
-            levelStack[i].needsLayout = true;
+            levelStack[i].needsResize = true;
         }
     }
 

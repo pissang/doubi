@@ -184,6 +184,25 @@ define(function(require) {
         this.zr.refreshNextFrame();
     }
 
+    Level.prototype.resize = function() {
+        var zr = this.zr;
+        
+        this.layout.resize(zr.getWidth(), zr.getHeight());
+        this.layout.warmUp(0.9);
+        this.startLayouting();
+
+        if (this.mainNode) {
+            this.mainNode.position[0] = zr.getWidth() / 2;
+            this.mainNode.position[1] = zr.getHeight() / 2;
+        }
+
+        if (this.graph) {
+            for (var i = 0; i < this.graph.nodes.length; i++) {
+                this.graph.nodes[i].entity.update(zr);
+            }
+        }
+    }
+
     qtekUtil.extend(Level.prototype, notifier);
 
     return Level;

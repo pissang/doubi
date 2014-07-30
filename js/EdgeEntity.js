@@ -52,7 +52,7 @@ define(function(require) {
                     text: this.label,
                     textPosition: 'inside',
                     textAlign: 'center',
-                    textFont: '12px 微软雅黑',
+                    textFont: '14px 微软雅黑',
                     color: '#3791dc',
                     brushType: 'fill',
                     x: -width / 2,
@@ -110,6 +110,15 @@ define(function(require) {
                 labelShape.style.opacity = 1;
 
                 zr.modShape(labelShape.id);
+
+                var len = vec2.distance(v1, v2);
+                if (len > 50) {
+                    this.labelShape.style.textFont = '14px 微软雅黑';
+                    this.labelShape.scale[0] = this.labelShape.scale[1] = 1;
+                } else {
+                    this.labelShape.style.textFont = '12px 微软雅黑';
+                    this.labelShape.scale[0] = this.labelShape.scale[1] = len / 50;
+                }
             }
         },
 
