@@ -9,6 +9,8 @@ define(function(require) {
     var notifier = require('qtek/core/mixin/notifier');
     var qtekUtil = require('qtek/core/util');
 
+    var log = require('./log');
+
     var Level = function(graph, zr) {
 
         this.graph = graph;
@@ -51,6 +53,12 @@ define(function(require) {
                 level: this.level,
                 radius: node.radius
             });
+            // 区分回退的节点
+            // TODO 这里写死了
+            if (node.action && node.action.indexOf('back') == 0) {
+                node.entity.highlightColor = '#3791dc';
+            }
+
             node.entity.update(zr);
 
             node.entity.group.position = node.position;
@@ -73,6 +81,10 @@ define(function(require) {
 
             node.entity.on('click', function() {
                 this.trigger('action', node.action, node);
+
+                if (node.action) {
+                    log('zhishitupuclick', node.action);
+                }
             }, this);
 
         }, this);
@@ -85,11 +97,26 @@ define(function(require) {
                 level: this.level
             });
 
+            // 区分回退的节点
+            // TODO 这里写死了
+            if (
+                (edge.source.action && edge.source.action.indexOf('back') >= 0) ||
+                (edge.target.action && edge.target.action.indexOf('back') >= 0)
+            ) {
+                edgeEntity.highlightColor = '#3791dc';
+            }
+
             edge.entity = edgeEntity;
             this.root.addChild(edgeEntity.lineShape);
             if (edgeEntity.labelShape) {
                 this.root.addChild(edgeEntity.labelShape);
             }
+
+            edge.entity.on('click', function() {
+                var key = [edge.source.name, edge.target.name, edge.label].join(',');
+                log('zhishitupuclick', 'edge/' + key);
+                window.open('http://www.baidu.com/s?wd=' + key);
+            })
         }, this);
 
         zr.addGroup(this.root);
@@ -130,9 +157,12 @@ define(function(require) {
 
         for (var i = 0; i < graph.nodes.length; i++) {
             graph.nodes[i].entity.leaveHighlight(zr);
+            graph.nodes[i].entity.lineWidth = 5;
+            graph.nodes[i].entity.update(zr);
         }
         for (var i = 0; i < graph.edges.length; i++) {
             graph.edges[i].entity.leaveHighlight(zr);
+
         }
 
         zr.refreshNextFrame();
@@ -158,6 +188,9 @@ define(function(require) {
         var zr = this.zr;
 
         node.entity.highlight(zr);
+
+        node.entity.lineWidth = 8;
+        node.entity.update(zr);
 
         // Highlight adjency nodes and edges
         for (var i = 0; i < node.edges.length; i++) {
@@ -186,7 +219,7 @@ define(function(require) {
 
     Level.prototype.resize = function() {
         var zr = this.zr;
-        
+
         this.layout.resize(zr.getWidth(), zr.getHeight());
         this.layout.warmUp(0.9);
         this.startLayouting();

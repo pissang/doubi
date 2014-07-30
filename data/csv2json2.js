@@ -44,7 +44,7 @@ content.split('\n').forEach(function(line) {
             name: works,
             radius: radius,
             image: 'imgs/小时代演员作品图/' + actor + '/' + works + '.jpg',
-            action: 'detail/作品/' + works
+            action: 'detail/' + actor + '/作品/' + works
         });
         json[actor].edges.push({
             source: actor,
@@ -57,7 +57,7 @@ content.split('\n').forEach(function(line) {
             name: friend,
             radius: radius,
             image: 'imgs/小时代人脉图/' + actor + '/' + friend + '.jpg',
-            action: 'detail/人脉/' + works
+            action: 'detail/' + actor + '/人脉/' + friend
         });
         json[actor].edges.push({
             source: actor,

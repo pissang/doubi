@@ -4,6 +4,23 @@ define(function(require) {
     var zrUtil = require('zrender/tool/util');
 
     return {
+
+        actorRoleMap: {
+            "杨幂": "林萧",
+            "锦荣": "宫洺",
+            "柯震东": "顾源",
+            "郭碧婷": "南湘",
+            "谢依霖": "唐宛如",
+            "姜潮": "席城",
+            "王琳": "叶传萍",
+            "陈学冬": "周崇光",
+            "商侃": "Kitty",
+            "李贤宰": "Neil",
+            "任佑明": "顾准",
+            "郭采洁": "顾里",
+            "杜天皓": "卫海"
+        },
+
         get: function(name, node, backNode) {
             var graph = data[name];
             if (graph) {
@@ -22,7 +39,7 @@ define(function(require) {
 
                 graph.nodes.push({
                     name: backNode.name,
-                    radius: 40,
+                    radius: 45,
                     image: backNode.image,
                     position: [300, 300],
                     action: 'back'
@@ -31,7 +48,7 @@ define(function(require) {
                 graph.edges.push({
                     source: name,
                     target: backNode.name,
-                    label: '扮演者',
+                    label: name == '郭敬明' ? '小说作者' : '扮演者',
                     weight: 10
                 });
                 graph.edges.push({

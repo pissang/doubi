@@ -13,6 +13,9 @@ define(function(require) {
     var Graph = require('./Graph');
     var Level = require('./Level');
 
+    var showDetail = require('./detail');
+    var log = require('./log');
+
     var isSupportWebGL = true;
     try {
         new Renderer();
@@ -99,7 +102,7 @@ define(function(require) {
             }
         }
         else if (action.indexOf('detail/') == 0) {  //弹出浮层
-            popupDetail(action.slice('actor/'.length));
+            popupDetail(action.slice('detail/'.length), clickNode, currentLevel.mainNode);
         }
         else if (action == 'back') {   // 后退一级
             leaveLevel(!isSupportWebGL);
@@ -150,6 +153,7 @@ define(function(require) {
         // 调整长宽比
         level.layout._layout.width /= 1.2;
         level.layout._layout.height *= 1.2;
+        level.layout.steps = 20;
         level.doLayout();
 
         // 移动布局到整个界面中心
@@ -172,10 +176,10 @@ define(function(require) {
             })
             .start('CubicOut');
 
-        level.layout._layout.maxSpeedIncrease = 10000.0;
+        level.layout._layout.maxSpeedIncrease = 1000.0;
         level.layout._layout.scaling = 1.2;
-        level.layout.steps = 10;
-        level.layout.warmUp(0.7);
+        level.layout.steps = 5;
+        level.layout.warmUp(0.9);
         level.startLayouting();
 
         level.highlightAll();
@@ -217,8 +221,35 @@ define(function(require) {
         zr.refreshNextFrame();
     }
 
-    function popupDetail(path) {
-        blurCurrentLevel();
+    function popupDetail(path, clickNode, mainNode) {
+        path = path.split('/');
+
+        var name = path[0];
+        var type = path[1];
+        // 在第三层级中
+        name = relation3.actorRoleMap[name] || name;
+        var obj = {
+            path: {
+                type: type,
+                name: name,
+                extra: path[2]
+            }
+        };
+        switch(type) {
+            case "角色":
+            case "微博热议":
+                obj.image = mainNode.image;
+                break;
+            case "作品":
+            case "人脉":
+                obj.image = clickNode.image;
+                break;
+        }
+        var detail = showDetail(obj);
+        if (detail.haveData()) {
+            blurCurrentLevel();
+            detail.show().close(closeDetail);
+        }
     }
 
     function closeDetail() {
@@ -318,4 +349,7 @@ define(function(require) {
     }
 
     document.getElementById('logo').addEventListener('click', backToIndex);
+
+    // 展现日志
+    log('zhishitupuse', '');
 });

@@ -82,7 +82,7 @@ define(function(require) {
                     title: '',
                     image: opt.still,
                     radius: 55,
-                    action: 'detail/剧照/' + opt.roleName
+                    action: 'detail/' + opt.roleName + '/剧照'
                 },
                 {
                     name: opt.actor,
@@ -100,21 +100,21 @@ define(function(require) {
                     name: '角色概况',
                     title: '角色\n概况',
                     radius: 40,
-                    action: 'detail/角色/' + opt.roleName
+                    action: 'detail/' + opt.roleName + '/角色'
                 },
                 {
                     name: '微博',
                     title: '',
                     image: 'imgs/weibo.jpg',
                     radius: 40,
-                    action: 'detail/微博热议/' + opt.actor
+                    action: 'detail/' + opt.actor + '/微博热议'
                 },
                 {
                     name: '小时代',
                     title: '返回',
                     image: 'imgs/logo-back.png',
                     action: 'back',
-                    radius: 40,
+                    radius: 50,
                     position: [300, 150],
                     fixed: true
                 }

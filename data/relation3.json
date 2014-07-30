@@ -9,43 +9,43 @@
         "name": "宫",
         "radius": 50,
         "image": "imgs/小时代演员作品图/杨幂/宫.jpg",
-        "action": "detail/作品/宫"
+        "action": "detail/杨幂/作品/宫"
       },
       {
         "name": "刘恺威",
         "radius": 50,
         "image": "imgs/小时代人脉图/杨幂/刘恺威.jpg",
-        "action": "detail/人脉/宫"
+        "action": "detail/杨幂/人脉/刘恺威"
       },
       {
         "name": "分手大师",
         "radius": 45,
         "image": "imgs/小时代演员作品图/杨幂/分手大师.jpg",
-        "action": "detail/作品/分手大师"
+        "action": "detail/杨幂/作品/分手大师"
       },
       {
         "name": "周笔畅",
         "radius": 45,
         "image": "imgs/小时代人脉图/杨幂/周笔畅.jpg",
-        "action": "detail/人脉/分手大师"
+        "action": "detail/杨幂/人脉/周笔畅"
       },
       {
         "name": "仙剑奇侠传3",
         "radius": 40,
         "image": "imgs/小时代演员作品图/杨幂/仙剑奇侠传3.jpg",
-        "action": "detail/作品/仙剑奇侠传3"
+        "action": "detail/杨幂/作品/仙剑奇侠传3"
       },
       {
         "name": "唐嫣",
         "radius": 40,
         "image": "imgs/小时代人脉图/杨幂/唐嫣.jpg",
-        "action": "detail/人脉/仙剑奇侠传3"
+        "action": "detail/杨幂/人脉/唐嫣"
       },
       {
         "name": "亲幂关系Close to Me",
         "radius": 35,
         "image": "imgs/小时代演员作品图/杨幂/亲幂关系Close to Me.jpg",
-        "action": "detail/作品/亲幂关系Close to Me"
+        "action": "detail/杨幂/作品/亲幂关系Close to Me"
       }
     ],
     "edges": [
@@ -96,43 +96,43 @@
         "name": "无敌珊宝妹",
         "radius": 50,
         "image": "imgs/小时代演员作品图/郭采洁/无敌珊宝妹.jpg",
-        "action": "detail/作品/无敌珊宝妹"
+        "action": "detail/郭采洁/作品/无敌珊宝妹"
       },
       {
         "name": "杨佑宁",
         "radius": 50,
         "image": "imgs/小时代人脉图/郭采洁/杨佑宁.jpg",
-        "action": "detail/人脉/无敌珊宝妹"
+        "action": "detail/郭采洁/人脉/杨佑宁"
       },
       {
         "name": "一页台北",
         "radius": 45,
         "image": "imgs/小时代演员作品图/郭采洁/一页台北.jpg",
-        "action": "detail/作品/一页台北"
+        "action": "detail/郭采洁/作品/一页台北"
       },
       {
         "name": "陈怡蓉",
         "radius": 45,
         "image": "imgs/小时代人脉图/郭采洁/陈怡蓉.jpg",
-        "action": "detail/人脉/一页台北"
+        "action": "detail/郭采洁/人脉/陈怡蓉"
       },
       {
         "name": "隐形超人",
         "radius": 40,
         "image": "imgs/小时代演员作品图/郭采洁/隐形超人.jpg",
-        "action": "detail/作品/隐形超人"
+        "action": "detail/郭采洁/作品/隐形超人"
       },
       {
         "name": "郑元畅",
         "radius": 40,
         "image": "imgs/小时代人脉图/郭采洁/郑元畅.jpg",
-        "action": "detail/人脉/隐形超人"
+        "action": "detail/郭采洁/人脉/郑元畅"
       },
       {
         "name": "向前走向爱走",
         "radius": 35,
         "image": "imgs/小时代演员作品图/郭采洁/向前走向爱走.jpg",
-        "action": "detail/作品/向前走向爱走"
+        "action": "detail/郭采洁/作品/向前走向爱走"
       }
     ],
     "edges": [
@@ -183,43 +183,43 @@
         "name": "金色年华",
         "radius": 50,
         "image": "imgs/小时代演员作品图/郭碧婷/金色年华.jpg",
-        "action": "detail/作品/金色年华"
+        "action": "detail/郭碧婷/作品/金色年华"
       },
       {
         "name": "杨子珊",
         "radius": 50,
         "image": "imgs/小时代人脉图/郭碧婷/杨子珊.jpg",
-        "action": "detail/人脉/金色年华"
+        "action": "detail/郭碧婷/人脉/杨子珊"
       },
       {
         "name": "假如没有你",
         "radius": 45,
         "image": "imgs/小时代演员作品图/郭碧婷/假如没有你.jpg",
-        "action": "detail/作品/假如没有你"
+        "action": "detail/郭碧婷/作品/假如没有你"
       },
       {
         "name": "林孝谦",
         "radius": 45,
         "image": "imgs/小时代人脉图/郭碧婷/林孝谦.jpg",
-        "action": "detail/人脉/假如没有你"
+        "action": "detail/郭碧婷/人脉/林孝谦"
       },
       {
         "name": "一线钟情",
         "radius": 40,
         "image": "imgs/小时代演员作品图/郭碧婷/一线钟情.jpg",
-        "action": "detail/作品/一线钟情"
+        "action": "detail/郭碧婷/作品/一线钟情"
       },
       {
         "name": "陈匡怡",
         "radius": 40,
         "image": "imgs/小时代人脉图/郭碧婷/陈匡怡.jpg",
-        "action": "detail/人脉/一线钟情"
+        "action": "detail/郭碧婷/人脉/陈匡怡"
       },
       {
         "name": "街角的小王子",
         "radius": 35,
         "image": "imgs/小时代演员作品图/郭碧婷/街角的小王子.jpg",
-        "action": "detail/作品/街角的小王子"
+        "action": "detail/郭碧婷/作品/街角的小王子"
       }
     ],
     "edges": [
@@ -270,31 +270,31 @@
         "name": "我为相亲狂",
         "radius": 50,
         "image": "imgs/小时代演员作品图/谢依霖/我为相亲狂.jpg",
-        "action": "detail/作品/我为相亲狂"
+        "action": "detail/谢依霖/作品/我为相亲狂"
       },
       {
         "name": "陈学冬",
         "radius": 50,
         "image": "imgs/小时代人脉图/谢依霖/陈学冬.jpg",
-        "action": "detail/人脉/我为相亲狂"
+        "action": "detail/谢依霖/人脉/陈学冬"
       },
       {
         "name": "我的男男男男朋友",
         "radius": 45,
         "image": "imgs/小时代演员作品图/谢依霖/我的男男男男朋友.jpg",
-        "action": "detail/作品/我的男男男男朋友"
+        "action": "detail/谢依霖/作品/我的男男男男朋友"
       },
       {
         "name": "撒娇女人最好命",
         "radius": 40,
         "image": "imgs/小时代演员作品图/谢依霖/撒娇女人最好命.jpg",
-        "action": "detail/作品/撒娇女人最好命"
+        "action": "detail/谢依霖/作品/撒娇女人最好命"
       },
       {
         "name": "钱多多炼爱记",
         "radius": 35,
         "image": "imgs/小时代演员作品图/谢依霖/钱多多炼爱记.jpg",
-        "action": "detail/作品/钱多多炼爱记"
+        "action": "detail/谢依霖/作品/钱多多炼爱记"
       }
     ],
     "edges": [
@@ -335,43 +335,43 @@
         "name": "那些年我们一起追的女孩",
         "radius": 50,
         "image": "imgs/小时代演员作品图/柯震东/那些年我们一起追的女孩.jpg",
-        "action": "detail/作品/那些年我们一起追的女孩"
+        "action": "detail/柯震东/作品/那些年我们一起追的女孩"
       },
       {
         "name": "萧亚轩",
         "radius": 50,
         "image": "imgs/小时代人脉图/柯震东/萧亚轩.jpg",
-        "action": "detail/人脉/那些年我们一起追的女孩"
+        "action": "detail/柯震东/人脉/萧亚轩"
       },
       {
         "name": "这一刻，爱吧",
         "radius": 45,
         "image": "imgs/小时代演员作品图/柯震东/这一刻，爱吧.jpg",
-        "action": "detail/作品/这一刻，爱吧"
+        "action": "detail/柯震东/作品/这一刻，爱吧"
       },
       {
         "name": "白百合",
         "radius": 45,
         "image": "imgs/小时代人脉图/柯震东/白百合.jpg",
-        "action": "detail/人脉/这一刻，爱吧"
+        "action": "detail/柯震东/人脉/白百合"
       },
       {
         "name": "在一起",
         "radius": 40,
         "image": "imgs/小时代演员作品图/柯震东/在一起.jpg",
-        "action": "detail/作品/在一起"
+        "action": "detail/柯震东/作品/在一起"
       },
       {
         "name": "郭书瑶",
         "radius": 40,
         "image": "imgs/小时代人脉图/柯震东/郭书瑶.jpg",
-        "action": "detail/人脉/在一起"
+        "action": "detail/柯震东/人脉/郭书瑶"
       },
       {
         "name": "有话直说",
         "radius": 35,
         "image": "imgs/小时代演员作品图/柯震东/有话直说.jpg",
-        "action": "detail/作品/有话直说"
+        "action": "detail/柯震东/作品/有话直说"
       }
     ],
     "edges": [
@@ -422,43 +422,43 @@
         "name": "小时代",
         "radius": 50,
         "image": "imgs/小时代演员作品图/陈学冬/小时代.jpg",
-        "action": "detail/作品/小时代"
+        "action": "detail/陈学冬/作品/小时代"
       },
       {
         "name": "谢依霖",
         "radius": 50,
         "image": "imgs/小时代人脉图/陈学冬/谢依霖.jpg",
-        "action": "detail/人脉/小时代"
+        "action": "detail/陈学冬/人脉/谢依霖"
       },
       {
         "name": "小时代·青木时代",
         "radius": 45,
         "image": "imgs/小时代演员作品图/陈学冬/小时代·青木时代.jpg",
-        "action": "detail/作品/小时代·青木时代"
+        "action": "detail/陈学冬/作品/小时代·青木时代"
       },
       {
         "name": "李晨",
         "radius": 45,
         "image": "imgs/小时代人脉图/陈学冬/李晨.jpg",
-        "action": "detail/人脉/小时代·青木时代"
+        "action": "detail/陈学冬/人脉/李晨"
       },
       {
         "name": "小时代·刺金时代",
         "radius": 40,
         "image": "imgs/小时代演员作品图/陈学冬/小时代·刺金时代.jpg",
-        "action": "detail/作品/小时代·刺金时代"
+        "action": "detail/陈学冬/作品/小时代·刺金时代"
       },
       {
         "name": "李悦铭",
         "radius": 40,
         "image": "imgs/小时代人脉图/陈学冬/李悦铭.jpg",
-        "action": "detail/人脉/小时代·刺金时代"
+        "action": "detail/陈学冬/人脉/李悦铭"
       },
       {
         "name": "小时代之折纸时代",
         "radius": 35,
         "image": "imgs/小时代演员作品图/陈学冬/小时代之折纸时代.jpg",
-        "action": "detail/作品/小时代之折纸时代"
+        "action": "detail/陈学冬/作品/小时代之折纸时代"
       }
     ],
     "edges": [
@@ -509,43 +509,43 @@
         "name": "宝岛双雄",
         "radius": 50,
         "image": "imgs/小时代演员作品图/锦荣/宝岛双雄.jpg",
-        "action": "detail/作品/宝岛双雄"
+        "action": "detail/锦荣/作品/宝岛双雄"
       },
       {
         "name": "蔡依林",
         "radius": 50,
         "image": "imgs/小时代人脉图/锦荣/蔡依林.jpg",
-        "action": "detail/人脉/宝岛双雄"
+        "action": "detail/锦荣/人脉/蔡依林"
       },
       {
         "name": "对不起，我爱你",
         "radius": 45,
         "image": "imgs/小时代演员作品图/锦荣/对不起，我爱你.jpg",
-        "action": "detail/作品/对不起，我爱你"
+        "action": "detail/锦荣/作品/对不起，我爱你"
       },
       {
         "name": "温心",
         "radius": 45,
         "image": "imgs/小时代人脉图/锦荣/温心.jpg",
-        "action": "detail/人脉/对不起，我爱你"
+        "action": "detail/锦荣/人脉/温心"
       },
       {
         "name": "粉红女郎电影",
         "radius": 40,
         "image": "imgs/小时代演员作品图/锦荣/粉红女郎电影.jpg",
-        "action": "detail/作品/粉红女郎电影"
+        "action": "detail/锦荣/作品/粉红女郎电影"
       },
       {
         "name": "夏雨",
         "radius": 40,
         "image": "imgs/小时代人脉图/锦荣/夏雨.jpg",
-        "action": "detail/人脉/粉红女郎电影"
+        "action": "detail/锦荣/人脉/夏雨"
       },
       {
         "name": "玩爱之徒",
         "radius": 35,
         "image": "imgs/小时代演员作品图/锦荣/玩爱之徒.jpg",
-        "action": "detail/作品/玩爱之徒"
+        "action": "detail/锦荣/作品/玩爱之徒"
       }
     ],
     "edges": [
@@ -596,43 +596,43 @@
         "name": "落跑甜心",
         "radius": 50,
         "image": "imgs/小时代演员作品图/姜潮/落跑甜心.jpg",
-        "action": "detail/作品/落跑甜心"
+        "action": "detail/姜潮/作品/落跑甜心"
       },
       {
         "name": "谈莉娜",
         "radius": 50,
         "image": "imgs/小时代人脉图/姜潮/谈莉娜.jpg",
-        "action": "detail/人脉/落跑甜心"
+        "action": "detail/姜潮/人脉/谈莉娜"
       },
       {
         "name": "夏日甜心",
         "radius": 45,
         "image": "imgs/小时代演员作品图/姜潮/夏日甜心.jpg",
-        "action": "detail/作品/夏日甜心"
+        "action": "detail/姜潮/作品/夏日甜心"
       },
       {
         "name": "莫熙儿",
         "radius": 45,
         "image": "imgs/小时代人脉图/姜潮/莫熙儿.jpg",
-        "action": "detail/人脉/夏日甜心"
+        "action": "detail/姜潮/人脉/莫熙儿"
       },
       {
         "name": "青春荷尔蒙",
         "radius": 40,
         "image": "imgs/小时代演员作品图/姜潮/青春荷尔蒙.jpg",
-        "action": "detail/作品/青春荷尔蒙"
+        "action": "detail/姜潮/作品/青春荷尔蒙"
       },
       {
         "name": "付梦妮",
         "radius": 40,
         "image": "imgs/小时代人脉图/姜潮/付梦妮.jpg",
-        "action": "detail/人脉/青春荷尔蒙"
+        "action": "detail/姜潮/人脉/付梦妮"
       },
       {
         "name": "成都一夜",
         "radius": 35,
         "image": "imgs/小时代演员作品图/姜潮/成都一夜.jpg",
-        "action": "detail/作品/成都一夜"
+        "action": "detail/姜潮/作品/成都一夜"
       }
     ],
     "edges": [
@@ -683,43 +683,43 @@
         "name": "寂寞寂寞就好",
         "radius": 50,
         "image": "imgs/小时代演员作品图/任佑明/寂寞寂寞就好.jpg",
-        "action": "detail/作品/寂寞寂寞就好"
+        "action": "detail/任佑明/作品/寂寞寂寞就好"
       },
       {
         "name": "萧亚轩",
         "radius": 50,
         "image": "imgs/小时代人脉图/任佑明/萧亚轩.jpg",
-        "action": "detail/人脉/寂寞寂寞就好"
+        "action": "detail/任佑明/人脉/萧亚轩"
       },
       {
         "name": "潘朵拉",
         "radius": 45,
         "image": "imgs/小时代演员作品图/任佑明/潘朵拉.jpg",
-        "action": "detail/作品/潘朵拉"
+        "action": "detail/任佑明/作品/潘朵拉"
       },
       {
         "name": "张韶涵",
         "radius": 45,
         "image": "imgs/小时代人脉图/任佑明/张韶涵.jpg",
-        "action": "detail/人脉/潘朵拉"
+        "action": "detail/任佑明/人脉/张韶涵"
       },
       {
         "name": "愚人的国度",
         "radius": 40,
         "image": "imgs/小时代演员作品图/任佑明/愚人的国度.jpg",
-        "action": "detail/作品/愚人的国度"
+        "action": "detail/任佑明/作品/愚人的国度"
       },
       {
         "name": "孙燕姿",
         "radius": 40,
         "image": "imgs/小时代人脉图/任佑明/孙燕姿.jpg",
-        "action": "detail/人脉/愚人的国度"
+        "action": "detail/任佑明/人脉/孙燕姿"
       },
       {
         "name": "白白的",
         "radius": 35,
         "image": "imgs/小时代演员作品图/任佑明/白白的.jpg",
-        "action": "detail/作品/白白的"
+        "action": "detail/任佑明/作品/白白的"
       }
     ],
     "edges": [
@@ -770,49 +770,43 @@
         "name": "Be Mate",
         "radius": 50,
         "image": "imgs/小时代演员作品图/李贤宰/Be Mate.jpg",
-        "action": "detail/作品/Be Mate"
+        "action": "detail/李贤宰/作品/Be Mate"
       },
       {
         "name": "金泰亨",
         "radius": 50,
         "image": "imgs/小时代人脉图/李贤宰/金泰亨.jpg",
-        "action": "detail/人脉/Be Mate"
+        "action": "detail/李贤宰/人脉/金泰亨"
       },
       {
         "name": "闭嘴！花美男乐队",
         "radius": 45,
         "image": "imgs/小时代演员作品图/李贤宰/闭嘴！花美男乐队.jpg",
-        "action": "detail/作品/闭嘴！花美男乐队"
+        "action": "detail/李贤宰/作品/闭嘴！花美男乐队"
       },
       {
         "name": "郭熙成",
         "radius": 45,
         "image": "imgs/小时代人脉图/李贤宰/郭熙成.jpg",
-        "action": "detail/人脉/闭嘴！花美男乐队"
+        "action": "detail/李贤宰/人脉/郭熙成"
       },
       {
         "name": "职场之神",
         "radius": 40,
         "image": "imgs/小时代演员作品图/李贤宰/职场之神.jpg",
-        "action": "detail/作品/职场之神"
+        "action": "detail/李贤宰/作品/职场之神"
       },
       {
         "name": "林宪日",
         "radius": 40,
         "image": "imgs/小时代人脉图/李贤宰/林宪日.jpg",
-        "action": "detail/人脉/职场之神"
+        "action": "detail/李贤宰/人脉/林宪日"
       },
       {
         "name": "With Mate",
         "radius": 35,
         "image": "imgs/小时代演员作品图/李贤宰/With Mate.jpg",
-        "action": "detail/作品/With Mate"
-      },
-      {
-        "name": " ",
-        "radius": 35,
-        "image": "imgs/小时代人脉图/李贤宰/ .jpg",
-        "action": "detail/人脉/With Mate"
+        "action": "detail/李贤宰/作品/With Mate"
       }
     ],
     "edges": [
@@ -868,7 +862,7 @@
         "name": "美丽的事",
         "radius": 50,
         "image": "imgs/小时代演员作品图/商侃/美丽的事.jpg",
-        "action": "detail/作品/美丽的事"
+        "action": "detail/商侃/作品/美丽的事"
       }
     ],
     "edges": [
@@ -889,43 +883,43 @@
         "name": "情深深雨蒙蒙",
         "radius": 50,
         "image": "imgs/小时代演员作品图/王琳/情深深雨蒙蒙.jpg",
-        "action": "detail/作品/情深深雨蒙蒙"
+        "action": "detail/王琳/作品/情深深雨蒙蒙"
       },
       {
         "name": "赵薇",
         "radius": 50,
         "image": "imgs/小时代人脉图/王琳/赵薇.jpg",
-        "action": "detail/人脉/情深深雨蒙蒙"
+        "action": "detail/王琳/人脉/赵薇"
       },
       {
         "name": "宫锁连城",
         "radius": 45,
         "image": "imgs/小时代演员作品图/王琳/宫锁连城.jpg",
-        "action": "detail/作品/宫锁连城"
+        "action": "detail/王琳/作品/宫锁连城"
       },
       {
         "name": "林心如",
         "radius": 45,
         "image": "imgs/小时代人脉图/王琳/林心如.jpg",
-        "action": "detail/人脉/宫锁连城"
+        "action": "detail/王琳/人脉/林心如"
       },
       {
         "name": "倾世皇妃",
         "radius": 40,
         "image": "imgs/小时代演员作品图/王琳/倾世皇妃.jpg",
-        "action": "detail/作品/倾世皇妃"
+        "action": "detail/王琳/作品/倾世皇妃"
       },
       {
         "name": "白冰",
         "radius": 40,
         "image": "imgs/小时代人脉图/王琳/白冰.jpg",
-        "action": "detail/人脉/倾世皇妃"
+        "action": "detail/王琳/人脉/白冰"
       },
       {
         "name": "美人无泪",
         "radius": 35,
         "image": "imgs/小时代演员作品图/王琳/美人无泪.jpg",
-        "action": "detail/作品/美人无泪"
+        "action": "detail/王琳/作品/美人无泪"
       }
     ],
     "edges": [
@@ -976,37 +970,37 @@
         "name": "小时代",
         "radius": 50,
         "image": "imgs/小时代演员作品图/郭敬明/小时代.jpg",
-        "action": "detail/作品/小时代"
+        "action": "detail/郭敬明/作品/小时代"
       },
       {
         "name": "韩寒",
         "radius": 50,
         "image": "imgs/小时代人脉图/郭敬明/韩寒.jpg",
-        "action": "detail/人脉/小时代"
+        "action": "detail/郭敬明/人脉/韩寒"
       },
       {
         "name": "小时代-青木时代",
         "radius": 45,
         "image": "imgs/小时代演员作品图/郭敬明/小时代-青木时代.jpg",
-        "action": "detail/作品/小时代-青木时代"
+        "action": "detail/郭敬明/作品/小时代-青木时代"
       },
       {
         "name": "郭采洁",
         "radius": 45,
         "image": "imgs/小时代人脉图/郭敬明/郭采洁.jpg",
-        "action": "detail/人脉/小时代-青木时代"
+        "action": "detail/郭敬明/人脉/郭采洁"
       },
       {
         "name": "小时代-刺金时代",
         "radius": 40,
         "image": "imgs/小时代演员作品图/郭敬明/小时代-刺金时代.jpg",
-        "action": "detail/作品/小时代-刺金时代"
+        "action": "detail/郭敬明/作品/小时代-刺金时代"
       },
       {
         "name": "杨幂",
         "radius": 40,
         "image": "imgs/小时代人脉图/郭敬明/杨幂.jpg",
-        "action": "detail/人脉/小时代-刺金时代"
+        "action": "detail/郭敬明/人脉/杨幂"
       }
     ],
     "edges": [

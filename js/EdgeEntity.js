@@ -22,14 +22,23 @@ define(function(require) {
 
         label: '',
 
-        level: 0
+        level: 0,
+
+        color: '#3791dc',
+
+        highlightColor: '#8c72d4'
 
     }, function() {
+
+        var self = this;
+        var onclick = function() {
+            self.trigger('click');
+        }
 
         this.lineShape = new LineShape({
             style: {
                 lineWidth: 1,
-                strokeColor: '#3791dc',
+                strokeColor: this.color,
                 xStart: 0,
                 yStart: 0,
                 xEnd: 0,
@@ -40,7 +49,9 @@ define(function(require) {
                 opacity: 0
             },
             zlevel: this.level,
-            z: 0.1
+            z: 0.1,
+            clickable: true,
+            onclick: onclick
         });
 
         if (this.label) {
@@ -53,7 +64,7 @@ define(function(require) {
                     textPosition: 'inside',
                     textAlign: 'center',
                     textFont: '14px 微软雅黑',
-                    color: '#3791dc',
+                    color: this.color,
                     brushType: 'fill',
                     x: -width / 2,
                     y: -20,
@@ -64,7 +75,9 @@ define(function(require) {
                 },
                 ignore: true,
                 zlevel: this.level,
-                z: 0.5
+                z: 0.5,
+                clickable: true,
+                onclick: onclick
             });
         }
     }, {
@@ -124,25 +137,25 @@ define(function(require) {
 
         highlight : function(zr) {
             this.lineShape.style.lineWidth = 3;
-            this.lineShape.style.strokeColor = '#8c72d4';
+            this.lineShape.style.strokeColor = this.highlightColor;
             this.lineShape.style.opacity = 1;
             zr.modShape(this.lineShape.id);
 
             if (this.labelShape) {
                 this.labelShape.ignore = false;
-                this.labelShape.style.color = '#8c72d4';
+                this.labelShape.style.color = this.highlightColor;
                 zr.modShape(this.labelShape.id);
             }
         },
 
         leaveHighlight : function(zr) {
             this.lineShape.style.lineWidth = 1;
-            this.lineShape.style.strokeColor = '#3791dc';
+            this.lineShape.style.strokeColor = this.color;
             this.lineShape.style.opacity = 0.4;
             zr.modShape(this.lineShape.id);
 
             if (this.labelShape) {
-                this.labelShape.style.color = '#3791dc';
+                this.labelShape.style.color = this.color;
                 this.labelShape.ignore = true;   
                 zr.modShape(this.labelShape.id);
             }
