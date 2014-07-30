@@ -21,6 +21,8 @@ define(function(require) {
     var textNodeBG = new Image();
     textNodeBG.src = 'imgs/text-node-bg.png';
 
+    var ctx = document.createElement('canvas').getContext('2d');
+
     var NodeEntity = Base.derive({
         
         group: null,
@@ -139,7 +141,8 @@ define(function(require) {
             // TODO
             // 简单的换行机制
             var wrapLabel = false;
-            if (this.label.length > 4 && this.image) {
+            var labelWidth = ctx.measureText(this.label.split('\n')[0]).width;
+            if (labelWidth > this.radius && this.image) {
                 var len = this.label.length;
                 var idx = Math.round(len / 1.4);
                 this.label = this.label.substr(0, idx) + '\n' + this.label.substr(idx);
