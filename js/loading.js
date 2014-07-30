@@ -4,6 +4,15 @@
 
     var stopped = false;
 
+    window.stopLoading = function() {
+        if (tip) {
+            document.body.removeChild(tip);
+            document.body.removeChild(canvas);   
+        }
+
+        stopped = true;
+    }
+
     var canvas = document.createElement('canvas');
     var backCanvas = document.createElement('canvas');
     if (!canvas.getContext) {
@@ -86,10 +95,4 @@
 
     requestAnimationFrame(draw);
 
-    window.stopLoading = function() {
-        document.body.removeChild(tip);
-        document.body.removeChild(canvas);
-
-        stopped = true;
-    }
 })();
