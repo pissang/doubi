@@ -126,7 +126,13 @@ define(function(require) {
     }
 
     function backToIndex() {
-
+        var len = levelStack.length - 2;
+        for (var i = 0; i < len; i++) {
+            leaveLevel(true);
+        }
+        if (levelStack.length > 1) {
+            leaveLevel(!isSupportWebGL);
+        }
     }
 
     function enterLevel(graph, zr, mainNode, fromNode) {
@@ -306,6 +312,12 @@ define(function(require) {
                 currentLevel.mainNode.position[0] = zr.getWidth() / 2;
                 currentLevel.mainNode.position[1] = zr.getHeight() / 2;
             }
+
+            if (currentLevel.graph) {
+                for (var i = 0; i < currentLevel.graph.nodes.length; i++) {
+                    currentLevel.graph.nodes[i].entity.update(zr);
+                }
+            }
         }
 
         for (var i = 0; i < levelStack.length - 1; i++) {
@@ -313,7 +325,5 @@ define(function(require) {
         }
     }
 
-    if (typeof(console) !== 'undefined') {
-        console.log('Painted with ECharts')
-    }
+    document.getElementById('logo').addEventListener('click', backToIndex);
 });

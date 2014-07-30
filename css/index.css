@@ -46,6 +46,8 @@ body {
 
     background-image: url(../imgs/logo.png);
     z-index: 10;
+
+    cursor: pointer;
 }
 
 #logo-kg {

@@ -8,16 +8,6 @@ define(function(require) {
 
     var ArrayCtor = typeof(Float32Array) !== 'undefined' ? Float32Array : Array;
 
-    // Use inline web worker
-    // var workerUrl;
-    // if (
-    //     typeof(Worker) !== 'undefined' &&
-    //     typeof(Blob) !== 'undefined'
-    // ) {
-    //     var blob = new Blob([ForceLayout.getWorkerCode()]);
-    //     workerUrl = window.URL.createObjectURL(blob);
-    // }
-
     var Force = function(graph) {
         
         this.graph = graph || new Graph();
