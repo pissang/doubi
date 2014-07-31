@@ -1,5 +1,8 @@
 // author 会杰
 define(function(require) {
+    
+    var log = require('./log');
+
     var zTip = function(data){
         return new zTip.fn.init(data);
     };
@@ -502,6 +505,13 @@ define(function(require) {
             self.tipclose = ele_close;//close模块
             document.body.appendChild(ele);//插入页面
             self.elements = ele;
+
+            ele_panel.addEventListener('click', function(e) {
+                //日志
+                if (e.target.nodeName.toUpperCase() == 'A') {
+                    log('zhishitupuclick', '', e.target.href);
+                }
+            });
             return ele;
         };
         //

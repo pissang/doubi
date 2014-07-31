@@ -186,10 +186,10 @@
         "action": "detail/郭碧婷/作品/金色年华"
       },
       {
-        "name": "杨子珊",
+        "name": "杨子姗",
         "radius": 50,
-        "image": "imgs/小时代人脉图/郭碧婷/杨子珊.jpg",
-        "action": "detail/郭碧婷/人脉/杨子珊"
+        "image": "imgs/小时代人脉图/郭碧婷/杨子姗.jpg",
+        "action": "detail/郭碧婷/人脉/杨子姗"
       },
       {
         "name": "假如没有你",
@@ -230,7 +230,7 @@
       },
       {
         "source": "郭碧婷",
-        "target": "杨子珊",
+        "target": "杨子姗",
         "label": "好友"
       },
       {
