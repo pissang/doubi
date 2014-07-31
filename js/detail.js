@@ -375,19 +375,24 @@ define(function(require) {
     var Tip = function(){
         var self = {};
         //内容片段
-        function creatDataStr(type,typedata){
+        function creatDataStr(type,typedata, person){
             //if(type instanceof Array) var type = type[0];
             switch(type){
                 case '作品':
                 case '人脉':
                 case '角色':
                     var dataLi = '',amore = '';
-					if(type=='作品'||type=='人脉'){
+					if((type=='作品' || type=='人脉') && typedata.href){
 						amore = '<a class="baike-more" href="'+typedata.href+'" target="_blank">查看更多>></a>';
 					}
                     for(var attr in typedata){
                         if(attr!=='img' && attr!=='介绍' && attr!=='href'){
-                            dataLi += '<li><span>'+attr+'：</span>'+typedata[attr]+'</li>';
+                            if (attr == '中文名') {
+                                var val = typedata[attr];
+                                dataLi += '<li><span>' + attr + '：</span><a target="_blank" href="http://www.baidu.com/s?wd=' + val + '">' + val + '</a></li>';
+                            } else {
+                                dataLi += '<li><span>' + attr + '：</span><span class="tip-juese-head-item">' + typedata[attr] + '</span></li>';
+                            }
                         }
                     }
 					
@@ -417,6 +422,8 @@ define(function(require) {
                             '</div>'+
                         '</div>';
                     }
+                    var url = 'http://s.weibo.com/wb/' + person + '&sort=time';
+                    str += '<a class="baike-more" href="'+url+'" target="_blank">查看更多>></a>';
                 break;
                 case '剧照':
                     var typedataA = typedata.img.split(','),
@@ -441,7 +448,7 @@ define(function(require) {
             return str;
         };
         //创建弹框
-        var creatElement = function(type,typedata){
+        var creatElement = function(type,typedata, person){
             var clientH = document.body.clientHeight || document.documentElement.clientHeight;
             var tipbg = 'tipbg.png';
 
@@ -451,7 +458,16 @@ define(function(require) {
             // 标题
             var ele_title = document.createElement('div');
             ele_title.className = 'tip-title';
-            ele_title.innerHTML = type;
+            if (type == '人脉') {
+                var title = '人物简介';
+            } else if (type == '作品') {
+                var title = '作品简介';
+            } else if (type == '角色') {
+                var title = '角色概况';
+            } else {
+                var title = type;
+            }
+            ele_title.innerHTML = title;
             ele.appendChild(ele_title);
             //scrollpanel
             var ele_panel = document.createElement('div');
@@ -467,7 +483,7 @@ define(function(require) {
             ele_content.style.overflow = type=='剧照'?'':'hidden';
             ele_content.className = 'tip-content';
             
-            ele_content.innerHTML = creatDataStr(type,typedata);
+            ele_content.innerHTML = creatDataStr(type,typedata, person);
             ele_panel.appendChild(ele_content);
             //滚动条
             if(type!='剧照'){
@@ -491,8 +507,8 @@ define(function(require) {
         //
         return self = {
             //添加弹框
-            add: function(type,typedata){
-                creatElement(type,typedata);
+            add: function(type,typedata, person){
+                creatElement(type,typedata, person);
                 if(type=='剧照'){//只有剧照才执行
                     isIE?ieHuangdengpian(typedata.img.split(',')):huandengpian();
                 }else{
@@ -512,7 +528,7 @@ define(function(require) {
         },
         //展现弹框
         show: function(){
-            Tip.add(this.type,this.tipData);
+            Tip.add(this.type, this.tipData, this.person);
             this.elements = Tip.elements;//更改（写入初始化 不使用show，不能得到弹框元素）
             this.tipclose = Tip.tipclose;
             return this;

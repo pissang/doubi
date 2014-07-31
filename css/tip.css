@@ -17,7 +17,8 @@ ul,li{list-style:none;margin:0;padding:0}
 	border-radius: 113px;
 	overflow:hidden;
 	position: relative;
-	float:left;
+	display: inline-block;
+	vertical-align: middle;
 	margin-top: 30px;
 }
 .top-juese-leftimg-shadow{
@@ -38,13 +39,15 @@ ul,li{list-style:none;margin:0;padding:0}
 }
 .top-juese-rightlist{
 	padding:48px 0 0 24px;
-	float:left;
+	display: inline-block;
+	vertical-align: middle;
 	width: 220px;
 	overflow: hidden;
 }
 .top-juese-rightlist ul li{
-	line-height:36px;
+	line-height:23px;
 	font-size:14px;
+	margin: 8px 0px;
 }
 .top-juese-rightlist ul li span{
 	font-weight:bold;
@@ -55,10 +58,6 @@ ul,li{list-style:none;margin:0;padding:0}
 	font-size:14px;
 	padding-top:14px;
 	text-indent: 2em;
-}
-.top-juese-jianjie a{
-	color:#fff;
-	text-decoration: none;
 }
 /*微博*/
 .top-weibo-list{
@@ -203,12 +202,6 @@ overflow: hidden;}
 
 .active {border:1px solid white; box-shadow:0px 0px 2px black;position:absolute;}
 
-.top-juese-jianjie a.baike-more {
-	display: block;
-	font-size: 16px;
-	color: #B5AEFF;
-}
-
 .tip-container {
 	width: 844px;
 	position: absolute;
@@ -227,7 +220,7 @@ overflow: hidden;}
 	font-family: "微软雅黑";
 	color: #ada0db;
 	left: 50%;
-	top: 12%;
+	top: 10%;
 	position: absolute;
 	text-align: center;
 	margin-left: -100px;
@@ -249,6 +242,27 @@ overflow: hidden;}
 	top: 20%;
 }
 
+.tip-content a {
+	font-size: 16px;
+	text-decoration: none;
+	color: #E9AFAF;
+	padding: 1px 3px;
+	border-radius: 3px;
+}
 
+.tip-content a:hover {
+	background-color: #E9AFAF;
+	color: white;
+}
 
-
+.tip-content a.baike-more {
+	display: block;
+	font-size: 16px;
+	margin-right: 20px;
+	margin-top: 5px;
+	text-align: right;
+}
+.tip-content a.baike-more:hover {
+	color: #E9AFAF;
+	background: none;
+}

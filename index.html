@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <script type="text/javascript" src="http://s1.bdstatic.com/r/www/cache/ecom/esl/1-8-2/esl.js"></script>
+        <title>小时代人物关系-百度知识图谱</title>
         <link rel="stylesheet" href="css/index.css">
     </head>
     <body>
@@ -11,6 +12,7 @@
         <div id="main"></div>
         <div id="logo"></div>
         <div id="logo-kg"></div>
+        <a href="http://echarts.baidu.com" target='_blank' id="logo-echarts"></a>
         <div id="browser-upgrade" style="display:none;">
             <img src="imgs/browser-upgrade.jpg" alt="">
             <p>
@@ -22,11 +24,11 @@
         <script type="text/javascript" src="loading.js"></script>
         <script type="text/javascript">
             // Shim typed array
-            window.Float32Array = window.Float32Array || Array;
-            window.Uint16Array = window.Uint16Array || Array;
-            window.Uint8Array = window.Uint8Array || Array;
-            
-            if (document.createElement('canvas').getContext) {
+            // window.Float32Array = window.Float32Array || Array;
+            // window.Uint16Array = window.Uint16Array || Array;
+            // window.Uint8Array = window.Uint8Array || Array;
+
+            if (document.createElement('canvas').getContext && typeof(Float32Array) !== 'undefined') {
             // if (false) {
                 // Support canvas
                 require.config({

@@ -55,10 +55,27 @@ body {
     height: 43px;
     position: fixed;
     right: 30px;
-    bottom: 50px;
+    bottom: 60px;
 
     background-image: url(../imgs/logo-kg.png);
     z-index: 10;
+}
+
+#logo-echarts {
+    position: absolute;
+    z-index: 10;
+    right: 30px;
+    bottom: 10px;
+    color:#919191;
+    text-decoration: none;
+    background-repeat: no-repeat;
+
+    line-height: 32px;
+
+    background-image: url(../imgs/logo-echarts2.png);
+    background-size: 100% 100%;
+    width: 100px;
+    height: 30px;
 }
 
 #browser-upgrade {
