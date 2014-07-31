@@ -1,4 +1,8 @@
-﻿html,body{margin:0;padding:0;font-family: "Microsoft Yahei","Helvetica Neue", Helvetica, Arial, sans-serif;}
+﻿@charset 'utf-8';
+
+html,body{margin:0;padding:0;font-family: "Microsoft Yahei","Helvetica Neue", Helvetica, Arial, sans-serif;}
+ul,li{list-style:none;margin:0;padding:0}
+html,body{margin:0;padding:0;font-family: "Microsoft Yahei","Helvetica Neue", Helvetica, Arial, sans-serif;}
 ul,li{list-style:none;margin:0;padding:0}
 /*角色头部*/
 .top-juese-head{
@@ -14,6 +18,7 @@ ul,li{list-style:none;margin:0;padding:0}
 	overflow:hidden;
 	position: relative;
 	float:left;
+	margin-top: 30px;
 }
 .top-juese-leftimg-shadow{
 	width:204px;
@@ -34,22 +39,26 @@ ul,li{list-style:none;margin:0;padding:0}
 .top-juese-rightlist{
 	padding:48px 0 0 24px;
 	float:left;
-	width: 200px;
+	width: 220px;
+	overflow: hidden;
 }
 .top-juese-rightlist ul li{
 	line-height:36px;
-	font-size:13px;
+	font-size:14px;
 }
 .top-juese-rightlist ul li span{
 	font-weight:bold;
-	font-size:18px;
 }
 /*角色简介*/
 .top-juese-jianjie{
 	line-height:36px;
-	font-size:20px;
+	font-size:14px;
 	padding-top:14px;
 	text-indent: 2em;
+}
+.top-juese-jianjie a{
+	color:#fff;
+	text-decoration: none;
 }
 /*微博*/
 .top-weibo-list{
@@ -95,7 +104,7 @@ ul,li{list-style:none;margin:0;padding:0}
 #tip-pow-ul li {width:100%; height:100%; background-size:100%; position:relative; list-style:none; overflow:-hidden; position:absolute; left:0; top:0; -webkit-transform:perspective(1100px) rotateY(0deg);-moz-transform:perspective(1100px) rotateY(0deg);-ms-transform:perspective(1100px) rotateY(0deg);-o-transform:perspective(1100px) rotateY(0deg); z-index:1; opacity:0; -webkit-transition:1s all ease;-moz-transition:1s all ease;-ms-transition:1s all ease;-o-transition:1s all ease; cursor:pointer;border-radius: 18px;border: 10px solid #7963b8;background:#7963b8;
 overflow: hidden;}
 #tip-pow-ul .cur {z-index:4; opacity:1; -webkit-transform:scale(1);-moz-transform:scale(1);-ms-transform:scale(1);-o-transform:scale(1); z-index:99;}
-#tip-pow-ul .active {z-index:4; opacity:1; -webkit-transform:translateY(40px) scale(2);-moz-transform:translateY(40px) scale(2);-ms-transform:translateY(40px) scale(2);-o-transform:translateY(40px) scale(2); z-index:99;}
+#tip-pow-ul .active {z-index:4; opacity:1; z-index:99;}
 #tip-pow-ul .left, #tip-pow-ul .right {z-index:3; opacity:0.9;}
 #tip-pow-ul .left2, #tip-pow-ul .right2 {z-index:2; opacity:0;}
 
@@ -194,6 +203,51 @@ overflow: hidden;}
 
 .active {border:1px solid white; box-shadow:0px 0px 2px black;position:absolute;}
 
+.top-juese-jianjie a.baike-more {
+	display: block;
+	font-size: 16px;
+	color: #B5AEFF;
+}
+
+.tip-container {
+	width: 844px;
+	position: absolute;
+	top:0px;
+	left:50%;
+	margin-left: -422px;
+	background: url(../imgs/tipbg.png) center no-repeat;
+	height: 800px;
+	top: 50%;
+	margin-top: -400px;
+}
+
+.tip-title {
+	width: 200px;
+	font-size: 50px;
+	font-family: "微软雅黑";
+	color: #ada0db;
+	left: 50%;
+	top: 12%;
+	position: absolute;
+	text-align: center;
+	margin-left: -100px;
+}
+
+.tip-content-wraper {
+	position: absolute;
+}
+
+.tip-content {
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	width: 474px;
+	color: white;
+}
+
+#scrollpanel {
+	top: 20%;
+}
 
 
 

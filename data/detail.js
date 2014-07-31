@@ -395,41 +395,6 @@ return {
             }
         ],
         "人脉":[
-            {
-                "金泰亨":{
-                    "img":"http://zhanghuijie.fe.baidu.com/images/yangmi/head.jpg",
-                    "中文名":"金泰亨",
-                    "href":"",
-                    "身 高":"",
-                    "出生日期":"",
-                    "代表作品":"",
-                    "主要成就":"",
-                    "介绍":""
-                }
-            },{
-                "郭熙成":{
-                    "img":"http://zhanghuijie.fe.baidu.com/images/yangmi/head.jpg",
-                    "中文名":"郭熙成",
-                    "href":"",
-                    "身 高":"",
-                    "出生日期":"",
-                    "代表作品":"",
-                    "主要成就":"",
-                    "介绍":""
-                }
-            },{
-               "林宪日":{
-                    "img":"http://zhanghuijie.fe.baidu.com/images/yangmi/head.jpg",
-                    "中文名":"林宪日",
-                    "href":"",
-                    "身 高":"",
-                    "出生日期":"",
-                    "代表作品":"",
-                    "主要成就":"",
-                    "介绍":""
-               
-                }
-            }
         ]
     },
     "宫洺":{
@@ -1179,7 +1144,7 @@ return {
     "叶传萍":{
         "角色":{
             "img":"http://zhanghuijie.fe.baidu.com/images/yangmi/zuopin.jpg",
-            "中文名":"Kitty",
+            "中文名":"叶传萍",
             "性别":"女",
             "性格标签":"霸道 神气 刻薄",
             "介绍":"她是唯一能够和顾里这个伶牙俐齿的冷面美人对抗的顾源妈妈叶传萍.她霸道,神气,刻薄,难缠.却对自己的儿子有着最深沉的爱。"

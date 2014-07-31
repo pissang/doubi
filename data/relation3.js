@@ -28,7 +28,7 @@ define(function(require) {
                 graph = zrUtil.clone(graph);
 
                 graph.nodes.push({
-                    name: '小时代-返回',
+                    name: '小时代 ',
                     title: '返回',
                     radius: 45,
                     position: [200, 150],
@@ -53,7 +53,7 @@ define(function(require) {
                 });
                 graph.edges.push({
                     source: backNode.name,
-                    target: '小时代-返回',
+                    target: '小时代 ',
                     label: '小说角色',
                     weight: 10
                 });

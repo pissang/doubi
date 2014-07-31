@@ -276,9 +276,19 @@
       "label": "好友"
     },
     {
+      "source": "Neil",
+      "target": "顾准",
+      "label": "小金毛和牛头梗"
+    },
+    {
       "source": "宫洺",
       "target": "顾源",
       "label": "朋友"
+    },
+    {
+      "source": "宫洺",
+      "target": "Kitty",
+      "label": "上下级"
     },
     {
       "source": "席城",

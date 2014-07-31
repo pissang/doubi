@@ -178,6 +178,10 @@ define(function(require) {
             })
             .during(function() {
                 mainNode.entity.update(zr);
+                // Keep warming up
+                if (level.layout.isCoolDown()) {
+                    level.layout.warmUp(0.3);
+                }
             })
             .start('CubicOut');
 

@@ -101,16 +101,6 @@ define(function(require) {
         
         var autoPlayTimer=null;
         
-        /*oDiv.onmouseout=function (){
-            clearInterval(autoPlayTimer);
-            autoPlayTimer=setTimeout(function (){
-                aA[1].onclick();
-            }, 0);
-        };
-        oDiv.onmouseover=function (){
-            clearInterval(autoPlayTimer);
-        };*/
-        
         setTimeout(function (){
             aA[1].onclick();
         }, 0);
@@ -183,7 +173,6 @@ define(function(require) {
             var oPrev=document.getElementById('prev'),
                 oNext=document.getElementById('next');
             
-            //oPrev.style.display=oNext.style.display='inline-block';
             
             oPrev.onclick=oNext.onclick=function (){
                 if(this==oPrev){
@@ -319,15 +308,7 @@ define(function(require) {
             startY=event.clientY;
             bTop=scrollblock.offsetTop;
             cTop=scrollcontent.offsetTop;
-            // if(scrollblock.setCapture){
-                
-            //  scrollblock.onmousemove=doDrag;
-            //  scrollblock.onmouseup=stopDrag;
-            //  scrollblock.setCapture();
-            // }else{
-            //  document.addEventListener("mousemove",doDrag,true);
-            //     document.addEventListener("mouseup",stopDrag,true);
-            // }
+			
             document.onmousemove=function(){
                 doDrag();
             }
@@ -359,14 +340,6 @@ define(function(require) {
         }
 
         function stopDrag(event){
-            // if(scrollblock.releaseCapture){
-            //  // scrollblock.onmousemove=doDrag;
-            //  // scrollblock.onmouseup=stopDrag;
-            //  scrollblock.releaseCapture();
-            // }else{
-            //  document.removeEventListener("mousemove",doDrag,true);
-            //  document.removeEventListener("mouseup",stopDrag,true);
-            // }
             document.onmousemove=null;
             document.onmouseup=null;
             document.getElementsByTagName('body')[0].onselectstart=function(){
@@ -408,12 +381,16 @@ define(function(require) {
                 case '作品':
                 case '人脉':
                 case '角色':
-                    var dataLi = '';
+                    var dataLi = '',amore = '';
+					if(type=='作品'||type=='人脉'){
+						amore = '<a class="baike-more" href="'+typedata.href+'" target="_blank">查看更多>></a>';
+					}
                     for(var attr in typedata){
                         if(attr!=='img' && attr!=='介绍' && attr!=='href'){
                             dataLi += '<li><span>'+attr+'：</span>'+typedata[attr]+'</li>';
                         }
                     }
+					
                     var str = '<div class="top-juese-head">'+
                         '<div class="top-juese-leftimg"><img src="'+typedata.img+'" style="width:100%;height:100%" /><span class="top-juese-leftimg-shadow"></span></div>'+
                         '<div class="top-juese-rightlist">'+
@@ -422,10 +399,13 @@ define(function(require) {
                             '</ul>'+
                         '</div>'+
                     '</div>'+
-                    '<div class="top-juese-jianjie">'+typedata['介绍']+'</div>';
+                    '<div class="top-juese-jianjie">'+typedata['介绍']+amore+'</div>';
                 break;
                 case '微博热议':
                     var str = '';
+                    typedata = typedata.sort(function(a, b) {
+                        return b.time.localeCompare(a.time);
+                    });
                     for(var i=0;i<typedata.length;i++){
                         var item = typedata[i];
                         str += '<div class="top-weibo-list">'+
@@ -463,23 +443,16 @@ define(function(require) {
         //创建弹框
         var creatElement = function(type,typedata){
             var clientH = document.body.clientHeight || document.documentElement.clientHeight;
-            if(type=='角色' || type=='作品' || type=='人脉'){
-                var tipbg = 'tipbga.png';
-            }else if(type=='剧照'){
-                var tipbg = 'tipbga2.png';
-            }else{
-                var tipbg = 'tipbga3.png';
-            }
+            var tipbg = 'tipbg.png';
+
             //弹框外层
             var ele = document.createElement('div');
-            ele.style.width = '844px';
-            ele.style.height = (clientH<=800?800-184:clientH-204) + 'px';
-            ele.style.position = 'absolute';
-            ele.style.top = '0px';
-            ele.style.left = '50%';
-            ele.style.marginLeft = '-422px';
-            ele.style.background = 'url(\'imgs/'+tipbg+'\') 0 center no-repeat';
-            ele.style.paddingTop = (clientH<=800?184:204) + 'px';
+            ele.className = 'tip-container';
+            // 标题
+            var ele_title = document.createElement('div');
+            ele_title.className = 'tip-title';
+            ele_title.innerHTML = type;
+            ele.appendChild(ele_title);
             //scrollpanel
             var ele_panel = document.createElement('div');
             ele_panel.className = "tip-scroll-panel";
@@ -487,16 +460,15 @@ define(function(require) {
             ele_panel.style.overflow = type=='剧照'?'':'hidden';
             ele.appendChild(ele_panel);//先插入内容区模块
             //内层展示区,利用定位使其在标题下面位置固定
+
             var ele_content = document.createElement('div');
             ele_content.id = 'scrollcontent';
-            ele_content.style.position = 'absolute';
             ele_content.style.top = '0px';
-            ele_content.style.width = '474px';
-            ele_content.style.color = 'white';
             ele_content.style.overflow = type=='剧照'?'':'hidden';
+            ele_content.className = 'tip-content';
             
             ele_content.innerHTML = creatDataStr(type,typedata);
-            ele_panel.appendChild(ele_content);//先插入内容区模块
+            ele_panel.appendChild(ele_content);
             //滚动条
             if(type!='剧照'){
                 var ele_bar = document.createElement('div');

@@ -21,6 +21,11 @@
         </div>
         <script type="text/javascript" src="loading.js"></script>
         <script type="text/javascript">
+            // Shim typed array
+            window.Float32Array = window.Float32Array || Array;
+            window.Uint16Array = window.Uint16Array || Array;
+            window.Uint8Array = window.Uint8Array || Array;
+            
             if (document.createElement('canvas').getContext) {
             // if (false) {
                 // Support canvas
