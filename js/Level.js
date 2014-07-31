@@ -81,10 +81,6 @@ define(function(require) {
 
             node.entity.on('click', function() {
                 this.trigger('action', node.action, node);
-
-                if (node.action) {
-                    log('zhishitupuclick', node.action);
-                }
             }, this);
 
         }, this);
@@ -113,9 +109,11 @@ define(function(require) {
             }
 
             edge.entity.on('click', function() {
-                var key = [edge.source.name, edge.target.name, edge.label].join(',');
-                log('zhishitupuclick', 'edge/' + key);
-                window.open('http://www.baidu.com/s?wd=' + key);
+                var tmp = [edge.source.name, edge.target.name];
+                var key1 = tmp.join(' ');
+                var key2 = tmp.join('|');
+                log('zhishitupuclick', 'edge/' + key2);
+                window.open('http://www.baidu.com/s?wd=' + key1);
             })
         }, this);
 

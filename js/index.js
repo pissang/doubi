@@ -1,5 +1,8 @@
 define(function(require) {
 
+    console.log(require('text!./asciiLogo.txt'));
+    console.log('\n\n\n%chttp://echarts.baidu.com', 'font-size:14px;');
+
     window.stopLoading && window.stopLoading();
 
     var relation1 = JSON.parse(require('text!../data/relation1.json'));
@@ -29,6 +32,7 @@ define(function(require) {
         var particles = require('./particlesCanvas');
         var BlurFilter = require('./BlurFilterCanvas');
     }
+    var particles2 = require('./particles2');
 
     var outOfFocusCanvas = document.getElementById('out-of-focus');
     outOfFocusCanvas.width = window.innerWidth;
@@ -77,6 +81,7 @@ define(function(require) {
         if (!action || inAnimation) {
             return;
         }
+        log('zhishitupuclick', action);
 
         var data, graph;
         if (action.indexOf('role/') == 0)  // 进入角色level
@@ -331,13 +336,17 @@ define(function(require) {
     }
 
     particles.start();
+    particles2.start(zr);
+
     animation.bind('frame', function(frameTime) {
         particles.frame(Math.min(frameTime, 100));
+        particles2.frame(zr, Math.min(frameTime, 100));
     });
 
     window.onresize = function() {
         zr.resize();
         particles.resize();
+        particles2.resize();
         blurFilter.resize();
         if (currentLevel) {
             currentLevel.resize();
