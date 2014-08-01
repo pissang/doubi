@@ -204,14 +204,14 @@ overflow: hidden;}
 
 .tip-container {
 	width: 844px;
-	position: absolute;
-	top:0px;
-	left:50%;
-	margin-left: -422px;
-	background: url(../imgs/tipbg.png) center no-repeat;
 	height: 800px;
-	top: 50%;
+	position: absolute;
+	left:50%;
 	margin-top: -400px;
+	margin-left: -422px;
+	top: 50%;
+	
+	background: url(../imgs/tipbg.png) center no-repeat;
 }
 
 .tip-title {
@@ -233,7 +233,6 @@ overflow: hidden;}
 .tip-content {
 	position: absolute;
 	top: 0px;
-	width: 100%;
 	width: 474px;
 	color: white;
 }

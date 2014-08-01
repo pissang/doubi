@@ -154,6 +154,7 @@ define(function(require) {
         // 在中心节点的周围进行预先布局
         mainNode.position = Array.prototype.slice.call(fromNode.position);
         mainNode.fixed = true;
+
         level.init();
         level.layout._layout.center = Array.prototype.slice.call(fromNode.position);
         level.layout._layout.scaling = 0.6;
@@ -162,6 +163,9 @@ define(function(require) {
         level.layout._layout.height *= 1.2;
         level.layout.steps = 20;
         level.doLayout();
+
+        // 中心节点不可点击
+        mainNode.entity.clickable = false;
 
         // 移动布局到整个界面中心
         level.layout._layout.center = [zr.getWidth() / 2, zr.getHeight() / 2];

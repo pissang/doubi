@@ -49,6 +49,8 @@ define(function(require) {
 
         level: 0,
 
+        clickable: true,
+
         _depth: 0,
 
         _labelShape: null,
@@ -78,7 +80,7 @@ define(function(require) {
             },
             z: 2,
             zlevel: this.level,
-            clickable: true,
+            clickable: this.clickable,
             onclick: function() {
                 self.trigger('click');
             },
@@ -234,6 +236,8 @@ define(function(require) {
                     this._labelShape.style.height = radius * 2;
                 }
             }
+
+            this._outlineShape.clickable = this.clickable;
 
             zr.modGroup(this.group.id);
         },

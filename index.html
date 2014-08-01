@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=.5, maximum-scale=.5" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <script type="text/javascript" src="http://s1.bdstatic.com/r/www/cache/ecom/esl/1-8-2/esl.js"></script>
         <title>小时代人物关系-百度知识图谱</title>
         <link rel="stylesheet" href="css/index.css">
@@ -25,7 +25,10 @@
         <script type="text/javascript" src="loading.js"></script>
         <script type="text/javascript">
             if (document.createElement('canvas').getContext) {
-            // if (false) {
+                 //手持移动设备（不包括pad），TODO
+                if (typeof(screen) !== 'undefined' && screen.width < 480) {
+                    document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=device-width, initial-scale=' + 1 / window.devicePixelRatio);   
+                }
                 // Support canvas
                 require.config({
                     paths: {
