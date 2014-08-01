@@ -139,11 +139,13 @@ define(function(require) {
             this.lineShape.style.lineWidth = 3;
             this.lineShape.style.strokeColor = this.highlightColor;
             this.lineShape.style.opacity = 1;
+            this.lineShape.style.z = 10.1;
             zr.modShape(this.lineShape.id);
 
             if (this.labelShape) {
                 this.labelShape.ignore = false;
                 this.labelShape.style.color = this.highlightColor;
+                this.labelShape.style.z = 10.5;
                 zr.modShape(this.labelShape.id);
             }
         },
@@ -152,11 +154,13 @@ define(function(require) {
             this.lineShape.style.lineWidth = 1;
             this.lineShape.style.strokeColor = this.color;
             this.lineShape.style.opacity = 0.4;
+            this.lineShape.style.z = 0.1;
             zr.modShape(this.lineShape.id);
 
             if (this.labelShape) {
-                this.labelShape.style.color = this.color;
                 this.labelShape.ignore = true;   
+                this.labelShape.style.color = this.color;
+                this.labelShape.style.z = 0.5;
                 zr.modShape(this.labelShape.id);
             }
         }

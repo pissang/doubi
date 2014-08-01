@@ -59,7 +59,6 @@ define(function(require) {
         });
     }
 
-
     var $main = document.getElementById('main');
 
     var zr = zrender.init($main);

@@ -112,7 +112,7 @@ define(function(require) {
                 shadowOffsetX: 0,
                 shadowOffsetY: 0
             }),
-            z: 0.5,
+            z: 0.9,
             zlevel: this.level,
             hoverable: false
         });
@@ -227,12 +227,7 @@ define(function(require) {
                     this._labelShape.style.width = radius * 2;
                     this._labelShape.style.height = radius * 2;
                 }
-                zr.modShape(this._labelShape.id);
             }
-
-            zr.modShape(this._outlineShape.id);
-            zr.modShape(this._imageShape.id);
-            zr.modShape(this._shadowShape.id);
 
             zr.modGroup(this.group.id);
         },
@@ -241,20 +236,38 @@ define(function(require) {
             return this._outlineShape.style.r + this._outlineShape.style.lineWidth / 2;
         },
 
-        highlight: function() {
+        highlight: function(zr) {
             this._outlineShape.style.strokeColor = this.highlightColor;
             this._glowShape.ignore = false;
             if (this.image && this._labelShape) {
                 this._labelShape.style.color = this.highlightLabelColor;
             }
+            this._outlineShape.style.z = 12;
+            this._glowShape.style.z = 11.5;
+            this._imageShape.style.z = 11;
+            if (this._labelShape) {
+                this._labelShape.style.z = 11;
+            }
+            this._shadowShape.style.z = 10.9;
+
+            zr.modGroup(this.group);
         },
 
-        leaveHighlight: function() {
+        leaveHighlight: function(zr) {
             this._outlineShape.style.strokeColor = this.color;
             this._glowShape.ignore = true;
             if (this.image && this._labelShape) {
                 this._labelShape.style.color = this.labelColor;
             }
+            this._outlineShape.style.z = 2;
+            this._glowShape.style.z = 1.5;
+            this._imageShape.style.z = 1;
+            if (this._labelShape) {
+                this._labelShape.style.z = 1;
+            }
+            this._shadowShape.style.z = 0.9;
+
+            zr.modGroup(this.group);
         }
     });
 

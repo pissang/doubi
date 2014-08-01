@@ -385,7 +385,7 @@ define(function(require) {
                 case '人脉':
                 case '角色':
                     var dataLi = '',amore = '';
-					if((type=='作品' || type=='人脉') && typedata.href){
+					if((type=='作品' || type=='人脉' || type=='角色') && typedata.href){
 						amore = '<a class="baike-more" href="'+typedata.href+'" target="_blank">查看更多>></a>';
 					}
                     for(var attr in typedata){
@@ -407,7 +407,7 @@ define(function(require) {
                             '</ul>'+
                         '</div>'+
                     '</div>'+
-                    '<div class="top-juese-jianjie">'+typedata['介绍']+amore+'</div>';
+                    '<div class="top-juese-jianjie">'+(typedata['介绍'] || '')+amore+'</div>';
                 break;
                 case '微博热议':
                     var str = '';
