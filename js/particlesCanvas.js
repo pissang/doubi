@@ -94,8 +94,8 @@ define(function(require) {
     }
 
     function emit() {
-        if (pool.length > 3) {
-            for (var i = 0; i < 3; i++) {
+        if (pool.length > 2) {
+            for (var i = 0; i < 2; i++) {
                 var p = pool.pop();
                 p.init();
                 particles.push(p);

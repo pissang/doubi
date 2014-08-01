@@ -59,6 +59,7 @@ define(function(require) {
         });
     }
 
+
     var $main = document.getElementById('main');
 
     var zr = zrender.init($main);
@@ -262,7 +263,12 @@ define(function(require) {
     }
 
     function closeDetail() {
-        focusCurrentLevel();
+        if (isSupportWebGL) {
+            focusCurrentLevel();
+        } else {
+            zr.addGroup(currentLevel.root);
+            zr.refreshNextFrame();
+        }
     }
 
     function focusCurrentLevel(callback) {
