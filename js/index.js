@@ -1,7 +1,9 @@
 define(function(require) {
 
-    console.log(require('text!./asciiLogo.txt'));
-    console.log('\n\n\n%chttp://echarts.baidu.com', 'font-size:14px;');
+    if (typeof(console) !== 'undefined' && console.log) {
+        console.log(require('text!./asciiLogo.txt'));
+        console.log('\n\n\n%chttp://echarts.baidu.com', 'font-size:14px;');
+    }
 
     window.stopLoading && window.stopLoading();
 
