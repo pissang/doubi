@@ -292,6 +292,7 @@ define(function(require) {
             return false;
         }
     }
+    
     var scroll=(function(){
         var scrollblock, //滚动块
             scrollcontent,  //被滚动的内容
@@ -302,33 +303,37 @@ define(function(require) {
             minuTop, //滚动条头尾剩下的空白
             cTop,   //滚动内容的top
             startY=0,   //滚动动作开始初鼠标的位置
-            bTop=0; //滚动动作开始初滚动块的top
+            bTop=0,  //滚动动作开始初滚动块的top
+            hasTouch = 'ontouchstart' in window;    
 
-
+        var eventfn = {
+            START_EV: hasTouch ? 'ontouchstart' : 'onmousedown',
+            MOVE_EV: hasTouch ? 'ontouchmove' : 'onmousemove',
+            END_EV: hasTouch ? 'ontouchend' : 'onmouseup'
+        };
         
         function mouseDown(event){
+            event.preventDefault();
             event=event||window.event;
-            startY=event.clientY;
+            startY=hasTouch?event.touches[0].pageY:event.clientY;
             bTop=scrollblock.offsetTop;
             cTop=scrollcontent.offsetTop;
-			
-            document.onmousemove=function(){
+            document[eventfn.MOVE_EV]=function(){
                 doDrag();
             }
-            document.onmouseup=function(){
+            document[eventfn.END_EV]=function(){
                 stopDrag();
             }
             document.getElementsByTagName('body')[0].onselectstart=function(){
                 return false;
             };
-            
         }
 
         function doDrag(event){
             event=event||window.event;
                 
-            var newbTop=event.clientY-startY+bTop,
-                newcTop=cTop-(event.clientY-startY)/bdistance*cdistance;
+            var newbTop=(hasTouch?event.touches[0].pageY:event.clientY)-startY+bTop,
+                newcTop=cTop-((hasTouch?event.touches[0].pageY:event.clientY)-startY)/bdistance*cdistance;
 
             if(newbTop<minuTop){
                 newbTop=minuTop;
@@ -367,7 +372,7 @@ define(function(require) {
                     cdistance=scrollcontent.offsetHeight-scrollpanel.offsetHeight;
                     bdistance=scrollbar.offsetHeight-minuTop*2-scrollblock.offsetHeight;
                     
-                    scrollblock.onmousedown=mouseDown;
+                    scrollblock[eventfn.START_EV]=mouseDown;
                     enclose(scrollpanel,scrollcontent,scrollbar,scrollblock,bdistance,cdistance,minuTop);
                 }
             }
@@ -509,7 +514,7 @@ define(function(require) {
             ele_panel.addEventListener('click', function(e) {
                 //日志
                 if (e.target.nodeName.toUpperCase() == 'A') {
-                    log('zhishitupuclick', '', e.target.href);
+                    log('zhishitupuclick', person || '', e.target.href);
                 }
             });
             return ele;
