@@ -10,6 +10,7 @@ define(function(require) {
     var qtekUtil = require('qtek/core/util');
 
     var log = require('./log');
+    var screenSize = require('./screenSize');
 
     var Level = function(graph, zr) {
 
@@ -31,16 +32,14 @@ define(function(require) {
     }
 
     Level.prototype.init = function() {
-        
         var graph = this.graph;
 
         var zr = this.zr;
         
         // 布局
         var force = new Force();
-        force.width = window.innerWidth;
-        force.height = window.innerHeight;
-
+        force.width = screenSize.width();
+        force.height = screenSize.height();
         force.graph = graph;
         force.init();
 

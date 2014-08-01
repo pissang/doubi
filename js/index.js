@@ -12,6 +12,7 @@ define(function(require) {
     var relation3 = require('../data/relation3');
     var qtekUtil = require('qtek/core/util');
     var Renderer = require('qtek/Renderer');
+    var screenSize = require('./screenSize');
 
     var zrender = require('zrender');
 
@@ -37,8 +38,8 @@ define(function(require) {
     var particles2 = require('./particles2');
 
     var outOfFocusCanvas = document.getElementById('out-of-focus');
-    outOfFocusCanvas.width = window.innerWidth;
-    outOfFocusCanvas.height = window.innerHeight;
+    outOfFocusCanvas.width = screenSize.width();
+    outOfFocusCanvas.height = screenSize.height();
     var blurFilter = new BlurFilter({
         canvas: outOfFocusCanvas
     });
@@ -50,7 +51,7 @@ define(function(require) {
         if (node.name == '林萧') {
             mainNode = node;
             //争取把林萧放到靠近中间的位置
-            node.position = [window.innerWidth / 2, window.innerHeight / 2];
+            node.position = [screenSize.width() / 2, screenSize.height() / 2];
         }
     }
     for (var i = 0; i < relation1.edges.length; i++) {
@@ -62,7 +63,6 @@ define(function(require) {
     }
 
     var $main = document.getElementById('main');
-
     var zr = zrender.init($main);
     var animation = zr.animation;
 

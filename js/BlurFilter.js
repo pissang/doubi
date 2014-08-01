@@ -17,6 +17,8 @@ define(function(require) {
     var FrameBuffer = require('qtek/FrameBuffer');
     var shaderLibrary = require('qtek/shader/library');
 
+    var screenSize = require('./screenSize');
+
     var planeGeo = new Plane();
     var planeShader = new Shader({
         vertex: Shader.source('buildin.basic.vertex'),
@@ -241,7 +243,7 @@ define(function(require) {
 
         resize: function() {
             var canvas = this._renderer.canvas;
-            this._renderer.resize(window.innerWidth, window.innerHeight);
+            this._renderer.resize(screenSize.width(), screenSize.height());
 
             this.render();
         },

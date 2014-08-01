@@ -197,7 +197,13 @@ define(function(require) {
     }, {
 
         update: function(zr) {
-            var ratio = Math.min(zr.getWidth() / 1280, zr.getHeight() / 800);
+            var width = zr.getWidth();
+            var height = zr.getHeight();
+            if (width > height) {
+                var ratio = Math.min(width / 1280, height / 800);
+            } else {
+                var ratio = Math.min(height / 1280, width / 800);
+            }
             var radius = ratio * this.radius;
 
             this._outlineShape.style.r = radius;

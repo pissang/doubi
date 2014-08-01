@@ -318,10 +318,10 @@ define(function(require) {
             startY=hasTouch?event.touches[0].pageY:event.clientY;
             bTop=scrollblock.offsetTop;
             cTop=scrollcontent.offsetTop;
-            document[eventfn.MOVE_EV]=function(){
+            document.body[eventfn.MOVE_EV]=function(){
                 doDrag();
             }
-            document[eventfn.END_EV]=function(){
+            document.body[eventfn.END_EV]=function(){
                 stopDrag();
             }
             document.getElementsByTagName('body')[0].onselectstart=function(){
@@ -330,7 +330,7 @@ define(function(require) {
         }
 
         function doDrag(event){
-            event=event||window.event;
+            event = event || window.event;
                 
             var newbTop=(hasTouch?event.touches[0].pageY:event.clientY)-startY+bTop,
                 newcTop=cTop-((hasTouch?event.touches[0].pageY:event.clientY)-startY)/bdistance*cdistance;

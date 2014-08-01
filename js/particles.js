@@ -13,6 +13,7 @@ define(function(require) {
 
     var vec4 = require('glmatrix').vec4;
 
+    var screenSize = require('./screenSize');
     var renderer;
     var camera;
     var scene;
@@ -76,7 +77,7 @@ define(function(require) {
          renderer = new Renderer({
             canvas: canvas
         });
-        renderer.resize(window.innerWidth, window.innerHeight);
+        renderer.resize(screenSize.width(), screenSize.height());
         scene = new Scene();
         camera = new PerspectiveCamera({
             aspect: renderer.width / renderer.height
@@ -146,7 +147,7 @@ define(function(require) {
     }
 
     function resize() {
-        renderer.resize(window.innerWidth, window.innerHeight);
+        renderer.resize(screenSize.width(), screenSize.height());
         camera.aspect = renderer.width / renderer.height;
     }
 

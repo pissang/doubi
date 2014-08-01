@@ -6,6 +6,7 @@ define(function(require) {
     var vec2 = require('zrender/tool/vector');
 
     var noise = require('./perlin');
+    var screenSize = require('./screenSize');
     noise.seed(Math.random());
 
     var speeds = [];
@@ -57,8 +58,8 @@ define(function(require) {
     // 简单的背景点缀
     var start = function(_zr) {
         zr = _zr;
-        width = window.innerWidth;
-        height = window.innerHeight;
+        width = screenSize.width();
+        height = screenSize.height();
         for (var i = 0; i < 8; i++) {
             var particle = new Particle(Math.random() * 20 + 10);
             particles.push(particle);
@@ -78,8 +79,8 @@ define(function(require) {
         start: start,
         frame: frame,
         resize: function() {
-            var nw = window.innerWidth;
-            var nh = window.innerHeight;
+            var nw = screenSize.width();
+            var nh = screenSize.height();
             for (var i = 0; i < particles.length; i++) {
                 particles[i].shape.position[0] *= nw / width;
                 particles[i].shape.position[1] *= nh / height;

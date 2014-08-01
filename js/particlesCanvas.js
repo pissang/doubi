@@ -1,6 +1,7 @@
 define(function(require) {
 
     var canvas = document.getElementById('bg-particles');
+    var screenSize = require('./screenSize');
 
     var glMatrix = require('glmatrix');
     var vec2 = glMatrix.vec2;
@@ -80,8 +81,8 @@ define(function(require) {
     }
 
     function start() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        canvas.width = screenSize.width();
+        canvas.height = screenSize.height();
         ctx = canvas.getContext('2d');
 
         for (var i = 0; i < 2000; i++) {
@@ -129,8 +130,8 @@ define(function(require) {
     }
 
     function resize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        canvas.width = screenSize.width();
+        canvas.height = screenSize.height();
     }
 
     return {

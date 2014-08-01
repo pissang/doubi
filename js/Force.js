@@ -2,7 +2,7 @@ define(function(require) {
 
     var Graph = require('./Graph');
 
-    var ForceLayout = require('echarts/chart/ForceLayoutWorker');
+    var ForceLayout = require('echarts/chart/forceLayoutWorker');
     var glMatrix = require('glmatrix');
     var vec2 = glMatrix.vec2;
 
@@ -23,12 +23,10 @@ define(function(require) {
     }
 
     Force.prototype.init = function() {
-
         var width = this.width;
         var height = this.height;
 
         var graph = this.graph;
-
         var positionArr = new ArrayCtor(graph.nodes.length * 2);
         var radiusArr = new ArrayCtor(graph.nodes.length);
         var weightArr = new ArrayCtor(graph.nodes.length);
@@ -80,13 +78,13 @@ define(function(require) {
         this._layout.initEdges(edgeArr, edgeWeightArr);
 
         this.resize(this.width, this.height);
+
         // TODO
         this._layout.scaling = 2;
         this._layout.gravity = 0.7;
         this._layout.preventOverlap = true;
-        // this._layout.maxSpeedIncrease = 10.0;
 
-        this._temperature = 1.0
+        this._temperature = 1.0;
     }
 
     Force.prototype.resize = function(width, height) {
@@ -98,7 +96,8 @@ define(function(require) {
             this._layout.height = height / this.ratioScaling;
         } else {
             this._layout.width = width / this.ratioScaling;
-            this._layout.height = height * this.ratioScaling;
+            // PENDING
+            this._layout.height = height;
         }
     }
 
