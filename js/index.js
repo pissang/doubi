@@ -79,6 +79,8 @@ define(function(require) {
 
     var inAnimation = false;
 
+    var detailPopup;
+
     function handleAction(action, clickNode) {
         if (!action || inAnimation) {
             return;
@@ -260,19 +262,30 @@ define(function(require) {
                 obj.image = clickNode.image;
                 break;
         }
-        var detail = showDetail(obj);
-        if (detail.haveData()) {
+        detailPopup = showDetail(obj);
+        if (detailPopup.haveData()) {
             blurCurrentLevel();
-            detail.show().close(closeDetail);
+            detailPopup.show().close(onDetailClose);
         }
+
+        $main.addEventListener('click', closeDetail);
     }
 
-    function closeDetail() {
+    function onDetailClose() {
+        $main.removeEventListener('click', closeDetail);
+        detailPopup = null;
+
         if (isSupportWebGL) {
             focusCurrentLevel();
         } else {
             zr.addGroup(currentLevel.root);
             zr.refreshNextFrame();
+        }
+    }
+
+    function closeDetail() {
+        if (detailPopup) {
+            detailPopup.doClose(onDetailClose);
         }
     }
 

@@ -9,7 +9,7 @@ define(function(require) {
     
     //数据
     var allData = require('../data/detail');
-    var isIE = !!window.ActiveXObject;
+    var is2D = (!!window.ActiveXObject) || ('ontouchstart' in window);
     
     /*3d幻灯片*/
     var huandengpian = function (){
@@ -436,7 +436,7 @@ define(function(require) {
                 case '剧照':
                     var typedataA = typedata.img.split(','),
                         str = '';
-                    if(!isIE){
+                    if(!is2D){
                         for(var i=0;i<typedataA.length;i++){
                             str += '<li class=""><img src="'+typedataA[i]+'"><span></span></li>';
                         }
@@ -525,7 +525,7 @@ define(function(require) {
             add: function(type,typedata, person){
                 creatElement(type,typedata, person);
                 if(type=='剧照'){//只有剧照才执行
-                    isIE?ieHuangdengpian(typedata.img.split(',')):huandengpian();
+                    is2D?ieHuangdengpian(typedata.img.split(',')):huandengpian();
                 }else{
                     scroll.init('scrollpanel','scrollcontent','scrollbar','scrollblock');
                 }
@@ -557,6 +557,11 @@ define(function(require) {
                 document.body.removeChild(_this.elements);
                 fn();
             };
+        },
+        doClose: function(fn) {
+            this.elements.style.display = 'none';
+            document.body.removeChild(this.elements);
+            fn();
         }
     };
     
