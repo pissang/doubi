@@ -49,9 +49,9 @@ define(function(require) {
                 opacity: 0
             },
             zlevel: this.level,
-            z: 0.1,
-            clickable: true,
-            onclick: onclick
+            z: 0.1
+            // clickable: true,
+            // onclick: onclick
         });
 
         if (this.label) {
@@ -75,9 +75,9 @@ define(function(require) {
                 },
                 ignore: true,
                 zlevel: this.level,
-                z: 0.5,
-                clickable: true,
-                onclick: onclick
+                z: 0.5
+                // clickable: true,
+                // onclick: onclick
             });
         }
     }, {

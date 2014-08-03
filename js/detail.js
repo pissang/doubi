@@ -318,11 +318,11 @@ define(function(require) {
             startY=hasTouch?event.touches[0].pageY:event.clientY;
             bTop=scrollblock.offsetTop;
             cTop=scrollcontent.offsetTop;
-            document.body[eventfn.MOVE_EV]=function(){
-                doDrag();
+            document.body[eventfn.MOVE_EV]=function(e){
+                doDrag(e);
             }
-            document.body[eventfn.END_EV]=function(){
-                stopDrag();
+            document.body[eventfn.END_EV]=function(e){
+                stopDrag(e);
             }
             document.getElementsByTagName('body')[0].onselectstart=function(){
                 return false;
@@ -331,7 +331,7 @@ define(function(require) {
 
         function doDrag(event){
             event = event || window.event;
-                
+            
             var newbTop=(hasTouch?event.touches[0].pageY:event.clientY)-startY+bTop,
                 newcTop=cTop-((hasTouch?event.touches[0].pageY:event.clientY)-startY)/bdistance*cdistance;
 
@@ -348,8 +348,10 @@ define(function(require) {
         }
 
         function stopDrag(event){
-            document.onmousemove=null;
-            document.onmouseup=null;
+            document.body.onmousemove=null;
+            document.body.onmouseup=null;
+            document.body.ontouchmove=null;
+            document.body.ontouchend=null;
             document.getElementsByTagName('body')[0].onselectstart=function(){
                 return true;
             };
@@ -395,12 +397,12 @@ define(function(require) {
 					}
                     for(var attr in typedata){
                         if(attr!=='img' && attr!=='介绍' && attr!=='href'){
-                            if (attr == '中文名') {
-                                var val = typedata[attr];
-                                dataLi += '<li><span>' + attr + '：</span><a target="_blank" href="http://www.baidu.com/s?wd=' + val + '">' + val + '</a></li>';
-                            } else {
+                            // if (attr == '中文名') {
+                            //     var val = typedata[attr];
+                            //     dataLi += '<li><span>' + attr + '：</span><a target="_blank" href="http://www.baidu.com/s?wd=' + val + '">' + val + '</a></li>';
+                            // } else {
                                 dataLi += '<li><span>' + attr + '：</span><span class="tip-juese-head-item">' + typedata[attr] + '</span></li>';
-                            }
+                            // }
                         }
                     }
 					

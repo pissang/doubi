@@ -304,7 +304,7 @@ define(function(require) {
             })
             .done(function() {
                 zr.addGroup(currentLevel.root);
-                zr.refreshNextFrame();
+                zr.refresh();
 
                 blurFilter.popImage();
                 if (levelStack.length > 1) {

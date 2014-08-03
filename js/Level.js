@@ -107,13 +107,13 @@ define(function(require) {
                 this.root.addChild(edgeEntity.labelShape);
             }
 
-            edge.entity.on('click', function() {
-                var tmp = [edge.source.name, edge.target.name];
-                var key1 = tmp.join(' ');
-                var key2 = tmp.join('|');
-                log('zhishitupuclick', 'edge/' + key2);
-                window.open('http://www.baidu.com/s?wd=' + key1);
-            })
+            // edge.entity.on('click', function() {
+            //     var tmp = [edge.source.name, edge.target.name];
+            //     var key1 = tmp.join(' ');
+            //     var key2 = tmp.join('|');
+            //     // log('zhishitupuclick', 'edge/' + key2);
+            //     window.open('http://www.baidu.com/s?wd=' + key1);
+            // })
         }, this);
 
         zr.addGroup(this.root);
