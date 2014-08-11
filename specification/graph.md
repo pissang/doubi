@@ -1,4 +1,4 @@
-# 知识图谱关系数据规范
+# 关系数据规范
 + <a href="#path">path</a>
 + <a href="#graph">graph</a>
     + <a href="#graph.path">path</a>
