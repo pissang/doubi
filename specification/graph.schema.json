@@ -1,0 +1,84 @@
+{
+    "$schema" : "http://json-schema.org/draft-03/schema",
+    "title": "graph",
+    "type": "object",
+    "properties": {
+        "mainNode": {
+            "type": "string",
+            "required": true
+        },
+        "path": {
+            "type": "string",
+            "required": true
+        },
+        "viewport": {
+            "type": "object",
+            "properties": {
+                "width": {
+                    "type": "number",
+                    "required": true
+                },
+                "height": {
+                    "type": "number",
+                    "required": true
+                }
+            }
+        },
+        "nodes": {
+            "type": "array",
+            "required": true,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "required": true
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "radius": {
+                        "type": "number",
+                        "required": true
+                    },
+                    "image": {
+                        "type": "string"
+                    },
+                    "action": {
+                        "type": "string"
+                    },
+                    "position": {
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        },
+                        "minItems": 2
+                    },
+                    "fixed": {
+                        "type": "boolean"
+                    }
+                }
+            }
+        },
+        "edges": {
+            "type": "array",
+            "required": true,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "source": {
+                        "type": "string",
+                        "required": true
+                    },
+                    "target": {
+                        "type": "string",
+                        "required": true
+                    },
+                    "label": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
