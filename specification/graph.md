@@ -116,7 +116,7 @@ position[1] = position[1] / viewport.height * height;
 ##### action
 `string` `可选` `交互`
 
-用户在点击节点后的行为，可以是一个进入下一层级的路径, 详见<a href="#action">`path`</a>
+用户在点击节点后的行为，可以是一个进入下一层级的路径, 详见<a href="#path">`path`</a>
 
 <a name="graph.node.position"></a>
 ##### position

@@ -2,7 +2,7 @@ define(function(require) {
 
     var Base = require('qtek/core/Base');
 
-    var Group = require('zrender/shape/Group');
+    var Group = require('zrender/Group');
     var RectShape = require('zrender/shape/Rectangle');
     var CircleShape = require('zrender/shape/Circle');
     var TextShape = require('zrender/shape/Text');

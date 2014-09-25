@@ -53,12 +53,14 @@ define(function(require) {
         }
         var edge = new Graph.Edge(source, target);
 
-        for (var key in extraData) {
-            if (key == 'source' || key == 'target') {
-                continue;
-            }
-            if (extraData.hasOwnProperty(key)) {
-                edge[key] = extraData[key];
+        if (extraData) {
+            for (var key in extraData) {
+                if (key == 'source' || key == 'target') {
+                    continue;
+                }
+                if (extraData.hasOwnProperty(key)) {
+                    edge[key] = extraData[key];
+                }
             }
         }
 

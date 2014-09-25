@@ -2,7 +2,7 @@ define(function(require) {
 
     var Graph = require('./Graph');
 
-    var ForceLayout = require('echarts/chart/forceLayoutWorker');
+    var ForceLayout = require('echarts/layout/forceLayoutWorker');
     var glMatrix = require('glmatrix');
     var vec2 = glMatrix.vec2;
 

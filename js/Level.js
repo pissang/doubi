@@ -1,6 +1,6 @@
 define(function(require) {
 
-    var Group = require('zrender/shape/Group');
+    var Group = require('zrender/Group');
 
     var NodeEntity = require('./NodeEntity');
     var EdgeEntity = require('./EdgeEntity');
